@@ -103,9 +103,9 @@
 
 @theme {
   --shadow-glow:
-    0px 0px 2px oklch(from var(--brand-1) l c h / 20%),
+    0px 0px 2px oklch(from var(--brand-3) l c h / 20%),
     0px 0px 4px oklch(from var(--brand-2) l c h / 20%),
-    0px 0px 8px oklch(from var(--brand-3) l c h / 20%);
+    0px 0px 8px oklch(from var(--brand-1) l c h / 20%);
 
   --font-sans:
     'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
