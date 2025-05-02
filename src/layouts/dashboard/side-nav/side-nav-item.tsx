@@ -1,5 +1,5 @@
 import { NAV_ITEM_HEIGHT } from '@/shared/constants/layout'
-import { dx } from '@/shared/design-system/typography'
+import { dx } from '@/lib/dx'
 import { NavLink } from 'react-router-dom'
 
 type TProps = {
@@ -17,9 +17,9 @@ export default function SideNavItem(props: TProps) {
       className={({ isActive }) =>
         dx(
           'body-compact-01',
-          'flex w-full items-center gap-2 p-2 text-muted-foreground group-hover:text-primary',
+          'text-muted-foreground group-hover:text-primary flex w-full items-center gap-2 p-2',
           isActive &&
-            'rounded-md bg-background font-medium text-foreground shadow'
+            'bg-background text-foreground rounded-md font-medium shadow'
         )
       }
       style={{ height: NAV_ITEM_HEIGHT }}

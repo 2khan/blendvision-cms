@@ -10,7 +10,6 @@ import {
 import { type Theme, themes, useTheme } from '@/shared/contexts/useTheme'
 import { dx } from '@/lib/dx'
 import { MoonIcon, SunIcon } from '@radix-ui/react-icons'
-// import { GlobeIcon } from '@radix-ui/react-icons'
 
 export default function ChangeTheme() {
   const { theme: selected, setTheme } = useTheme()
@@ -27,7 +26,7 @@ export default function ChangeTheme() {
           <MoonIcon className="absolute scale-0 rotate-90 transition-transform dark:scale-100 dark:rotate-0" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="center">
+      <DropdownMenuContent align="end">
         <DropdownMenuLabel>Change Theme</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {themes.map((theme) => (
@@ -38,7 +37,7 @@ export default function ChangeTheme() {
             disabled={selected === theme.key}
           >
             <theme.icon />
-            <span className={dx('label-02')}>{theme.key}</span>
+            <span className={dx('label-02', 'capitalize')}>{theme.key}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -123,21 +123,21 @@ const BlurBackground = forwardRef(function BlurBackground(props: TProps, ref) {
                   width: `${size}px`,
                   transform: 'translate(0%, 0%)'
                 }}
-                className="bg-gradient-1 aspect-square rounded-full"
+                className="bg-brand-1 aspect-square rounded-full"
               />
               <div
                 style={{
                   width: `${size}px`,
                   transform: 'translate(-87%, -50%)'
                 }}
-                className="bg-gradient-2 aspect-square rounded-full"
+                className="bg-brand-2 aspect-square rounded-full"
               />
               <div
                 style={{
                   width: `${size}px`,
                   transform: 'translate(0%, -100%)'
                 }}
-                className="bg-gradient-3 aspect-square rounded-full"
+                className="bg-brand-3 aspect-square rounded-full"
               />
             </m.div>
           )
