@@ -2,8 +2,8 @@ import { dx } from '@/lib/dx'
 
 export default function SplashPage() {
   return (
-    <div className="flex h-full w-full grow flex-col items-center justify-center">
-      <div className="w-full max-w-prose">
+    <div className="flex h-full w-full grow flex-col justify-center">
+      <div className="w-full max-w-5xl">
         <h1 className={dx('fluid-display-01', 'mb-5')}>
           Welcome to BlendVision CMS
         </h1>
