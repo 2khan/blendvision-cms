@@ -1,10 +1,10 @@
 import type { TRouteObject } from '@/shared/types/utils/route'
-import { PlusIcon } from 'lucide-react'
+import { LayoutDashboardIcon } from 'lucide-react'
 
 const ProtectedRoutes = [
   {
     label: 'Home',
-    icon: PlusIcon,
+    icon: LayoutDashboardIcon,
     path: '/',
     lazy: async () => {
       const { default: Component } = await import('@/pages/splash')

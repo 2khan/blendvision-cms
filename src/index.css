@@ -108,7 +108,7 @@
     0px 0px 8px oklch(from var(--brand-3) l c h / 20%);
 
   --font-sans:
-    'Lexend', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
   --font-mono:
