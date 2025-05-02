@@ -18,7 +18,7 @@ export default function NotFoundPage() {
     >
       <Link to="/" className="shrink-0">
         <div
-          className="border-input bg-background text-primary dark:text-foreground flex flex-col items-center rounded-2xl border py-2 shadow-sm"
+          className="border-input bg-background text-primary dark:text-foreground flex flex-col items-center justify-center rounded-2xl border px-6 py-2 shadow-sm"
           style={{
             height: HEADER_HEIGHT,
             width: SIDE_OPEN_W - CONTENT_PADDING
@@ -31,7 +31,7 @@ export default function NotFoundPage() {
         <span className={dx('fluid-paragraph-01', 'text-muted-foreground')}>
           Page not found
         </span>
-        <div className="from-gradient-1 via-gradient-2 to-gradient-3 bg-gradient-to-r bg-clip-text dark:brightness-150">
+        <div className="from-brand-1 via-brand-2 to-brand-3 bg-gradient-to-r bg-clip-text dark:brightness-150">
           <span className={dx('fluid-display-04', 'text-transparent')}>
             404
           </span>
