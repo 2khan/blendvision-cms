@@ -1,13 +1,13 @@
 import { cn } from '@/lib/utils'
 import { m } from 'motion/react'
-import { forwardRef } from 'react'
 
 type TSide = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
-type TProps = React.DetailedHTMLProps<
-  React.HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
-> & {
+interface TProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
   as?: React.ElementType
   size?: number
   sides?: TSide[]
@@ -54,8 +54,9 @@ const SideMap = {
   }
 >
 
-const BlurBackground = forwardRef(function BlurBackground(props: TProps, ref) {
+export default function BlurBackground(props: TProps) {
   const {
+    ref,
     as: Comp = 'div',
     className,
     children,
@@ -144,6 +145,4 @@ const BlurBackground = forwardRef(function BlurBackground(props: TProps, ref) {
         })}
     </Comp>
   )
-})
-
-export default BlurBackground
+}
