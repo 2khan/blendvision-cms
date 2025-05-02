@@ -12,7 +12,7 @@ export default function SideNav() {
           'text-muted-foreground ml-2 line-clamp-1 font-semibold'
         )}
       >
-        Hello
+        Menu
       </span>
       <ul className="flex w-full flex-col">
         {ProtectedRoutes.map((r) => (

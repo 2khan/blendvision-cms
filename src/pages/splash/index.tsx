@@ -1,11 +1,17 @@
+import { dx } from '@/lib/dx'
+
 export default function SplashPage() {
   return (
-    <div>
-      <h1>Welcome to BlendVision CMS</h1>
-      <p>
-        BlendVision CMS is a powerful content management system that allows you
-        to create, edit, and manage your website content with ease.
-      </p>
+    <div className="flex h-full w-full grow flex-col items-center justify-center">
+      <div className="w-full max-w-prose">
+        <h1 className={dx('fluid-display-01', 'mb-5')}>
+          Welcome to BlendVision CMS
+        </h1>
+        <p className={dx('fluid-paragraph-01', 'text-muted-foreground')}>
+          BlendVision CMS is a powerful content management system that allows
+          you to create, edit, and manage your website content with ease.
+        </p>
+      </div>
     </div>
   )
 }
