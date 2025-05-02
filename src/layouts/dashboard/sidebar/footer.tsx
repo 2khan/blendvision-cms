@@ -1,0 +1,76 @@
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { CONTENT_PADDING, SIDE_OPEN_W } from '@/shared/constants/layout'
+import { dx } from '@/lib/dx'
+import { CaretSortIcon, ExitIcon } from '@radix-ui/react-icons'
+import { UserRound } from 'lucide-react'
+
+export default function SidebarFooter() {
+  const handleSignout = () => {}
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="bg-background flex w-full shrink-0 items-center gap-2 rounded-2xl p-2 shadow">
+        <div className="bg-card flex size-8 shrink-0 items-center justify-center rounded-full">
+          <UserRound size={15} />
+        </div>
+        <div className="flex grow flex-col items-start text-start">
+          <span
+            className={dx(
+              'heading-compact-01',
+              'line-clamp-1 break-all uppercase'
+            )}
+          >
+            Organization Name
+          </span>
+        </div>
+        <CaretSortIcon className="shrink-0" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="end"
+        side="right"
+        sideOffset={8}
+        className="rounded-2xl"
+        style={{ minWidth: SIDE_OPEN_W - CONTENT_PADDING }}
+      >
+        <DropdownMenuGroup className="p-1">
+          <div className="flex w-full items-center gap-2">
+            <div className="bg-card flex size-8 shrink-0 items-center justify-center rounded-full">
+              <UserRound size={15} />
+            </div>
+            <div className="flex grow flex-col items-start text-start">
+              <span
+                className={dx(
+                  'heading-compact-01',
+                  'line-clamp-1 break-all uppercase'
+                )}
+              >
+                Organization Name
+              </span>
+            </div>
+          </div>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem className="gap-2" asChild>
+            <Button
+              className="w-full justify-between rounded-lg"
+              variant="destructive"
+              onClick={handleSignout}
+            >
+              Log Out
+              <ExitIcon />
+            </Button>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
