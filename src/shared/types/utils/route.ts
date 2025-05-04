@@ -1,10 +1,11 @@
 import type { RouteObject } from 'react-router-dom'
 import type { TIcon } from './icon'
+import { TMeta } from './meta'
 
 // TYPE FOR ICON AND LABEL + NATIVE ROUTE OBJECT TYPE
 export type TRouteObject = Omit<RouteObject, 'path'> & {
   // LABELS FROM i18n
-  label: string
   path: string
   icon?: TIcon
+  meta?: TMeta
 }

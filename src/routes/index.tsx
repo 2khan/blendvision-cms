@@ -4,6 +4,9 @@ import DashboardLayout from '@/layouts/dashboard'
 
 // Routes
 import ProtectedRoutes from './protected'
+import PublicRoutes from './public'
+
+export const PageRoutes = [...ProtectedRoutes, ...PublicRoutes]
 
 const Routes: RouteObject[] = [
   {
@@ -14,13 +17,7 @@ const Routes: RouteObject[] = [
         children: ProtectedRoutes
       },
       {
-        path: '*',
-        lazy: async () => {
-          const { default: Component } = await import('@/pages/404')
-          return {
-            Component
-          }
-        }
+        children: PublicRoutes
       }
     ]
   }

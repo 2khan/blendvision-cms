@@ -3,7 +3,7 @@ import { FileVideoIcon, LayoutDashboardIcon, Users2Icon } from 'lucide-react'
 
 const ProtectedRoutes = [
   {
-    label: 'Home',
+    meta: { title: 'Home' },
     icon: LayoutDashboardIcon,
     path: '/',
     lazy: async () => {
@@ -14,7 +14,7 @@ const ProtectedRoutes = [
     }
   },
   {
-    label: 'Course Management',
+    meta: { title: 'Course Management' },
     icon: FileVideoIcon,
     path: '/course',
     lazy: async () => {
@@ -25,7 +25,10 @@ const ProtectedRoutes = [
     }
   },
   {
-    label: 'User Management',
+    meta: {
+      title: 'User Management',
+      description: 'Create and update user accounts'
+    },
     icon: Users2Icon,
     path: '/user',
     lazy: async () => {

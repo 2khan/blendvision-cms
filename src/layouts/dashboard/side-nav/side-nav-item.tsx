@@ -1,31 +1,43 @@
 import { NAV_ITEM_HEIGHT } from '@/shared/constants/layout'
 import { dx } from '@/lib/dx'
 import { NavLink } from 'react-router-dom'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
+import type { TMeta } from '@/shared/types/utils/meta'
 
 type TProps = {
   path: string
-  label: string
+  meta: TMeta
   symbol?: React.ReactNode
 }
 
 export default function SideNavItem(props: TProps) {
-  const { label, path, symbol } = props
+  const { meta, path, symbol } = props
   return (
-    <NavLink
-      end
-      to={path}
-      className={({ isActive }) =>
-        dx(
-          'body-compact-01',
-          'text-muted-foreground group-hover:text-primary flex w-full items-center gap-2 p-2',
-          isActive &&
-            'bg-background text-foreground rounded-md font-medium shadow'
-        )
-      }
-      style={{ height: NAV_ITEM_HEIGHT }}
-    >
-      {symbol && <div className="w-5 shrink-0">{symbol}</div>}
-      <div className="line-clamp-1">{label}</div>
+    <NavLink end to={path} style={{ height: NAV_ITEM_HEIGHT }}>
+      {({ isActive }) => (
+        <Tooltip disableHoverableContent={isActive} delayDuration={1000}>
+          <TooltipTrigger asChild>
+            <div
+              className={dx(
+                'body-compact-01',
+                'text-muted-foreground group-hover:text-primary flex h-full w-full items-center gap-2 p-2',
+                isActive &&
+                  'bg-background text-foreground rounded-md font-medium shadow'
+              )}
+            >
+              {symbol && <div className="w-5 shrink-0">{symbol}</div>}
+              <div className="line-clamp-1">{meta.title}</div>
+            </div>
+          </TooltipTrigger>
+          {meta.description && (
+            <TooltipContent side="right">{meta.description}</TooltipContent>
+          )}
+        </Tooltip>
+      )}
     </NavLink>
   )
 }

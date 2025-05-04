@@ -1,4 +1,3 @@
-import { useStatusbar } from '@/shared/stores/useStatusbar'
 import {
   Tooltip,
   TooltipContent,
@@ -13,11 +12,12 @@ import { lazy, Suspense } from 'react'
 import { SidebarIcon } from 'lucide-react'
 import { useSidebar } from '@/shared/stores/useSidebar'
 import { Button } from '@/components/ui/button'
+import { useMeta } from '@/shared/contexts/useMeta'
 
 const ChangeTheme = lazy(() => import('@/components/custom/change-theme'))
 
 export default function StatusBar() {
-  const { title, description } = useStatusbar()
+  const { meta } = useMeta()
   const { toggle, isOpen } = useSidebar()
 
   return (
@@ -36,11 +36,13 @@ export default function StatusBar() {
             {isOpen ? 'Close Sidebar' : 'Open Sidebar'}
           </TooltipContent>
         </Tooltip>
-        <div className="space-y-1">
-          {title && <h1 className={dx('heading-compact-01')}>{title}</h1>}
-          {description && (
+        <div className="flex flex-col gap-0.5">
+          {meta.title && (
+            <h1 className={dx('heading-compact-01')}>{meta.title}</h1>
+          )}
+          {meta.description && (
             <span className={dx('label-01', 'text-muted-foreground')}>
-              {description}
+              {meta.description}
             </span>
           )}
         </div>

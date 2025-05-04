@@ -2,10 +2,8 @@ import { lazy, Suspense } from 'react'
 import { Outlet } from 'react-router-dom'
 
 import { LazyMotion } from 'motion/react'
+import { MetaProvider } from './shared/contexts/useMeta'
 import { ThemeProvider } from './shared/contexts/useTheme'
-
-// Stores
-// import { useStatusbar } from './shared/stores/useStatusbar'
 
 const loadFeatures = () =>
   import('@/shared/constants/motion').then((m) => m.default)
@@ -23,16 +21,18 @@ const Toaster = lazy(() =>
 export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
-      <Suspense>
-        <TooltipProvider delayDuration={300}>
-          <LazyMotion features={loadFeatures}>
-            <Outlet />
-          </LazyMotion>
-        </TooltipProvider>
-      </Suspense>
-      <Suspense>
-        <Toaster />
-      </Suspense>
+      <MetaProvider>
+        <Suspense>
+          <TooltipProvider delayDuration={300}>
+            <LazyMotion features={loadFeatures}>
+              <Outlet />
+            </LazyMotion>
+          </TooltipProvider>
+        </Suspense>
+        <Suspense>
+          <Toaster />
+        </Suspense>
+      </MetaProvider>
     </ThemeProvider>
   )
 }

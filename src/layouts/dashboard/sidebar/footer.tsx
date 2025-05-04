@@ -66,7 +66,7 @@ export default function SidebarFooter() {
               onClick={handleSignout}
             >
               Log Out
-              <ExitIcon />
+              <ExitIcon className="text-current" />
             </Button>
           </DropdownMenuItem>
         </DropdownMenuGroup>

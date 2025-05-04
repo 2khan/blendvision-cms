@@ -34,11 +34,7 @@ export default function Sidebar() {
           <Suspense>
             <SidebarHeader />
           </Suspense>
-          <ScrollArea
-            className="w-full grow py-2 xl:py-4"
-            // Show shadow in overflow hidden
-            // viewportClassName="-m-1 p-1"
-          >
+          <ScrollArea className="w-full grow py-2 xl:py-4">
             <Suspense>
               <SideNav />
             </Suspense>

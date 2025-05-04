@@ -18,7 +18,7 @@ export default function SideNav() {
         {ProtectedRoutes.map((r) => (
           <li key={r.path} className="group w-full">
             <SideNavItem
-              label={r.label}
+              meta={r.meta}
               symbol={<r.icon size={15} />}
               path={r.path}
             />
