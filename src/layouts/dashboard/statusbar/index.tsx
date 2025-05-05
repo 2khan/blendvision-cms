@@ -12,7 +12,7 @@ import { lazy, Suspense } from 'react'
 import { SidebarIcon } from 'lucide-react'
 import { useSidebar } from '@/shared/stores/useSidebar'
 import { Button } from '@/components/ui/button'
-import { useMeta } from '@/shared/contexts/useMeta'
+import { useMeta } from '@/shared/stores/useMeta'
 
 const ChangeTheme = lazy(() => import('@/components/custom/change-theme'))
 
