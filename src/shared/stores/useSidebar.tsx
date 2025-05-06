@@ -4,14 +4,18 @@ import { persist } from 'zustand/middleware'
 
 type SidebarStore = {
   isOpen: boolean
-  toggle: () => void
+  handlers: {
+    toggle: () => void
+  }
 }
 
 export const useSidebar = create<SidebarStore>()(
   persist(
     (set, get) => ({
       isOpen: true,
-      toggle: () => set({ isOpen: !get().isOpen })
+      handlers: {
+        toggle: () => set({ isOpen: !get().isOpen })
+      }
     }),
     {
       name: 'sidebar'

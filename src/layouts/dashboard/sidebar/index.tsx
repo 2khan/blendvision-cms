@@ -12,7 +12,7 @@ const SideNav = lazy(() => import('../side-nav'))
 const SidebarFooter = lazy(() => import('./footer'))
 
 export default function Sidebar() {
-  const { isOpen } = useSidebar()
+  const isOpen = useSidebar((s) => s.isOpen)
 
   return (
     <AnimatePresence initial={false}>

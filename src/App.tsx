@@ -21,6 +21,8 @@ const Meta = lazy(() =>
   import('@/shared/stores/useMeta').then(({ Meta }) => ({ default: Meta }))
 )
 
+const CommandPalette = lazy(() => import('@/components/custom/cmd-palette'))
+
 export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
@@ -36,6 +38,9 @@ export default function App() {
       </Suspense>
       <Suspense>
         <Meta />
+      </Suspense>
+      <Suspense>
+        <CommandPalette />
       </Suspense>
     </ThemeProvider>
   )

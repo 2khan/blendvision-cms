@@ -7,23 +7,28 @@ import { getRouteMeta } from '@/routes/utils'
 
 type MetaStore = {
   meta: TMeta
-  setMeta: (meta: TMeta) => void
-  reset: () => void
+  handlers: {
+    setMeta: (meta: TMeta) => void
+    reset: () => void
+  }
 }
 
 const IMeta: TMeta = {
   title: import.meta.env.VITE_APP_TITLE
 }
 
-export const useMeta = create<MetaStore>((set) => ({
+export const useMeta = create<MetaStore>()((set) => ({
   meta: IMeta,
-  setMeta: (meta) => set({ meta }),
-  reset: () => set({ meta: IMeta })
+  handlers: {
+    setMeta: (meta) => set({ meta }),
+    reset: () => set({ meta: IMeta })
+  }
 }))
 
 export function Meta() {
   const { pathname } = useLocation()
-  const { meta, setMeta, reset } = useMeta()
+  const meta = useMeta((s) => s.meta)
+  const { setMeta, reset } = useMeta((s) => s.handlers)
 
   useEffect(() => {
     const meta = getRouteMeta(pathname)

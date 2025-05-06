@@ -17,8 +17,9 @@ import { useMeta } from '@/shared/stores/useMeta'
 const ChangeTheme = lazy(() => import('@/components/custom/change-theme'))
 
 export default function StatusBar() {
-  const { meta } = useMeta()
-  const { toggle, isOpen } = useSidebar()
+  const meta = useMeta((s) => s.meta)
+  const isOpen = useSidebar((s) => s.isOpen)
+  const { toggle } = useSidebar((s) => s.handlers)
 
   return (
     <header
