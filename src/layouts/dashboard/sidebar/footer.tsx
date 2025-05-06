@@ -19,7 +19,7 @@ export default function SidebarFooter() {
     <DropdownMenu>
       <DropdownMenuTrigger className="bg-background flex w-full shrink-0 items-center gap-2 rounded-2xl p-2 shadow">
         <div className="bg-card flex size-8 shrink-0 items-center justify-center rounded-full">
-          <UserRound size={15} />
+          <UserRound />
         </div>
         <div className="flex grow flex-col items-start text-start">
           <span
@@ -43,7 +43,7 @@ export default function SidebarFooter() {
         <DropdownMenuGroup className="p-1">
           <div className="flex w-full items-center gap-2">
             <div className="bg-card flex size-8 shrink-0 items-center justify-center rounded-full">
-              <UserRound size={15} />
+              <UserRound />
             </div>
             <div className="flex grow flex-col items-start text-start">
               <span

@@ -124,3 +124,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ICON DEFAULTS */
+.lucide {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2px;
+}

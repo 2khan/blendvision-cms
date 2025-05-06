@@ -5,10 +5,9 @@ import { TIcon } from '@/shared/types/utils/icon'
 type TCommand = {
   id: string
   label: string
-  shortcut: string
   hotkey: string
   icon: TIcon
-  action: (...args: unknown[]) => void | Promise<void>
+  action: (...args: string[]) => void | Promise<void>
 }
 
 type CommandStore = {
@@ -17,7 +16,7 @@ type CommandStore = {
   handlers: {
     cmd_register: (cmd: TCommand) => void
     cmd_unregister: (cmd_id: string) => void
-    cmd_trigger: (cmd_id: string, ...args: unknown[]) => void
+    cmd_trigger: (cmd_id: string, ...args: string[]) => void
     cmd_list_all: () => TCommand[]
     palette_toggle_visibility: () => void
     palette_set_visibility: (open: boolean) => void
@@ -57,6 +56,10 @@ export const useCommand = create<CommandStore>()(
           cmd.action(...args)
         } catch (e) {
           console.error(`Failed to execute command "${cmd_id}"`, e)
+        } finally {
+          set((state) => {
+            state.palette_is_open = false
+          })
         }
       },
 

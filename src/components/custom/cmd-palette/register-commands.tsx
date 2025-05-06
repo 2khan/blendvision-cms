@@ -1,8 +1,41 @@
 import { useCommand } from '@/shared/stores/useCommand'
-import { useEffect } from 'react'
+import { UploadIcon, UserPlus2Icon } from 'lucide-react'
+import { useEffect, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function RegisterCommands() {
-  const { cmd_register } = useCommand((s) => s.handlers)
-  useEffect(() => {}, [])
+  const navigate = useNavigate()
+  const { cmd_register, cmd_unregister } = useCommand((s) => s.handlers)
+
+  const commands = useMemo(() => {
+    return [
+      {
+        id: 'upload-course',
+        hotkey: 'u',
+        icon: UploadIcon,
+        label: 'Upload Course',
+        action: () => {
+          navigate('/course')
+        }
+      },
+      {
+        id: 'create-user',
+        hotkey: 'i',
+        icon: UserPlus2Icon,
+        label: 'Create User',
+        action: () => {
+          navigate('/user')
+        }
+      }
+    ]
+  }, [navigate])
+
+  useEffect(() => {
+    commands.forEach((cmd) => cmd_register(cmd))
+
+    return () => {
+      commands.forEach((cmd) => cmd_unregister(cmd.id))
+    }
+  }, [commands, cmd_register, cmd_unregister])
   return null
 }

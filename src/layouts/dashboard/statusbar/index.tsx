@@ -30,7 +30,7 @@ export default function StatusBar() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button onClick={toggle} variant="outline" size="icon">
-              <SidebarIcon size={15} />
+              <SidebarIcon />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
