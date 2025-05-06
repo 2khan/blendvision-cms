@@ -25,19 +25,13 @@ export default function CommandPalette() {
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+      if (!(e.metaKey || e.ctrlKey)) return
+      if (e.key === 'k') {
         e.preventDefault()
         palette_toggle_visibility()
       }
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [palette_toggle_visibility])
 
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.metaKey || e.ctrlKey) {
-        e.preventDefault()
+      if (palette_is_open) {
         const cmd = commands.find((cmd) => cmd.hotkey === e.key)
         if (!cmd) return
         cmd_trigger(cmd.id)
@@ -45,7 +39,7 @@ export default function CommandPalette() {
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [commands, cmd_trigger])
+  }, [palette_is_open, palette_toggle_visibility, commands, cmd_trigger])
 
   return (
     <Fragment>
