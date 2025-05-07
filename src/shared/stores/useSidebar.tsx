@@ -19,7 +19,8 @@ export const useSidebar = create<SidebarStore>()(
     }),
     {
       name: 'sidebar',
-      version: 0
+      partialize: (state) => ({ isOpen: state.isOpen }),
+      version: 1
     }
   )
 )
