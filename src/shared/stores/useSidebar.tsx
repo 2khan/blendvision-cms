@@ -19,7 +19,10 @@ export const useSidebar = create<SidebarStore>()(
     }),
     {
       name: 'sidebar',
-      partialize: (state) => ({ isOpen: state.isOpen }),
+      partialize: (state) =>
+        Object.fromEntries(
+          Object.entries(state).filter(([key]) => !['handlers'].includes(key))
+        ),
       version: 1
     }
   )
