@@ -18,7 +18,8 @@ export const useSidebar = create<SidebarStore>()(
       }
     }),
     {
-      name: 'sidebar'
+      name: 'sidebar',
+      version: 0
     }
   )
 )
