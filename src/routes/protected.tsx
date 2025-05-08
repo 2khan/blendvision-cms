@@ -22,9 +22,18 @@ const ProtectedRoutes = [
     icon: GraduationCapIcon,
     path: '/courses',
     lazy: async () => {
-      const { default: Component } = await import(
-        '@/pages/course/course-management'
-      )
+      const { default: Component } = await import('@/pages/courses/course-list')
+      return {
+        Component
+      }
+    }
+  },
+  {
+    meta: { title: 'Edit Course' },
+    icon: GraduationCapIcon,
+    path: '/courses/:course_id',
+    lazy: async () => {
+      const { default: Component } = await import('@/pages/courses/course-edit')
       return {
         Component
       }
@@ -36,9 +45,9 @@ const ProtectedRoutes = [
       description: 'Create and update user accounts'
     },
     icon: Users2Icon,
-    path: '/user',
+    path: '/users',
     lazy: async () => {
-      const { default: Component } = await import('@/pages/user-management')
+      const { default: Component } = await import('@/pages/users/user-list')
       return {
         Component
       }

@@ -4,7 +4,7 @@ import { MOCK_COURSES } from '@/shared/constants/mock'
 
 export default function CoursePage() {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-3">
       {MOCK_COURSES.map((course) => (
         <CourseCard key={course.id} course={course} />
       ))}

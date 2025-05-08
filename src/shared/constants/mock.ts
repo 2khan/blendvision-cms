@@ -1,5 +1,8 @@
 import { TCourse } from '@/shared/types/models/course'
 
+export const getCourse = (course_id: string) =>
+  MOCK_COURSES.find((c) => c.id === course_id)
+
 export const MOCK_COURSES: TCourse[] = [
   {
     id: 'course-001',

@@ -1,6 +1,6 @@
 // UTILS
 import { dx } from '@/lib/dx'
-import ProtectedRoutes from '@/routes/protected'
+import { menuRoutes } from '@/routes/utils'
 import SideNavItem from './side-nav-item'
 
 export default function SideNav() {
@@ -15,7 +15,7 @@ export default function SideNav() {
         Menu
       </span>
       <ul className="flex w-full flex-col">
-        {ProtectedRoutes.map((r) => (
+        {menuRoutes.map((r) => (
           <li key={r.path} className="group w-full">
             <SideNavItem meta={r.meta} symbol={<r.icon />} path={r.path} />
           </li>

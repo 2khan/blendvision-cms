@@ -23,6 +23,7 @@ import {
 } from 'lucide-react'
 
 import type { TCourse } from '@/shared/types/models/course'
+import { Link } from 'react-router-dom'
 
 interface TProps {
   course: TCourse
@@ -31,8 +32,8 @@ interface TProps {
 export default function CourseCard(props: TProps) {
   const { course } = props
   return (
-    <Card className="w-80 gap-3 overflow-hidden shadow-none">
-      <div className="bg-muted text-muted-foreground relative flex aspect-video w-full flex-col items-center justify-center gap-1">
+    <Card className="gap-3 overflow-hidden shadow-none">
+      <div className="bg-muted text-muted-foreground relative flex aspect-video w-full flex-col items-center justify-center gap-1 border-b">
         <ImageIcon className="size-10" />
         <span className={dx('label-01')}>16:9</span>
         <DropdownMenu>
@@ -80,7 +81,9 @@ export default function CourseCard(props: TProps) {
       </CardContent>
       <CardFooter className="flex justify-between gap-3">
         <Button variant="outline">Students</Button>
-        <Button>Manage</Button>
+        <Button asChild>
+          <Link to={`/courses/${course.id}`}>Manage</Link>
+        </Button>
       </CardFooter>
     </Card>
   )
