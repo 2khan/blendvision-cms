@@ -20,9 +20,11 @@ const ProtectedRoutes = [
   {
     meta: { title: 'Course Management' },
     icon: GraduationCapIcon,
-    path: '/course',
+    path: '/courses',
     lazy: async () => {
-      const { default: Component } = await import('@/pages/course-management')
+      const { default: Component } = await import(
+        '@/pages/course/course-management'
+      )
       return {
         Component
       }

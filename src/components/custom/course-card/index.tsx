@@ -32,8 +32,9 @@ export default function CourseCard(props: TProps) {
   const { course } = props
   return (
     <Card className="w-80 gap-3 overflow-hidden shadow-none">
-      <div className="bg-muted relative flex aspect-video w-full items-center justify-center">
-        <ImageIcon className="text-muted-foreground size-10" />
+      <div className="bg-muted text-muted-foreground relative flex aspect-video w-full flex-col items-center justify-center gap-1">
+        <ImageIcon className="size-10" />
+        <span className={dx('label-01')}>16:9</span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
