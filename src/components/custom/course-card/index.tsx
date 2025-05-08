@@ -18,7 +18,7 @@ import {
   ClockIcon,
   Users2Icon,
   FilmIcon,
-  EllipsisVerticalIcon,
+  MoreVerticalIcon,
   ImageIcon
 } from 'lucide-react'
 
@@ -43,7 +43,7 @@ export default function CourseCard(props: TProps) {
               size="icon"
               className="absolute top-3 right-3 rounded-full"
             >
-              <EllipsisVerticalIcon />
+              <MoreVerticalIcon />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
