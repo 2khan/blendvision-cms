@@ -18,7 +18,8 @@ import {
   ClockIcon,
   Users2Icon,
   FilmIcon,
-  EllipsisVerticalIcon
+  EllipsisVerticalIcon,
+  ImageIcon
 } from 'lucide-react'
 
 import type { TCourse } from '@/shared/types/models/course'
@@ -32,7 +33,7 @@ export default function CourseCard(props: TProps) {
   return (
     <Card className="w-80 gap-3 overflow-hidden shadow-none">
       <div className="bg-muted relative flex aspect-video w-full items-center justify-center">
-        <FilmIcon className="text-muted-foreground size-10" />
+        <ImageIcon className="text-muted-foreground size-10" />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
