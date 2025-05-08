@@ -6,10 +6,7 @@ export default function Logo(props: React.SVGProps<SVGSVGElement>) {
     <svg
       viewBox="0 0 170 24"
       aria-label="BlendVision"
-      className={cn(
-        'text-primary dark:text-foreground w-full object-contain',
-        className
-      )}
+      className={cn('text-foreground w-full object-contain', className)}
       {...rest}
     >
       <path

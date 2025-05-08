@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -59,15 +58,13 @@ export default function SidebarFooter() {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className="gap-2" asChild>
-            <Button
-              className="w-full justify-between rounded-lg"
-              variant="destructive"
-              onClick={handleSignout}
-            >
-              Log Out
-              <ExitIcon className="text-current" />
-            </Button>
+          <DropdownMenuItem
+            onClick={handleSignout}
+            variant="destructive"
+            className="justify-between gap-2 rounded-lg"
+          >
+            Log Out
+            <ExitIcon className="text-current" />
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
