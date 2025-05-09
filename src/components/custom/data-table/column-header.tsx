@@ -36,24 +36,22 @@ export function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div className={cn('flex items-center', className)}>
-      <Button
-        variant="ghost"
-        size="sm"
-        className="data-[state=open]:bg-accent -ml-2 h-8 gap-3"
+    <div className={cn('-ml-2 flex items-center justify-between', className)}>
+      <button
+        className="data-[state=open]:bg-accent hover:bg-accent flex h-10 grow items-center justify-between gap-3 px-2"
         onClick={() => canSort && header.column.toggleSorting()}
       >
         <span>
           {flexRender(header.column.columnDef.header, header.getContext())}
         </span>
         {isSorted === 'desc' ? (
-          <ArrowDown />
+          <ArrowDown className="size-3" />
         ) : isSorted === 'asc' ? (
-          <ArrowUp />
+          <ArrowUp className="size-3" />
         ) : (
-          <ArrowUpDownIcon />
+          <ArrowUpDownIcon className="size-3" />
         )}
-      </Button>
+      </button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -67,7 +65,7 @@ export function DataTableColumnHeader<TData, TValue>({
         <DropdownMenuContent align="start">
           <DropdownMenuItem
             onClick={() => header.column.toggleSorting(false)}
-            disabled={isSorted === 'desc'}
+            disabled={isSorted === 'asc'}
           >
             <ArrowUp className="text-muted-foreground/70" />
             Asc

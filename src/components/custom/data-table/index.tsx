@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { type TdHTMLAttributes, useState } from 'react'
 import {
-  ColumnDef,
-  SortingState,
+  // type Table as TRootTable,
+  type ColumnDef,
+  type SortingState,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -17,8 +18,16 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import DataTablePagination from './pagination'
 import { DataTableColumnHeader } from '@/components/custom/data-table/column-header'
+
+declare module '@tanstack/react-table' {
+  // eslint-disable-next-line
+  interface ColumnMeta<TData, TValue> {
+    align?: TdHTMLAttributes<HTMLTableCellElement>['align']
+  }
+}
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -48,15 +57,21 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="flex flex-col">
-      <div className="bg-card rounded-lg border">
-        <Table>
+    <div className="relative grid w-full grid-cols-1">
+      <ScrollArea
+        orientation="horizontal"
+        className="bg-card rounded-lg border"
+      >
+        <Table style={{ minHeight: 768, maxHeight: 'max-content' }}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      align={header.column.columnDef.meta?.align ?? 'left'}
+                    >
                       <DataTableColumnHeader header={header} table={table} />
                     </TableHead>
                   )
@@ -72,7 +87,10 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      align={cell.column.columnDef.meta?.align ?? 'left'}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -93,7 +111,7 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-      </div>
+      </ScrollArea>
       {!meta?.hideFooter && (
         <DataTablePagination isLoading={meta?.isLoading} table={table} />
       )}

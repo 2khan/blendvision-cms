@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/custom/data-table'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -26,7 +27,59 @@ const columns: ColumnDef<TCourse>[] = [
     enableSorting: false
   },
   {
+    accessorKey: 'net_duration',
+    header: 'Duration',
+    meta: {
+      align: 'center'
+    }
+  },
+  {
+    accessorKey: 'student_count',
+    header: 'Students',
+    meta: {
+      align: 'center'
+    }
+  },
+  {
+    accessorKey: 'tags',
+    header: 'Tags',
+    cell: ({ row }) => (
+      <div className="flex flex-wrap gap-1">
+        {row.original.tags.map((tag) => (
+          <Badge variant="outline" key={tag}>
+            {tag}
+          </Badge>
+        ))}
+      </div>
+    )
+  },
+  {
+    accessorKey: 'is_new',
+    header: 'New',
+    cell: ({ row }) => (row.original.is_new ? <Badge>New</Badge> : '-'),
+    meta: {
+      align: 'center'
+    }
+  },
+  {
+    accessorKey: 'lessons',
+    header: 'Lessons',
+    cell: ({ row }) => row.original.lessons.length,
+    meta: {
+      align: 'center'
+    }
+  },
+  {
+    accessorKey: 'recommended_courses',
+    header: 'Recommended',
+    cell: ({ row }) => row.original.recommended_courses.length,
+    meta: {
+      align: 'center'
+    }
+  },
+  {
     id: 'actions',
+    header: 'Actions',
     cell: ({ row }) => {
       const { id } = row.original
       return (
@@ -60,7 +113,7 @@ const columns: ColumnDef<TCourse>[] = [
 
 export default function TableView() {
   return (
-    <TabsContent value="table" className="">
+    <TabsContent value="table">
       <DataTable columns={columns} data={MOCK_COURSES} />
     </TabsContent>
   )
