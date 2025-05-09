@@ -13,6 +13,7 @@ import { MOCK_COURSES } from '@/shared/constants/mock'
 import { TCourse } from '@/shared/types/models/course'
 import { ColumnDef } from '@tanstack/react-table'
 import { MoreVerticalIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const columns: ColumnDef<TCourse>[] = [
   {
@@ -21,13 +22,13 @@ const columns: ColumnDef<TCourse>[] = [
   },
   {
     accessorKey: 'desc',
-    header: 'Descrition'
+    header: 'Description',
+    enableSorting: false
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original
-
+      const { id } = row.original
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -38,14 +39,18 @@ const columns: ColumnDef<TCourse>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={`/courses/${id}`}>Manage</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>Students</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Edit Course</DropdownMenuItem>
+            <DropdownMenuItem>Duplicate Course</DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive">
+              Delete Course
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )
