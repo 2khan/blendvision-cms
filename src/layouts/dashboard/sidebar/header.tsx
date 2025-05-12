@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
+
 import BlurBackground from '@/components/custom/blur-background'
 import Logo from '@/components/custom/logo'
+
 import { HEADER_HEIGHT } from '@/shared/constants/layout'
-import { Link } from 'react-router-dom'
 
 export default function SidebarHeader() {
   return (

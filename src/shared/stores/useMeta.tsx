@@ -1,9 +1,12 @@
-import { create } from 'zustand'
-import { TMeta } from '@/shared/types/utils/meta'
-import { Fragment } from 'react/jsx-runtime'
-import { useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+
+import { useLocation } from 'react-router-dom'
+import { Fragment } from 'react/jsx-runtime'
+import { create } from 'zustand'
+
 import { getRouteMeta } from '@/routes/utils'
+
+import { TMeta } from '@/shared/types/utils/meta'
 
 type MetaStore = {
   meta: TMeta

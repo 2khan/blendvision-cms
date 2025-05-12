@@ -1,7 +1,8 @@
-import { lazy, Suspense } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Suspense, lazy } from 'react'
 
 import { LazyMotion } from 'motion/react'
+import { Outlet } from 'react-router-dom'
+
 import { ThemeProvider } from './shared/contexts/useTheme'
 
 const loadFeatures = () =>

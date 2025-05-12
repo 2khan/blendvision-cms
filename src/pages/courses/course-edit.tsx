@@ -1,5 +1,6 @@
-import { getCourse } from '@/shared/constants/mock'
 import { useParams } from 'react-router-dom'
+
+import { getCourse } from '@/shared/constants/mock'
 
 export default function CourseEdit() {
   const { course_id } = useParams()

@@ -1,9 +1,10 @@
-import type { TRouteObject } from '@/shared/types/utils/route'
 import {
+  GraduationCapIcon,
   LayoutDashboardIcon,
-  Users2Icon,
-  GraduationCapIcon
+  Users2Icon
 } from 'lucide-react'
+
+import type { TRouteObject } from '@/shared/types/utils/route'
 
 const ProtectedRoutes = [
   {

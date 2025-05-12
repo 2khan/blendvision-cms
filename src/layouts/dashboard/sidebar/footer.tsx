@@ -1,3 +1,8 @@
+import { CaretSortIcon, ExitIcon } from '@radix-ui/react-icons'
+import { UserRound } from 'lucide-react'
+
+import { dx } from '@/lib/dx'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,10 +11,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+
 import { CONTENT_PADDING, SIDE_OPEN_W } from '@/shared/constants/layout'
-import { dx } from '@/lib/dx'
-import { CaretSortIcon, ExitIcon } from '@radix-ui/react-icons'
-import { UserRound } from 'lucide-react'
 
 export default function SidebarFooter() {
   const handleSignout = () => {}

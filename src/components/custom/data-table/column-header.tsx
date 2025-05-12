@@ -1,4 +1,4 @@
-import { flexRender, type Header, type Table } from '@tanstack/react-table'
+import { type Header, type Table, flexRender } from '@tanstack/react-table'
 import {
   ArrowDown,
   ArrowUp,
@@ -6,8 +6,10 @@ import {
   EyeOff,
   MoreVertical
 } from 'lucide-react'
+import { Fragment } from 'react/jsx-runtime'
 
 import { cn } from '@/lib/utils'
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +17,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { Fragment } from 'react/jsx-runtime'
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {

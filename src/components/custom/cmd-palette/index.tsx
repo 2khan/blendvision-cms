@@ -1,16 +1,19 @@
 import { Fragment, useEffect } from 'react'
+
 import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandList,
   CommandItem,
+  CommandList,
   CommandShortcut
 } from '@/components/ui/command'
+
 import { useCommand } from '@/shared/stores/useCommand'
-import RegisterCommands from './register-commands'
 import { isMac } from '@/shared/utils/hotkey'
+
+import RegisterCommands from './register-commands'
 
 export default function CommandPalette() {
   const palette_is_open = useCommand((s) => s.palette_is_open)

@@ -1,9 +1,9 @@
+import tailwindcss from '@tailwindcss/vite'
+// Plugins
+import react from '@vitejs/plugin-react-swc'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 
-// Plugins
-import react from '@vitejs/plugin-react-swc'
-import tailwindcss from '@tailwindcss/vite'
 // import eslintPlugin from 'vite-plugin-eslint'
 
 // https://vitejs.dev/config/

@@ -1,11 +1,14 @@
-import { NAV_ITEM_HEIGHT } from '@/shared/constants/layout'
-import { dx } from '@/lib/dx'
 import { NavLink } from 'react-router-dom'
+
+import { dx } from '@/lib/dx'
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+
+import { NAV_ITEM_HEIGHT } from '@/shared/constants/layout'
 import type { TMeta } from '@/shared/types/utils/meta'
 
 type TProps = {

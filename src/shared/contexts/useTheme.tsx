@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { SunIcon, MoonIcon, DesktopIcon } from '@radix-ui/react-icons'
+
+import { DesktopIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons'
+
 import type { TIcon } from '@/shared/types/utils/icon'
 
 export type Theme = 'dark' | 'light' | 'system'

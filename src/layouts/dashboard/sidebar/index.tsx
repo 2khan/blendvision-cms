@@ -1,11 +1,14 @@
-import { lazy, Suspense } from 'react'
+import { Suspense, lazy } from 'react'
 
+import { AnimatePresence, m } from 'motion/react'
+
+import { cn } from '@/lib/utils'
+
+import { ScrollArea } from '@/components/ui/scroll-area'
+
+import { SIDE_OPEN_W } from '@/shared/constants/layout'
 // UTILS
 import { useSidebar } from '@/shared/stores/useSidebar'
-import { cn } from '@/lib/utils'
-import { SIDE_OPEN_W } from '@/shared/constants/layout'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { AnimatePresence, m } from 'motion/react'
 
 const SidebarHeader = lazy(() => import('./header'))
 const SideNav = lazy(() => import('../side-nav'))

@@ -1,10 +1,11 @@
+import { dx } from '@/lib/dx'
+
+import { Button, TButtonProps } from '@/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip'
-import { Button, TButtonProps } from '@/components/ui/button'
-import { dx } from '@/lib/dx'
 
 type TTooptipButtonProps = TButtonProps & {
   helper: React.ReactNode

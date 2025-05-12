@@ -1,4 +1,5 @@
 import { type TdHTMLAttributes, useState } from 'react'
+
 import {
   // type Table as TRootTable,
   type ColumnDef,
@@ -11,6 +12,8 @@ import {
   useReactTable
 } from '@tanstack/react-table'
 
+import { DataTableColumnHeader } from '@/components/custom/data-table/column-header'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Table,
   TableBody,
@@ -19,21 +22,15 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { ScrollArea } from '@/components/ui/scroll-area'
+
 import DataTableToolbar from './toolbar'
-import { DataTableColumnHeader } from '@/components/custom/data-table/column-header'
+import type { DataTableMetaOptions } from './utils'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line
   interface ColumnMeta<TData, TValue> {
     align?: TdHTMLAttributes<HTMLTableCellElement>['align']
   }
-}
-
-export interface DataTableMetaOptions {
-  isLoading?: boolean
-  hideToolbar?: boolean
-  onPageSizeChange?: (value: number) => void
 }
 
 interface DataTableProps<TData, TValue> {

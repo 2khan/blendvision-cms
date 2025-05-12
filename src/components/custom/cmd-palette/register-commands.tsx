@@ -1,7 +1,9 @@
-import { useCommand } from '@/shared/stores/useCommand'
-import { UploadIcon, UserPlus2Icon } from 'lucide-react'
 import { useEffect, useMemo } from 'react'
+
+import { UploadIcon, UserPlus2Icon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+
+import { useCommand } from '@/shared/stores/useCommand'
 
 export default function RegisterCommands() {
   const navigate = useNavigate()

@@ -1,15 +1,18 @@
+import { MoonIcon, SunIcon } from '@radix-ui/react-icons'
+
+import { dx } from '@/lib/dx'
+
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuLabel,
-  DropdownMenuSeparator
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+
 import { type Theme, themes, useTheme } from '@/shared/contexts/useTheme'
-import { dx } from '@/lib/dx'
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons'
 
 export default function ChangeTheme() {
   const { theme: selected, setTheme } = useTheme()

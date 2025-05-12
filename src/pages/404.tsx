@@ -1,13 +1,16 @@
+import { Link } from 'react-router-dom'
+
+import { dx } from '@/lib/dx'
+
 import BlurBackground from '@/components/custom/blur-background'
 import Logo from '@/components/custom/logo'
 import { Button } from '@/components/ui/button'
+
 import {
   CONTENT_PADDING,
   HEADER_HEIGHT,
   SIDE_OPEN_W
 } from '@/shared/constants/layout'
-import { dx } from '@/lib/dx'
-import { Link } from 'react-router-dom'
 
 export default function NotFoundPage() {
   return (

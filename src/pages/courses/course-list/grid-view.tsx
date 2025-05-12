@@ -1,5 +1,6 @@
 import CourseCard from '@/components/custom/course-card'
 import { TabsContent } from '@/components/ui/tabs'
+
 import { MOCK_COURSES } from '@/shared/constants/mock'
 
 export default function GridView() {

@@ -1,8 +1,8 @@
+import { includes } from 'lodash'
 import { create } from 'zustand'
 // https://zustand.docs.pmnd.rs/integrations/persisting-store-data
 import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { includes } from 'lodash'
 
 export const LIST_VIEW_VALUES = ['card', 'table'] as const
 export type TListView = (typeof LIST_VIEW_VALUES)[number]

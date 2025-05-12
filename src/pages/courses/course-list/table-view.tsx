@@ -1,22 +1,24 @@
+import { ColumnDef } from '@tanstack/react-table'
+import { MoreVerticalIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
+
 import { DataTable } from '@/components/custom/data-table'
 import { getWidth } from '@/components/custom/data-table/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuItem,
-  DropdownMenuSeparator
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { TabsContent } from '@/components/ui/tabs'
+
 import { MOCK_COURSES } from '@/shared/constants/mock'
 import { usePreference } from '@/shared/stores/usePreference'
 import { TCourse } from '@/shared/types/models/course'
-import { ColumnDef } from '@tanstack/react-table'
-import { MoreVerticalIcon } from 'lucide-react'
-import { Link } from 'react-router-dom'
 
 const columns: ColumnDef<TCourse>[] = [
   {

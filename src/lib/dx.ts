@@ -1,5 +1,6 @@
-import { cn } from '@/lib/utils'
 import type { ClassValue } from 'clsx'
+
+import { cn } from '@/lib/utils'
 
 // https://carbondesignsystem.com/elements/typography/type-sets/
 export type TTextVariant =

@@ -1,5 +1,6 @@
-import type { RouteObject } from 'react-router-dom'
 import App from '@/App'
+import type { RouteObject } from 'react-router-dom'
+
 import DashboardLayout from '@/layouts/dashboard'
 
 // Routes

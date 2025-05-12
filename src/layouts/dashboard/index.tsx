@@ -1,7 +1,8 @@
-import { lazy, Suspense } from 'react'
+// UTILS
+import { Suspense, lazy } from 'react'
+
 import { Outlet } from 'react-router-dom'
 
-// UTILS
 import { CONTENT_PADDING } from '@/shared/constants/layout'
 
 // COMPONENTS

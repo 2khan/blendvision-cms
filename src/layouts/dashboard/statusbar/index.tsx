@@ -1,18 +1,20 @@
+// UTILS
+import { Suspense, lazy } from 'react'
+
+import { SidebarIcon } from 'lucide-react'
+
+import { dx } from '@/lib/dx'
+
+import { Button } from '@/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip'
 
-// UTILS
-import { dx } from '@/lib/dx'
 import { HEADER_HEIGHT } from '@/shared/constants/layout'
-
-import { lazy, Suspense } from 'react'
-import { SidebarIcon } from 'lucide-react'
-import { useSidebar } from '@/shared/stores/useSidebar'
-import { Button } from '@/components/ui/button'
 import { useMeta } from '@/shared/stores/useMeta'
+import { useSidebar } from '@/shared/stores/useSidebar'
 
 const ChangeTheme = lazy(() => import('@/components/custom/change-theme'))
 

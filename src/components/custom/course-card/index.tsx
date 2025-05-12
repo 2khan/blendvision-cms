@@ -1,3 +1,14 @@
+import {
+  ClockIcon,
+  FilmIcon,
+  ImageIcon,
+  MoreVerticalIcon,
+  Users2Icon
+} from 'lucide-react'
+import { Link } from 'react-router-dom'
+
+import { dx } from '@/lib/dx'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -13,17 +24,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { dx } from '@/lib/dx'
-import {
-  ClockIcon,
-  Users2Icon,
-  FilmIcon,
-  MoreVerticalIcon,
-  ImageIcon
-} from 'lucide-react'
 
 import type { TCourse } from '@/shared/types/models/course'
-import { Link } from 'react-router-dom'
 
 interface TProps {
   course: TCourse

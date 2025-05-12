@@ -1,7 +1,9 @@
+import { Grid2X2Icon, Rows3Icon } from 'lucide-react'
+
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { usePreference } from '@/shared/stores/usePreference'
-import { Grid2X2Icon, Rows3Icon } from 'lucide-react'
+
 import GridView from './grid-view'
 import TableView from './table-view'
 
