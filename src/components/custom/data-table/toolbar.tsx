@@ -18,15 +18,18 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { TABLE_PAGE_SIZES } from '@/shared/stores/usePreference'
+import type { DataTableMetaOptions } from '.'
 
 interface TDataTableToolbarProps<TData> {
   table: Table<TData>
   isLoading?: boolean
+  tableMeta: DataTableMetaOptions
 }
 
 export default function DataTableToolbar<TData>({
   table,
-  isLoading
+  isLoading,
+  tableMeta
 }: TDataTableToolbarProps<TData>) {
   return (
     <div className="flex items-center justify-end gap-2 py-2">
@@ -35,7 +38,12 @@ export default function DataTableToolbar<TData>({
         <Select
           value={`${table.getState().pagination.pageSize}`}
           onValueChange={(value) => {
-            table.setPageSize(Number(value))
+            const v = Number(value)
+            table.setPageSize(v)
+
+            if (tableMeta?.onPaginationChange) {
+              tableMeta?.onPaginationChange(v)
+            }
           }}
         >
           <SelectTrigger size="sm">

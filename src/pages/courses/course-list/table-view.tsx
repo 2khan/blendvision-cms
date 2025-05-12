@@ -124,12 +124,18 @@ const columns: ColumnDef<TCourse>[] = [
 
 export default function TableView() {
   const page_size = usePreference((s) => s.course.default_page_size)
+  const set_page_size = usePreference(
+    (s) => s.handlers.course_set_table_page_size
+  )
 
   return (
     <TabsContent value="table">
       <DataTable
         columns={columns}
         data={MOCK_COURSES}
+        meta={{
+          onPaginationChange: set_page_size
+        }}
         options={{
           initialState: {
             pagination: {

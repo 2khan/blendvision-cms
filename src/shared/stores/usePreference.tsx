@@ -7,15 +7,14 @@ import { includes } from 'lodash'
 export const LIST_VIEW_VALUES = ['card', 'table'] as const
 export type TListView = (typeof LIST_VIEW_VALUES)[number]
 export const TABLE_PAGE_SIZES = [10, 20, 30, 40, 50] as const
-export type TTablePageSize = (typeof TABLE_PAGE_SIZES)[number]
 
 type PreferenceStore = {
   course: {
-    default_page_size: TTablePageSize
+    default_page_size: number
     list_view: TListView
   }
   handlers: {
-    course_set_table_page_size: (value: TTablePageSize) => void
+    course_set_table_page_size: (value: number) => void
     course_set_list_view: (value: string) => void
   }
 }
@@ -38,7 +37,7 @@ export const usePreference = create<PreferenceStore>()(
         course_set_table_page_size: (value) => {
           if (includes(TABLE_PAGE_SIZES, value)) {
             set((state) => {
-              state.course.default_page_size = value as TTablePageSize
+              state.course.default_page_size = value
             })
           }
         }

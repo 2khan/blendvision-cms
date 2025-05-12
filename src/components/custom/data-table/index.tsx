@@ -30,13 +30,16 @@ declare module '@tanstack/react-table' {
   }
 }
 
+export interface DataTableMetaOptions {
+  isLoading?: boolean
+  hideToolbar?: boolean
+  onPaginationChange?: (value: number) => void
+}
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  meta?: {
-    isLoading: boolean
-    hideToolbar?: boolean
-  }
+  meta?: DataTableMetaOptions
   options?: Omit<TableOptions<TData>, 'data' | 'columns' | 'getCoreRowModel'>
 }
 
@@ -69,7 +72,11 @@ export function DataTable<TData, TValue>({
   return (
     <div className="relative grid w-full grid-cols-1">
       {!meta?.hideToolbar && (
-        <DataTableToolbar isLoading={meta?.isLoading} table={table} />
+        <DataTableToolbar
+          isLoading={meta?.isLoading}
+          tableMeta={meta}
+          table={table}
+        />
       )}
       <ScrollArea
         orientation="horizontal"
