@@ -56,13 +56,15 @@ export function DataTable<TData, TValue>({
     }
   })
 
+  // style={{ minHeight: 768, maxHeight: 'max-content' }}
+
   return (
     <div className="relative grid w-full grid-cols-1">
       <ScrollArea
         orientation="horizontal"
         className="bg-card rounded-lg border"
       >
-        <Table style={{ minHeight: 768, maxHeight: 'max-content' }}>
+        <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -70,7 +72,7 @@ export function DataTable<TData, TValue>({
                   return (
                     <TableHead
                       key={header.id}
-                      align={header.column.columnDef.meta?.align ?? 'left'}
+                      align={header.column.columnDef.meta?.align || 'left'}
                     >
                       <DataTableColumnHeader header={header} table={table} />
                     </TableHead>
@@ -89,7 +91,7 @@ export function DataTable<TData, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      align={cell.column.columnDef.meta?.align ?? 'left'}
+                      align={cell.column.columnDef.meta?.align || 'left'}
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

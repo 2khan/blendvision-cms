@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/custom/data-table'
+import { getWidth } from '@/components/custom/data-table/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,12 +20,18 @@ import { Link } from 'react-router-dom'
 const columns: ColumnDef<TCourse>[] = [
   {
     accessorKey: 'title',
-    header: 'Title'
+    header: 'Title',
+    cell: ({ getValue }) => (
+      <div style={getWidth(150)}>{getValue<string>()}</div>
+    )
   },
   {
     accessorKey: 'desc',
     header: 'Description',
-    enableSorting: false
+    enableSorting: false,
+    cell: ({ getValue }) => (
+      <div style={getWidth(250)}>{getValue<string>()}</div>
+    )
   },
   {
     accessorKey: 'net_duration',
@@ -44,7 +51,7 @@ const columns: ColumnDef<TCourse>[] = [
     accessorKey: 'tags',
     header: 'Tags',
     cell: ({ row }) => (
-      <div className="flex flex-wrap gap-1">
+      <div style={getWidth(150)} className="flex flex-wrap gap-1">
         {row.original.tags.map((tag) => (
           <Badge variant="outline" key={tag}>
             {tag}
@@ -56,6 +63,7 @@ const columns: ColumnDef<TCourse>[] = [
   {
     accessorKey: 'is_new',
     header: 'New',
+    enableSorting: false,
     cell: ({ row }) => (row.original.is_new ? <Badge>New</Badge> : '-'),
     meta: {
       align: 'center'
@@ -80,6 +88,9 @@ const columns: ColumnDef<TCourse>[] = [
   {
     id: 'actions',
     header: 'Actions',
+    meta: {
+      align: 'center'
+    },
     cell: ({ row }) => {
       const { id } = row.original
       return (
