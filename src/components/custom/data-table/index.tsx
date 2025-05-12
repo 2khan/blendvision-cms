@@ -21,6 +21,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import DataTablePagination from './pagination'
 import { DataTableColumnHeader } from '@/components/custom/data-table/column-header'
+import { usePreference } from '@/shared/stores/usePreference'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line
@@ -43,6 +44,7 @@ export function DataTable<TData, TValue>({
   data,
   meta
 }: DataTableProps<TData, TValue>) {
+  const page_size = usePreference((s) => s.table.default_page_size)
   const [sorting, setSorting] = useState<SortingState>([])
   const table = useReactTable({
     data,
@@ -51,6 +53,11 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    initialState: {
+      pagination: {
+        pageSize: page_size
+      }
+    },
     state: {
       sorting
     }

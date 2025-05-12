@@ -10,6 +10,14 @@ import { CheckCircledIcon } from '@radix-ui/react-icons'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { dx } from '@/lib/dx'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+import { TABLE_PAGE_SIZES } from '@/shared/stores/usePreference'
 
 interface TDataTablePaginationProps<TData> {
   table: Table<TData>
@@ -22,6 +30,26 @@ export default function DataTablePagination<TData>({
 }: TDataTablePaginationProps<TData>) {
   return (
     <div className="flex items-center justify-end gap-2 py-2">
+      <div className="flex items-center space-x-2">
+        <p className={dx('label-01')}>Rows per page:</p>
+        <Select
+          value={`${table.getState().pagination.pageSize}`}
+          onValueChange={(value) => {
+            table.setPageSize(Number(value))
+          }}
+        >
+          <SelectTrigger size="sm">
+            <SelectValue placeholder={table.getState().pagination.pageSize} />
+          </SelectTrigger>
+          <SelectContent side="top">
+            {TABLE_PAGE_SIZES.map((pageSize) => (
+              <SelectItem key={pageSize} value={`${pageSize}`}>
+                {pageSize}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <Button
         variant="outline"
         size="icon"
@@ -40,6 +68,7 @@ export default function DataTablePagination<TData>({
         <span className="sr-only">Go to previous page</span>
         <ChevronLeftIcon />
       </Button>
+
       <span className={dx('label-01')}>Page: {table.getPageCount()}</span>
       <Button
         variant="outline"

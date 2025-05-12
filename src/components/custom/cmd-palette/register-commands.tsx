@@ -15,7 +15,7 @@ export default function RegisterCommands() {
         icon: UploadIcon,
         label: 'Upload Course',
         action: () => {
-          navigate('/course')
+          navigate('/courses')
         }
       },
       {
@@ -24,7 +24,7 @@ export default function RegisterCommands() {
         icon: UserPlus2Icon,
         label: 'Create User',
         action: () => {
-          navigate('/user')
+          navigate('/users')
         }
       }
     ]
