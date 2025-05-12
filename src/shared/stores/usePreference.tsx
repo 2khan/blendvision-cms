@@ -50,7 +50,7 @@ export const usePreference = create<PreferenceStore>()(
         Object.fromEntries(
           Object.entries(state).filter(([key]) => !['handlers'].includes(key))
         ),
-      version: 0
+      version: 1
     }
   )
 )
