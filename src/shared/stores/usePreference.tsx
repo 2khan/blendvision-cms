@@ -10,14 +10,12 @@ export const TABLE_PAGE_SIZES = [10, 20, 30, 40, 50] as const
 export type TTablePageSize = (typeof TABLE_PAGE_SIZES)[number]
 
 type PreferenceStore = {
-  table: {
-    default_page_size: TTablePageSize
-  }
   course: {
+    default_page_size: TTablePageSize
     list_view: TListView
   }
   handlers: {
-    table_set_default_page_size: (value: TTablePageSize) => void
+    course_set_table_page_size: (value: TTablePageSize) => void
     course_set_list_view: (value: string) => void
   }
 }
@@ -25,10 +23,8 @@ type PreferenceStore = {
 export const usePreference = create<PreferenceStore>()(
   persist(
     immer((set) => ({
-      table: {
-        default_page_size: 10
-      },
       course: {
+        default_page_size: 10,
         list_view: 'card'
       },
       handlers: {
@@ -39,10 +35,10 @@ export const usePreference = create<PreferenceStore>()(
             })
           }
         },
-        table_set_default_page_size: (value) => {
+        course_set_table_page_size: (value) => {
           if (includes(TABLE_PAGE_SIZES, value)) {
             set((state) => {
-              state.table.default_page_size = value as TTablePageSize
+              state.course.default_page_size = value as TTablePageSize
             })
           }
         }

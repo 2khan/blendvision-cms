@@ -3,6 +3,7 @@ import {
   // type Table as TRootTable,
   type ColumnDef,
   type SortingState,
+  TableOptions,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -19,9 +20,8 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import DataTablePagination from './pagination'
+import DataTableToolbar from './toolbar'
 import { DataTableColumnHeader } from '@/components/custom/data-table/column-header'
-import { usePreference } from '@/shared/stores/usePreference'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line
@@ -35,16 +35,17 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
   meta?: {
     isLoading: boolean
-    hideFooter?: boolean
+    hideToolbar?: boolean
   }
+  options?: Omit<TableOptions<TData>, 'data' | 'columns' | 'getCoreRowModel'>
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  meta
+  meta,
+  options = {}
 }: DataTableProps<TData, TValue>) {
-  const page_size = usePreference((s) => s.table.default_page_size)
   const [sorting, setSorting] = useState<SortingState>([])
   const table = useReactTable({
     data,
@@ -53,13 +54,13 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    initialState: {
-      pagination: {
-        pageSize: page_size
-      }
-    },
+    ...options,
     state: {
+      ...options.state,
       sorting
+    },
+    initialState: {
+      ...options.initialState
     }
   })
 
@@ -67,6 +68,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="relative grid w-full grid-cols-1">
+      {!meta?.hideToolbar && (
+        <DataTableToolbar isLoading={meta?.isLoading} table={table} />
+      )}
       <ScrollArea
         orientation="horizontal"
         className="bg-card rounded-lg border"
@@ -121,9 +125,6 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </ScrollArea>
-      {!meta?.hideFooter && (
-        <DataTablePagination isLoading={meta?.isLoading} table={table} />
-      )}
     </div>
   )
 }

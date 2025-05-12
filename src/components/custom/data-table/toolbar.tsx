@@ -19,15 +19,15 @@ import {
 } from '@/components/ui/select'
 import { TABLE_PAGE_SIZES } from '@/shared/stores/usePreference'
 
-interface TDataTablePaginationProps<TData> {
+interface TDataTableToolbarProps<TData> {
   table: Table<TData>
   isLoading?: boolean
 }
 
-export default function DataTablePagination<TData>({
+export default function DataTableToolbar<TData>({
   table,
   isLoading
-}: TDataTablePaginationProps<TData>) {
+}: TDataTableToolbarProps<TData>) {
   return (
     <div className="flex items-center justify-end gap-2 py-2">
       <div className="flex items-center space-x-2">

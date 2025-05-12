@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { TabsContent } from '@/components/ui/tabs'
 import { MOCK_COURSES } from '@/shared/constants/mock'
+import { usePreference } from '@/shared/stores/usePreference'
 import { TCourse } from '@/shared/types/models/course'
 import { ColumnDef } from '@tanstack/react-table'
 import { MoreVerticalIcon } from 'lucide-react'
@@ -122,9 +123,21 @@ const columns: ColumnDef<TCourse>[] = [
 ]
 
 export default function TableView() {
+  const page_size = usePreference((s) => s.course.default_page_size)
+
   return (
     <TabsContent value="table">
-      <DataTable columns={columns} data={MOCK_COURSES} />
+      <DataTable
+        columns={columns}
+        data={MOCK_COURSES}
+        options={{
+          initialState: {
+            pagination: {
+              pageSize: page_size
+            }
+          }
+        }}
+      />
     </TabsContent>
   )
 }
