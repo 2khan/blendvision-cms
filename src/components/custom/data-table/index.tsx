@@ -33,7 +33,7 @@ declare module '@tanstack/react-table' {
 export interface DataTableMetaOptions {
   isLoading?: boolean
   hideToolbar?: boolean
-  onPaginationChange?: (value: number) => void
+  onPageSizeChange?: (value: number) => void
 }
 
 interface DataTableProps<TData, TValue> {

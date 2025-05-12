@@ -134,7 +134,7 @@ export default function TableView() {
         columns={columns}
         data={MOCK_COURSES}
         meta={{
-          onPaginationChange: set_page_size
+          onPageSizeChange: set_page_size
         }}
         options={{
           initialState: {

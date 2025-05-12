@@ -23,7 +23,7 @@ import type { DataTableMetaOptions } from '.'
 interface TDataTableToolbarProps<TData> {
   table: Table<TData>
   isLoading?: boolean
-  tableMeta: DataTableMetaOptions
+  tableMeta?: DataTableMetaOptions
 }
 
 export default function DataTableToolbar<TData>({
@@ -41,8 +41,8 @@ export default function DataTableToolbar<TData>({
             const v = Number(value)
             table.setPageSize(v)
 
-            if (tableMeta?.onPaginationChange) {
-              tableMeta?.onPaginationChange(v)
+            if (tableMeta?.onPageSizeChange) {
+              tableMeta?.onPageSizeChange(v)
             }
           }}
         >
