@@ -110,7 +110,6 @@ const columns: ColumnDef<TCourse>[] = [
             <DropdownMenuItem>Students</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Edit Course</DropdownMenuItem>
-            <DropdownMenuItem>Duplicate Course</DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem variant="destructive">
               Delete Course

@@ -48,7 +48,6 @@ export default function CourseCard(props: TProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Edit Course</DropdownMenuItem>
-            <DropdownMenuItem>Duplicate Course</DropdownMenuItem>
             <DropdownMenuItem variant="destructive">
               Delete Course
             </DropdownMenuItem>
