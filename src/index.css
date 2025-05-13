@@ -109,6 +109,8 @@
     0px 0px 4px oklch(from var(--brand-2) l c h / 15%),
     0px 0px 8px oklch(from var(--brand-3) l c h / 15%);
 
+  --shadow-block: 0px 1px 0px var(--border);
+
   --font-sans:
     'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';

@@ -19,8 +19,8 @@ export default function SidebarFooter() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="bg-background flex w-full shrink-0 items-center gap-2 rounded-2xl p-2 shadow">
-        <div className="bg-card flex size-8 shrink-0 items-center justify-center rounded-full">
+      <DropdownMenuTrigger className="bg-background flex w-full shrink-0 items-center gap-2 rounded-2xl p-2 shadow-block border">
+        <div className="bg-card flex size-7 shrink-0 items-center justify-center rounded-full">
           <UserRound />
         </div>
         <div className="flex grow flex-col items-start text-start">
@@ -43,20 +43,16 @@ export default function SidebarFooter() {
         style={{ minWidth: SIDE_OPEN_W - CONTENT_PADDING }}
       >
         <DropdownMenuGroup className="p-1">
-          <div className="flex w-full items-center gap-2">
-            <div className="bg-card flex size-8 shrink-0 items-center justify-center rounded-full">
-              <UserRound />
-            </div>
-            <div className="flex grow flex-col items-start text-start">
-              <span
-                className={dx(
-                  'heading-compact-01',
-                  'line-clamp-1 break-all uppercase'
-                )}
-              >
-                Organization Name
-              </span>
-            </div>
+          <div className="flex w-full items-center gap-2 p-1">
+            <UserRound />
+            <span
+              className={dx(
+                'heading-compact-01',
+                'line-clamp-1 break-all uppercase'
+              )}
+            >
+              Organization Name
+            </span>
           </div>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

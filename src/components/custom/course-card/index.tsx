@@ -34,7 +34,7 @@ interface TProps {
 export default function CourseCard(props: TProps) {
   const { course } = props
   return (
-    <Card className="gap-3 overflow-hidden shadow-none">
+    <Card className="gap-3 overflow-hidden">
       <div className="bg-muted text-muted-foreground relative flex aspect-video w-full flex-col items-center justify-center gap-1 border-b">
         <ImageIcon className="size-10" />
         <span className={dx('label-01')}>16:9</span>

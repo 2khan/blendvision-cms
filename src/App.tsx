@@ -24,6 +24,10 @@ const Meta = lazy(() =>
 
 const CommandPalette = lazy(() => import('@/components/custom/cmd-palette'))
 
+const TextureBackground = lazy(
+  () => import('@/components/custom/texture-background')
+)
+
 export default function App() {
   return (
     <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
@@ -42,6 +46,9 @@ export default function App() {
       </Suspense>
       <Suspense>
         <CommandPalette />
+      </Suspense>
+      <Suspense>
+        <TextureBackground />
       </Suspense>
     </ThemeProvider>
   )

@@ -29,7 +29,7 @@ export default function SideNavItem(props: TProps) {
                 'body-compact-01',
                 'text-muted-foreground group-hover:text-primary flex h-full w-full items-center gap-2 p-2',
                 isActive &&
-                  'bg-background text-foreground rounded-md font-medium shadow'
+                  'bg-background text-foreground rounded-md font-medium border'
               )}
             >
               {symbol && <div className="w-5 shrink-0">{symbol}</div>}
