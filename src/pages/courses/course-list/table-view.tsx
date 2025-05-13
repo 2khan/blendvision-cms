@@ -24,7 +24,12 @@ const columns: ColumnDef<TCourse>[] = [
   {
     accessorKey: 'title',
     header: 'Title',
-    meta: { label: 'Title' },
+    meta: {
+      label: 'Title',
+      filterVariant: 'text',
+      placeholder: 'Search Courses...'
+    },
+    enableColumnFilter: true,
     cell: ({ getValue }) => (
       <div style={getWidth(150)}>{getValue<string>()}</div>
     )
@@ -58,8 +63,11 @@ const columns: ColumnDef<TCourse>[] = [
     accessorKey: 'tags',
     header: 'Tags',
     meta: {
-      label: 'Tabs'
+      label: 'Tags',
+      filterVariant: 'multiselect'
     },
+    filterFn: 'arrIncludes',
+    enableColumnFilter: true,
     cell: ({ row }) => (
       <div style={getWidth(150)} className="flex flex-wrap gap-1">
         {row.original.tags.map((tag) => (
@@ -77,7 +85,6 @@ const columns: ColumnDef<TCourse>[] = [
       label: 'New',
       align: 'center'
     },
-    enableSorting: false,
     cell: ({ row }) => (row.original.is_new ? <Badge>New</Badge> : '-')
   },
   {
