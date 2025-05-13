@@ -1,10 +1,9 @@
 import { type TdHTMLAttributes, useState } from 'react'
 
 import {
-  // type Table as TRootTable,
   type ColumnDef,
   type SortingState,
-  TableOptions,
+  type TableOptions,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
@@ -30,6 +29,7 @@ declare module '@tanstack/react-table' {
   // eslint-disable-next-line
   interface ColumnMeta<TData, TValue> {
     align?: TdHTMLAttributes<HTMLTableCellElement>['align']
+    label?: string
   }
 }
 

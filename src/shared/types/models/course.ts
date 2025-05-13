@@ -18,5 +18,4 @@ export type TCourse = {
   tags: string[]
   is_new: boolean
   lessons: TLesson[]
-  recommended_courses: TCourse[]
 }

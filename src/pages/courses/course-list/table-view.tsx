@@ -24,6 +24,7 @@ const columns: ColumnDef<TCourse>[] = [
   {
     accessorKey: 'title',
     header: 'Title',
+    meta: { label: 'Title' },
     cell: ({ getValue }) => (
       <div style={getWidth(150)}>{getValue<string>()}</div>
     )
@@ -31,6 +32,7 @@ const columns: ColumnDef<TCourse>[] = [
   {
     accessorKey: 'desc',
     header: 'Description',
+    meta: { label: 'Description' },
     enableSorting: false,
     cell: ({ getValue }) => (
       <div style={getWidth(250)}>{getValue<string>()}</div>
@@ -40,6 +42,7 @@ const columns: ColumnDef<TCourse>[] = [
     accessorKey: 'net_duration',
     header: 'Duration',
     meta: {
+      label: 'Duration',
       align: 'center'
     }
   },
@@ -47,12 +50,16 @@ const columns: ColumnDef<TCourse>[] = [
     accessorKey: 'student_count',
     header: 'Students',
     meta: {
+      label: 'Students',
       align: 'center'
     }
   },
   {
     accessorKey: 'tags',
     header: 'Tags',
+    meta: {
+      label: 'Tabs'
+    },
     cell: ({ row }) => (
       <div style={getWidth(150)} className="flex flex-wrap gap-1">
         {row.original.tags.map((tag) => (
@@ -66,34 +73,26 @@ const columns: ColumnDef<TCourse>[] = [
   {
     accessorKey: 'is_new',
     header: 'New',
-    enableSorting: false,
-    cell: ({ row }) => (row.original.is_new ? <Badge>New</Badge> : '-'),
     meta: {
+      label: 'New',
       align: 'center'
-    }
+    },
+    enableSorting: false,
+    cell: ({ row }) => (row.original.is_new ? <Badge>New</Badge> : '-')
   },
   {
     accessorKey: 'lessons',
     header: 'Lessons',
     cell: ({ row }) => row.original.lessons.length,
     meta: {
-      align: 'center'
-    }
-  },
-  {
-    accessorKey: 'recommended_courses',
-    header: 'Recommended',
-    cell: ({ row }) => row.original.recommended_courses.length,
-    meta: {
+      label: 'Lessons',
       align: 'center'
     }
   },
   {
     id: 'actions',
     header: 'Actions',
-    meta: {
-      align: 'center'
-    },
+    meta: { label: 'Actions', align: 'center' },
     cell: ({ row }) => {
       const { id } = row.original
       return (

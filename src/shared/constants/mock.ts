@@ -59,8 +59,7 @@ export const MOCK_COURSES: TCourse[] = [
         thumbnail_url: '/images/memory.jpg',
         video_url: '/videos/rickroll.mp4'
       }
-    ],
-    recommended_courses: []
+    ]
   },
   {
     id: 'course-002',
@@ -126,8 +125,7 @@ export const MOCK_COURSES: TCourse[] = [
         thumbnail_url: '/images/quadratics.jpg',
         video_url: '/videos/rickroll.mp4'
       }
-    ],
-    recommended_courses: []
+    ]
   },
   {
     id: 'course-003',
@@ -184,8 +182,7 @@ export const MOCK_COURSES: TCourse[] = [
         thumbnail_url: '/images/globalization.jpg',
         video_url: '/videos/rickroll.mp4'
       }
-    ],
-    recommended_courses: []
+    ]
   },
   {
     id: 'course-004',
@@ -251,8 +248,7 @@ export const MOCK_COURSES: TCourse[] = [
         thumbnail_url: '/images/human-body.jpg',
         video_url: '/videos/rickroll.mp4'
       }
-    ],
-    recommended_courses: []
+    ]
   },
   {
     id: 'course-005',
@@ -309,8 +305,7 @@ export const MOCK_COURSES: TCourse[] = [
         thumbnail_url: '/images/algorithms.jpg',
         video_url: '/videos/rickroll.mp4'
       }
-    ],
-    recommended_courses: []
+    ]
   },
   {
     id: 'course-006',
@@ -367,7 +362,6 @@ export const MOCK_COURSES: TCourse[] = [
         thumbnail_url: '/images/editing.jpg',
         video_url: '/videos/rickroll.mp4'
       }
-    ],
-    recommended_courses: []
+    ]
   }
 ]
