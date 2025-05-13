@@ -1,11 +1,13 @@
-import { type TdHTMLAttributes, useState } from 'react'
+import { type TdHTMLAttributes } from 'react'
 
 import {
   type ColumnDef,
-  type SortingState,
   type TableOptions,
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable
@@ -23,13 +25,15 @@ import {
 } from '@/components/ui/table'
 
 import DataTableToolbar from './toolbar'
-import type { DataTableMetaOptions } from './utils'
+import type { DataTableMetaOptions, TFilterVariant } from './utils'
 
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line
   interface ColumnMeta<TData, TValue> {
     align?: TdHTMLAttributes<HTMLTableCellElement>['align']
     label?: string
+    filterVariant?: TFilterVariant
+    placeholder?: string // filterVariant === "text"
   }
 }
 
@@ -46,28 +50,26 @@ export function DataTable<TData, TValue>({
   meta,
   options = {}
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     ...options,
     state: {
-      ...options.state,
-      sorting
+      ...options.state
     },
     initialState: {
       ...options.initialState
     }
   })
 
-  // style={{ minHeight: 768, maxHeight: 'max-content' }}
-
   return (
-    <div className="relative grid w-full grid-cols-1">
+    <div className="relative grid w-full grid-cols-1 bg-card rounded-lg border overflow-hidden">
       {!meta?.hideToolbar && (
         <DataTableToolbar
           isLoading={meta?.isLoading}
@@ -75,10 +77,7 @@ export function DataTable<TData, TValue>({
           table={table}
         />
       )}
-      <ScrollArea
-        orientation="horizontal"
-        className="bg-card rounded-lg border"
-      >
+      <ScrollArea orientation="horizontal">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

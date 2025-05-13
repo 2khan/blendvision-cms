@@ -20,7 +20,7 @@ export function DataTableColumnHeader<TData, TValue>({
   const canSort = header.column.getCanSort()
   const isSorted = header.column.getIsSorted()
 
-  return (
+  return header.isPlaceholder ? null : (
     <div
       className={cn(
         'flex min-w-20 items-center justify-between -mr-2',

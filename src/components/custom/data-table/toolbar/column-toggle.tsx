@@ -25,12 +25,13 @@ export function ColumnToggle<TData>({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <TooltipButton size="icon" variant="outline" helper="Toggle Column">
+        <TooltipButton size="sm" variant="outline" helper="Toggle Column">
           <EyeIcon />
+          View
         </TooltipButton>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+        <DropdownMenuLabel>Column Visibility</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()

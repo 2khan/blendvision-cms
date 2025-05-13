@@ -1,9 +1,11 @@
 import type { Table } from '@tanstack/react-table'
 
 import type { DataTableMetaOptions } from '../utils'
+import ColumnFilters from './column-filters'
 import { ColumnToggle } from './column-toggle'
-import LoadingIndicator from './loading-indicator'
 import Pagination from './pagination'
+
+// import LoadingIndicator from './loading-indicator'
 
 interface TDataTableToolbarProps<TData> {
   table: Table<TData>
@@ -13,15 +15,17 @@ interface TDataTableToolbarProps<TData> {
 
 export default function DataTableToolbar<TData>({
   table,
-  isLoading,
+  // isLoading,
   tableMeta
 }: TDataTableToolbarProps<TData>) {
   return (
-    <div className="mb-3 flex items-center justify-between gap-2">
-      <div className="grow"></div>
-      <Pagination table={table} tableMeta={tableMeta} />
-      <LoadingIndicator isLoading={isLoading} />
-      <ColumnToggle table={table} />
+    <div className="flex p-2 border-b bg-muted gap-2 items-start">
+      <ColumnFilters table={table} />
+      {/* <LoadingIndicator isLoading={isLoading} /> */}
+      <div className="flex flex-col gap-2 items-end shrink-0">
+        <ColumnToggle table={table} />
+        <Pagination table={table} tableMeta={tableMeta} />
+      </div>
     </div>
   )
 }
