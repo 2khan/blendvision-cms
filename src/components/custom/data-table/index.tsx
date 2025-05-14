@@ -60,6 +60,10 @@ export function DataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
     ...options,
+    defaultColumn: {
+      enableColumnFilter: false,
+      ...options.defaultColumn
+    },
     state: {
       ...options.state
     },

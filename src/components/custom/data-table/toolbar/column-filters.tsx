@@ -1,21 +1,17 @@
-import { Fragment, useCallback, useMemo } from 'react'
+import { Fragment, lazy, useCallback, useMemo } from 'react'
 
 import type { Column, Table } from '@tanstack/react-table'
-import { flatten, sortedUniq, uniq } from 'lodash'
-import { PlusCircleIcon, XIcon } from 'lucide-react'
+import { XIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger
-} from '@/components/ui/select'
+
+import TextFilter from '../filters/text-filter'
 
 interface TProps<TData> extends React.ComponentProps<'div'> {
   table: Table<TData>
 }
+
+const SelectFilter = lazy(() => import('../filters/select-filter'))
 
 export default function ColumnFilters<TData>(props: TProps<TData>) {
   const { table } = props
@@ -57,53 +53,15 @@ export default function ColumnFilters<TData>(props: TProps<TData>) {
 
 function FilterItem<TData>({ column }: { column: Column<TData> }) {
   const meta = column.columnDef.meta
-  const uniqueValues = column.getFacetedUniqueValues()
-
-  const sortedUniqueValues = useMemo(() => {
-    if (
-      meta?.filterVariant === 'select' ||
-      meta?.filterVariant === 'multiselect'
-    ) {
-      return sortedUniq(flatten(Array.from(uniqueValues.keys())).sort())
-    }
-
-    return Array.from(uniqueValues.keys()).sort()
-  }, [uniqueValues, meta?.filterVariant])
-
-  const columnFilterValue = column.getFilterValue()
-
-  console.log(columnFilterValue)
 
   return (
-    meta?.filterVariant && (
+    column.getCanFilter() && (
       <Fragment>
-        {meta.filterVariant === 'text' && (
-          <Input
-            placeholder={meta.placeholder}
-            value={(column.getFilterValue() as string) ?? ''}
-            onChange={(event) => column.setFilterValue(event.target.value)}
-            className="h-8 w-56"
-          />
+        {!meta?.filterVariant && <TextFilter column={column} />}
+        {(meta?.filterVariant === 'select' ||
+          meta?.filterVariant === 'multiselect') && (
+          <SelectFilter column={column} />
         )}
-        {meta.filterVariant === 'select' ||
-          (meta.filterVariant === 'multiselect' && (
-            <Select
-              value={(columnFilterValue ?? '') as string}
-              onValueChange={(value) => column.setFilterValue(value)}
-            >
-              <SelectTrigger>
-                <PlusCircleIcon />
-                Tags
-              </SelectTrigger>
-              <SelectContent>
-                {sortedUniqueValues.map((value) => (
-                  <SelectItem key={value} value={value} className="capitalize">
-                    {value}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          ))}
       </Fragment>
     )
   )

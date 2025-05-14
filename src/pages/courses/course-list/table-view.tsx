@@ -26,9 +26,9 @@ const columns: ColumnDef<TCourse>[] = [
     header: 'Title',
     meta: {
       label: 'Title',
-      filterVariant: 'text',
       placeholder: 'Search Courses...'
     },
+    filterFn: 'includesString',
     enableColumnFilter: true,
     cell: ({ getValue }) => (
       <div style={getWidth(150)}>{getValue<string>()}</div>
@@ -66,7 +66,7 @@ const columns: ColumnDef<TCourse>[] = [
       label: 'Tags',
       filterVariant: 'multiselect'
     },
-    filterFn: 'arrIncludes',
+    filterFn: 'arrIncludesAll',
     enableColumnFilter: true,
     cell: ({ row }) => (
       <div style={getWidth(150)} className="flex flex-wrap gap-1">

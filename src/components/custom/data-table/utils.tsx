@@ -7,7 +7,7 @@ export interface DataTableMetaOptions {
   onPageSizeChange?: (value: number) => void
 }
 
-export type TFilterVariant = 'text' | 'select' | 'multiselect'
+export type TFilterVariant = 'select' | 'multiselect' | 'text'
 
 export const getWidth = (
   width: number,
