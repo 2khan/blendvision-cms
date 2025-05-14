@@ -33,7 +33,6 @@ declare module '@tanstack/react-table' {
     align?: TdHTMLAttributes<HTMLTableCellElement>['align']
     label?: string
     filterVariant?: TFilterVariant
-    placeholder?: string // filterVariant === "text"
   }
 }
 

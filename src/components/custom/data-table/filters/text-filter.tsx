@@ -19,7 +19,7 @@ export default function TextFilter<TData>(props: TProps<TData>) {
 
   return (
     <Input
-      placeholder={column.columnDef.meta?.placeholder}
+      placeholder={`Search ${column.columnDef.meta?.label}...`}
       value={(column.getFilterValue() as string) ?? ''}
       onChange={onChange}
       className="h-8 w-56"

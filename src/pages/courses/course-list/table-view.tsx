@@ -25,8 +25,7 @@ const columns: ColumnDef<TCourse>[] = [
     accessorKey: 'title',
     header: 'Title',
     meta: {
-      label: 'Title',
-      placeholder: 'Search Courses...'
+      label: 'Title'
     },
     filterFn: 'includesString',
     enableColumnFilter: true,
@@ -37,7 +36,9 @@ const columns: ColumnDef<TCourse>[] = [
   {
     accessorKey: 'desc',
     header: 'Description',
-    meta: { label: 'Description' },
+    meta: {
+      label: 'Description'
+    },
     enableSorting: false,
     cell: ({ getValue }) => (
       <div style={getWidth(250)}>{getValue<string>()}</div>
@@ -66,7 +67,7 @@ const columns: ColumnDef<TCourse>[] = [
       label: 'Tags',
       filterVariant: 'multiselect'
     },
-    filterFn: 'arrIncludesAll',
+    filterFn: 'arrIncludesSome',
     enableColumnFilter: true,
     cell: ({ row }) => (
       <div style={getWidth(150)} className="flex flex-wrap gap-1">
