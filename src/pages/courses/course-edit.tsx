@@ -38,7 +38,7 @@ export default function CourseEdit() {
           <div
             className={dx('label-02', 'flex items-center font-semibold gap-1')}
           >
-            {secondsToHours(course.net_duration).toFixed(1)} total hours
+            {secondsToHours(course.net_duration)} total hours
           </div>
           <div
             className={dx('label-02', 'flex items-center font-semibold gap-1')}
