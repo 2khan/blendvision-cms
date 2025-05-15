@@ -13,7 +13,7 @@ export type TCourse = {
   title: string
   desc: string // keep at 120 chars
   thumbnail_url: string
-  net_duration: string
+  net_duration: number
   student_count: number
   tags: string[]
   is_new: boolean
