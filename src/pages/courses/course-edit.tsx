@@ -45,11 +45,6 @@ export default function CourseEdit() {
           >
             {course.lessons.length} lessons
           </div>
-          <div
-            className={dx('label-02', 'flex items-center font-semibold gap-1')}
-          >
-            {course.student_count}
-          </div>
         </div>
       </div>
       <div></div>
