@@ -38,7 +38,7 @@ function Badge({
   return (
     <Comp
       data-slot="badge"
-      className={dx('label-01', badgeVariants({ variant }), className)}
+      className={dx('label-02', badgeVariants({ variant }), className)}
       {...props}
     />
   )

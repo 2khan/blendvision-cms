@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import type { TCourse } from '@/shared/types/models/course'
+import { secondsToHours } from '@/shared/utils/date'
 
 interface TProps {
   course: TCourse
@@ -64,7 +65,9 @@ export default function CourseCard(props: TProps) {
       <CardContent className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <ClockIcon className="text-muted-foreground" />
-          <span className={dx('label-02')}>{course.net_duration}</span>
+          <span className={dx('label-02')}>
+            {secondsToHours(course.net_duration)} hours
+          </span>
         </div>
         <div className="flex items-center gap-1">
           <FilmIcon className="text-muted-foreground" />
