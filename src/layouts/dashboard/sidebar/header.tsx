@@ -10,7 +10,7 @@ export default function SidebarHeader() {
     <Link to="/" className="shrink-0">
       <BlurBackground
         sides={['top-right', 'bottom-left']}
-        className="bg-card shadow-glow rounded-2xl"
+        className="bg-card rounded-2xl"
       >
         <div
           className="border-input flex grow flex-col items-center justify-center rounded-2xl border px-6 py-2"

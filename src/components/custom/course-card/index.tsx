@@ -1,10 +1,4 @@
-import {
-  ClockIcon,
-  FilmIcon,
-  ImageIcon,
-  MoreVerticalIcon,
-  Users2Icon
-} from 'lucide-react'
+import { ClockIcon, FilmIcon, MoreVerticalIcon, Users2Icon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { dx } from '@/lib/dx'
@@ -36,8 +30,11 @@ export default function CourseCard(props: TProps) {
   return (
     <Card className="gap-3 overflow-hidden">
       <div className="bg-muted text-muted-foreground relative flex aspect-video w-full flex-col items-center justify-center gap-1 border-b">
-        <ImageIcon className="size-10" />
-        <span className={dx('label-01')}>16:9</span>
+        <img
+          src={course.thumbnail_url}
+          alt="Course Thumbnail"
+          className="w-full h-full object-cover absolute inset-0"
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

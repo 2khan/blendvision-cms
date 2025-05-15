@@ -31,9 +31,10 @@
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
 
-  --brand-1: oklch(81.2% 0.175 257.21);
-  --brand-2: oklch(81.2% 0.175 37.4);
-  --brand-3: oklch(81.2% 0.175 15.35);
+  --brand-1: oklch(81.2% 0.182186 257.21);
+  --brand-2: oklch(81.2% 0.182186 37.4);
+  --brand-3: oklch(81.2% 0.182186 15.35);
+  --brand-4: oklch(81.2% 0.182186 95.3305);
 }
 
 .dark {
@@ -62,9 +63,10 @@
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
 
-  --brand-1: oklch(64.7% 0.175 257.21);
-  --brand-2: oklch(64.7% 0.175 37.4);
-  --brand-3: oklch(64.7% 0.175 15.35);
+  --brand-1: oklch(64.7% 0.182186 257.21);
+  --brand-2: oklch(64.7% 0.182186 37.4);
+  --brand-3: oklch(64.7% 0.182186 15.35);
+  --brand-4: oklch(64.7% 0.182186 95.3305);
 }
 
 @theme inline {
@@ -96,19 +98,35 @@
   --color-brand-1: var(--brand-1);
   --color-brand-2: var(--brand-2);
   --color-brand-3: var(--brand-3);
+  --color-brand-4: var(--brand-4);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --animate-line-shadow: line-shadow 15s linear infinite;
+  @keyframes line-shadow {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 100% -100%;
+    }
+  }
+  --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s)
+    infinite;
+  @keyframes ripple {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+  }
 }
 
 @theme {
-  --shadow-glow:
-    0px 0px 2px oklch(from var(--brand-1) l c h / 15%),
-    0px 0px 4px oklch(from var(--brand-2) l c h / 15%),
-    0px 0px 8px oklch(from var(--brand-3) l c h / 15%);
-
   --shadow-block: 0px 1px 0px var(--border);
 
   --font-sans:

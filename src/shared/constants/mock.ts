@@ -8,7 +8,7 @@ export const MOCK_COURSES: TCourse[] = [
     id: 'course-001',
     title: 'Introduction to Psychology',
     desc: 'Explore human behavior, cognition, and emotion through scientific methods.',
-    thumbnail_url: '/images/psychology.jpg',
+    thumbnail_url: '/static/mock/psy.webp',
     net_duration: '8h 30m',
     student_count: 1520,
     tags: ['psychology', 'science', 'intro'],
@@ -20,7 +20,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Learn how psychology emerged as a science.',
         duration: '45m',
         order: 1,
-        thumbnail_url: '/images/psych-history.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -29,7 +29,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Understand how psychologists conduct research.',
         duration: '50m',
         order: 2,
-        thumbnail_url: '/images/research-methods.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -38,7 +38,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Explore the brain and nervous system.',
         duration: '1h',
         order: 3,
-        thumbnail_url: '/images/biological-psych.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -47,7 +47,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Classical and operant conditioning explained.',
         duration: '45m',
         order: 4,
-        thumbnail_url: '/images/learning.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -56,7 +56,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Short-term, long-term, and working memory.',
         duration: '1h',
         order: 5,
-        thumbnail_url: '/images/memory.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       }
     ]
@@ -65,7 +65,7 @@ export const MOCK_COURSES: TCourse[] = [
     id: 'course-002',
     title: 'Fundamentals of Algebra',
     desc: 'Master algebraic expressions, equations, and functions with real-world examples.',
-    thumbnail_url: '/images/algebra.jpg',
+    thumbnail_url: '/static/mock/alg.webp',
     net_duration: '7h 10m',
     student_count: 1980,
     tags: ['math', 'algebra', 'highschool'],
@@ -77,7 +77,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Intro to variables and how to manipulate them.',
         duration: '35m',
         order: 1,
-        thumbnail_url: '/images/variables.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -86,7 +86,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Step-by-step solving techniques.',
         duration: '50m',
         order: 2,
-        thumbnail_url: '/images/linear-equations.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -95,7 +95,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Plotting and interpreting linear graphs.',
         duration: '1h',
         order: 3,
-        thumbnail_url: '/images/graphing.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -104,7 +104,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Solving systems by graphing and substitution.',
         duration: '50m',
         order: 4,
-        thumbnail_url: '/images/systems.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -113,7 +113,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Graph and solve inequalities.',
         duration: '55m',
         order: 5,
-        thumbnail_url: '/images/inequalities.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -122,7 +122,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Understanding and solving quadratics.',
         duration: '1h',
         order: 6,
-        thumbnail_url: '/images/quadratics.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       }
     ]
@@ -131,7 +131,7 @@ export const MOCK_COURSES: TCourse[] = [
     id: 'course-003',
     title: 'World History: 1500 to Present',
     desc: 'Survey global events shaping modern civilizations from 1500 onward.',
-    thumbnail_url: '/images/world-history.jpg',
+    thumbnail_url: '/static/mock/his.webp',
     net_duration: '9h 15m',
     student_count: 1130,
     tags: ['history', 'social studies', 'modern history'],
@@ -143,7 +143,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Cultural revival and religious changes.',
         duration: '55m',
         order: 1,
-        thumbnail_url: '/images/renaissance.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -152,7 +152,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'European expansion across the globe.',
         duration: '1h',
         order: 2,
-        thumbnail_url: '/images/exploration.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -161,7 +161,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Transformations in economy and society.',
         duration: '1h',
         order: 3,
-        thumbnail_url: '/images/industrial.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -170,7 +170,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'World War I and II, causes and impact.',
         duration: '1h 30m',
         order: 4,
-        thumbnail_url: '/images/worldwars.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -179,7 +179,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Technology and trade in a connected world.',
         duration: '50m',
         order: 5,
-        thumbnail_url: '/images/globalization.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       }
     ]
@@ -188,7 +188,7 @@ export const MOCK_COURSES: TCourse[] = [
     id: 'course-004',
     title: 'AP Biology Essentials',
     desc: 'Core topics in molecular biology, evolution, and ecology for AP exam prep.',
-    thumbnail_url: '/images/biology.jpg',
+    thumbnail_url: '/static/mock/bio.webp',
     net_duration: '10h 20m',
     student_count: 2450,
     tags: ['biology', 'science', 'AP'],
@@ -200,7 +200,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Overview of organelles and membranes.',
         duration: '1h',
         order: 1,
-        thumbnail_url: '/images/cell.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -209,7 +209,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Mendelian genetics and Punnett squares.',
         duration: '50m',
         order: 2,
-        thumbnail_url: '/images/genetics.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -218,7 +218,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Transcription and translation basics.',
         duration: '1h',
         order: 3,
-        thumbnail_url: '/images/dna.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -227,7 +227,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Darwin’s theories and evidence.',
         duration: '1h',
         order: 4,
-        thumbnail_url: '/images/evolution.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -236,7 +236,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Energy flow and environmental dynamics.',
         duration: '1h 10m',
         order: 5,
-        thumbnail_url: '/images/ecology.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -245,7 +245,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Anatomy and physiological functions.',
         duration: '1h 20m',
         order: 6,
-        thumbnail_url: '/images/human-body.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       }
     ]
@@ -254,7 +254,7 @@ export const MOCK_COURSES: TCourse[] = [
     id: 'course-005',
     title: 'Computer Science Basics',
     desc: 'Introduction to computing, logic, and basic programming using Python.',
-    thumbnail_url: '/images/compsci.jpg',
+    thumbnail_url: '/static/mock/cs.webp',
     net_duration: '7h 45m',
     student_count: 1760,
     tags: ['computer science', 'python', 'coding'],
@@ -266,7 +266,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Understanding computing concepts.',
         duration: '35m',
         order: 1,
-        thumbnail_url: '/images/cs-intro.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -275,7 +275,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Variables, data types, and control flow.',
         duration: '55m',
         order: 2,
-        thumbnail_url: '/images/python.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -284,7 +284,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Reusable code and iteration.',
         duration: '1h',
         order: 3,
-        thumbnail_url: '/images/functions.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -293,7 +293,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Lists, dictionaries, and sets in Python.',
         duration: '1h',
         order: 4,
-        thumbnail_url: '/images/data-structures.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -302,7 +302,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Sorting and searching basics.',
         duration: '50m',
         order: 5,
-        thumbnail_url: '/images/algorithms.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       }
     ]
@@ -311,7 +311,7 @@ export const MOCK_COURSES: TCourse[] = [
     id: 'course-006',
     title: 'Creative Writing Workshop',
     desc: 'Practice crafting compelling fiction, poetry, and creative nonfiction.',
-    thumbnail_url: '/images/writing.jpg',
+    thumbnail_url: '/static/mock/lit.webp',
     net_duration: '6h 50m',
     student_count: 980,
     tags: ['writing', 'creative', 'literature'],
@@ -323,7 +323,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Daily writing exercises and prompts.',
         duration: '40m',
         order: 1,
-        thumbnail_url: '/images/habit.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -332,7 +332,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Plot, character, and conflict.',
         duration: '55m',
         order: 2,
-        thumbnail_url: '/images/fiction.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -341,7 +341,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Meter, form, and vivid imagery.',
         duration: '1h',
         order: 3,
-        thumbnail_url: '/images/poetry.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -350,7 +350,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Memoir and personal essays.',
         duration: '1h',
         order: 4,
-        thumbnail_url: '/images/nonfiction.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       },
       {
@@ -359,7 +359,7 @@ export const MOCK_COURSES: TCourse[] = [
         desc: 'Revising your work and giving critiques.',
         duration: '45m',
         order: 5,
-        thumbnail_url: '/images/editing.jpg',
+        thumbnail_url: '/static/placeholder.png',
         video_url: '/videos/rickroll.mp4'
       }
     ]
