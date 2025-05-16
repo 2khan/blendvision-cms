@@ -12,7 +12,7 @@ export default function CoursePage() {
   const { course_set_list_view } = usePreference((s) => s.handlers)
   return (
     <Tabs
-      className="flex flex-col gap-3"
+      className="flex flex-col gap-3 grow"
       value={list_view}
       onValueChange={course_set_list_view}
     >

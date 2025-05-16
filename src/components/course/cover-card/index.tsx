@@ -1,21 +1,23 @@
-import { useParams } from 'react-router-dom'
+import { UploadIcon } from 'lucide-react'
 
 import { dx } from '@/lib/dx'
 
+import { GlowEffect } from '@/components/custom/glow-effect'
 import { ProgressiveBlur } from '@/components/custom/progressive-blur'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 
-import { getCourse } from '@/shared/constants/mock'
+import type { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
-export default function CourseEdit() {
-  // TODO: We should validate if course_id is passed in the router config
-  const { course_id } = useParams()
-  // FIXME: HACK! Typescript warns here because course_id can be undefined
-  const course = getCourse(course_id!)!
+interface TProps {
+  course: TCourse
+}
 
+export default function CoverCard({ course }: TProps) {
   return (
-    <div className="flex z-0 relative p-3 h-[31.25rem] max-w-7xl items-center justify-center text-foreground dark font-client">
+    <div className="flex z-0 relative px-8 h-[31.25rem] w-full max-w-7xl items-center justify-center text-foreground dark font-client">
+      <GlowEffect className="-z-10 opacity-40" />
       <img
         src={course.thumbnail_url}
         alt="Course Thumbnail"
@@ -23,9 +25,15 @@ export default function CourseEdit() {
       />
       <ProgressiveBlur className="w-full h-full absolute -z-10 rounded-3xl" />
       <div className="absolute inset-0 w-full h-full -z-10 bg-gradient-to-t from-black/50 rounded-3xl" />
+      <div className="absolute right-0 bottom-0 p-8">
+        <Button variant="outline">
+          <UploadIcon />
+          Upload Photo
+        </Button>
+      </div>
 
       <div className="text-center flex flex-col items-center">
-        <h1 className={dx('fluid-display-03', 'mb-1.5')}>{course.title}</h1>
+        <span className={dx('fluid-display-03', 'mb-1.5')}>{course.title}</span>
         <div className="flex flex-wrap gap-1 mb-3">
           {course.tags.map((tag) => (
             <Badge key={tag} variant="outline" className="bg-background">
@@ -47,7 +55,6 @@ export default function CourseEdit() {
           </div>
         </div>
       </div>
-      <div></div>
     </div>
   )
 }

@@ -30,7 +30,7 @@ export default function NotFoundPage() {
           <Logo />
         </div>
       </Link>
-      <div className="flex grow flex-col items-center justify-center gap-4">
+      <div className="flex grow flex-col items-center justify-center gap-3">
         <span className={dx('fluid-paragraph-01', 'text-muted-foreground')}>
           Page not found
         </span>

@@ -14,14 +14,14 @@ import {
 
 import { HEADER_HEIGHT } from '@/shared/constants/layout'
 import { useMeta } from '@/shared/stores/useMeta'
-import { useSidebar } from '@/shared/stores/useSidebar'
+import { usePreference } from '@/shared/stores/usePreference'
 
 const ChangeTheme = lazy(() => import('@/components/custom/change-theme'))
 
 export default function StatusBar() {
   const meta = useMeta((s) => s.meta)
-  const isOpen = useSidebar((s) => s.isOpen)
-  const { toggle } = useSidebar((s) => s.handlers)
+  const sidebar_open = usePreference((s) => s.layouts.sidebar_open)
+  const { sidebar_toggle } = usePreference((s) => s.handlers)
 
   return (
     <header
@@ -31,12 +31,12 @@ export default function StatusBar() {
       <div className="flex items-center gap-2">
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button onClick={toggle} variant="outline" size="icon">
+            <Button onClick={sidebar_toggle} variant="outline" size="icon">
               <SidebarIcon />
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            {isOpen ? 'Close Sidebar' : 'Open Sidebar'}
+            {sidebar_open ? 'Close Sidebar' : 'Open Sidebar'}
           </TooltipContent>
         </Tooltip>
         <div className="flex flex-col gap-0.5">

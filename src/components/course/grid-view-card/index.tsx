@@ -26,7 +26,7 @@ interface TProps {
   course: TCourse
 }
 
-export default function CourseCard(props: TProps) {
+export default function GridViewCard(props: TProps) {
   const { course } = props
   return (
     <Card className="gap-3 overflow-hidden">

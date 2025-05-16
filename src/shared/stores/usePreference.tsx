@@ -6,27 +6,46 @@ import { immer } from 'zustand/middleware/immer'
 
 export const LIST_VIEW_VALUES = ['card', 'table'] as const
 export type TListView = (typeof LIST_VIEW_VALUES)[number]
+export const DETAIL_VIEW_VALUES = ['preview', 'form'] as const
+export type TDetailView = (typeof DETAIL_VIEW_VALUES)[number]
 export const TABLE_PAGE_SIZES = [10, 20, 30, 40, 50] as const
 
 type PreferenceStore = {
+  layouts: {
+    sidebar_open: boolean
+  }
   course: {
     default_page_size: number
     list_view: TListView
+    detail_view: TDetailView
   }
   handlers: {
     course_set_table_page_size: (value: number) => void
     course_set_list_view: (value: string) => void
+    course_set_detail_view: (value: string) => void
+    sidebar_toggle: () => void
   }
 }
 
 export const usePreference = create<PreferenceStore>()(
   persist(
     immer((set) => ({
+      layouts: {
+        sidebar_open: true
+      },
       course: {
         default_page_size: 10,
-        list_view: 'card'
+        list_view: 'card',
+        detail_view: 'preview'
       },
       handlers: {
+        course_set_table_page_size: (value) => {
+          if (includes(TABLE_PAGE_SIZES, value)) {
+            set((state) => {
+              state.course.default_page_size = value
+            })
+          }
+        },
         course_set_list_view: (value) => {
           if (includes(LIST_VIEW_VALUES, value)) {
             set((state) => {
@@ -34,12 +53,17 @@ export const usePreference = create<PreferenceStore>()(
             })
           }
         },
-        course_set_table_page_size: (value) => {
-          if (includes(TABLE_PAGE_SIZES, value)) {
+        course_set_detail_view: (value) => {
+          if (includes(DETAIL_VIEW_VALUES, value)) {
             set((state) => {
-              state.course.default_page_size = value
+              state.course.detail_view = value as TDetailView
             })
           }
+        },
+        sidebar_toggle: () => {
+          set((state) => {
+            state.layouts.sidebar_open = !state.layouts.sidebar_open
+          })
         }
       }
     })),

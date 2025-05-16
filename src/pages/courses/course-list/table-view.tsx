@@ -19,6 +19,7 @@ import { TabsContent } from '@/components/ui/tabs'
 import { MOCK_COURSES } from '@/shared/constants/mock'
 import { usePreference } from '@/shared/stores/usePreference'
 import { TCourse } from '@/shared/types/models/course'
+import { secondsToHours } from '@/shared/utils/date'
 
 const columns: ColumnDef<TCourse>[] = [
   {
@@ -50,7 +51,12 @@ const columns: ColumnDef<TCourse>[] = [
     meta: {
       label: 'Duration',
       align: 'center'
-    }
+    },
+    cell: ({ getValue }) => (
+      <div style={getWidth(250)}>
+        {secondsToHours(getValue<number>())} hours
+      </div>
+    )
   },
   {
     accessorKey: 'student_count',

@@ -24,6 +24,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 
+import DataTablePagination from './pagination'
 import DataTableToolbar from './toolbar'
 import type { DataTableMetaOptions, TFilterVariant } from './utils'
 
@@ -74,13 +75,9 @@ export function DataTable<TData, TValue>({
   return (
     <div className="relative grid w-full grid-cols-1 bg-card rounded-lg border overflow-hidden">
       {!meta?.hideToolbar && (
-        <DataTableToolbar
-          isLoading={meta?.isLoading}
-          tableMeta={meta}
-          table={table}
-        />
+        <DataTableToolbar isLoading={meta?.isLoading} table={table} />
       )}
-      <ScrollArea orientation="horizontal">
+      <ScrollArea orientation="horizontal" className="border-b">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -131,6 +128,9 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </ScrollArea>
+      <div className="flex flex-col gap-3 p-2 items-end">
+        <DataTablePagination table={table} />
+      </div>
     </div>
   )
 }

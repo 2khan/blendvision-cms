@@ -26,7 +26,7 @@ interface TProps<TData> {
   tableMeta?: DataTableMetaOptions
 }
 
-export default function Pagination<TData>(props: TProps<TData>) {
+export default function DataTablePagination<TData>(props: TProps<TData>) {
   const { table, tableMeta } = props
   return (
     <div className="flex items-center space-x-2">

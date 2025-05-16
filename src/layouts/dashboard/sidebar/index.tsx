@@ -7,19 +7,20 @@ import { cn } from '@/lib/utils'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 import { SIDE_OPEN_W } from '@/shared/constants/layout'
+import { usePreference } from '@/shared/stores/usePreference'
+
 // UTILS
-import { useSidebar } from '@/shared/stores/useSidebar'
 
 const SidebarHeader = lazy(() => import('./header'))
 const SideNav = lazy(() => import('../side-nav'))
 const SidebarFooter = lazy(() => import('./footer'))
 
 export default function Sidebar() {
-  const isOpen = useSidebar((s) => s.isOpen)
+  const sidebar_open = usePreference((s) => s.layouts.sidebar_open)
 
   return (
     <AnimatePresence initial={false}>
-      {isOpen && (
+      {sidebar_open && (
         <m.aside
           key="sidebar"
           className={cn(
