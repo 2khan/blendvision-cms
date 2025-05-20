@@ -67,7 +67,6 @@ export default function FileUploader(props: TProps) {
   useEffect(() => {
     return () => {
       filePreviews.forEach(({ preview }) => {
-        console.log('REMOVE')
         URL.revokeObjectURL(preview)
       })
     }
