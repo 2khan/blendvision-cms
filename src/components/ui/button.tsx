@@ -24,6 +24,7 @@ const buttonVariants = cva(
       },
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
+        xs: 'px-2 py-0.5 gap-1',
         sm: 'h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5',
         lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
         icon: 'size-8'
@@ -46,6 +47,7 @@ function Button({
   variant,
   size,
   asChild = false,
+  type = 'button',
   ...props
 }: TButtonProps) {
   const Comp = asChild ? Slot : 'button'
@@ -54,6 +56,7 @@ function Button({
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      type={type}
       {...props}
     />
   )

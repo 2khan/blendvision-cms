@@ -15,11 +15,11 @@ export default function Showcase(props: TProps) {
   return (
     <div
       className={cn(
-        'p-16 max-lg:p-6 flex flex-col justify-center items-center relative border overflow-hidden',
+        'p-16 max-lg:p-6 flex flex-col justify-center items-center relative border z-0 overflow-hidden rounded-lg',
         className
       )}
     >
-      <DotPattern />
+      <DotPattern faded />
 
       {children}
       {title && (

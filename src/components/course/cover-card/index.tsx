@@ -1,11 +1,8 @@
-import { UploadIcon } from 'lucide-react'
-
 import { dx } from '@/lib/dx'
 
 import { GlowEffect } from '@/components/custom/glow-effect'
 import { ProgressiveBlur } from '@/components/custom/progressive-blur'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 
 import type { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
@@ -25,12 +22,6 @@ export default function CoverCard({ course }: TProps) {
       />
       <ProgressiveBlur className="w-full h-full absolute -z-10 rounded-3xl" />
       <div className="absolute inset-0 w-full h-full -z-10 bg-gradient-to-t from-black/50 rounded-3xl" />
-      <div className="absolute right-0 bottom-0 p-8">
-        <Button variant="outline">
-          <UploadIcon />
-          Upload Photo
-        </Button>
-      </div>
 
       <div className="text-center flex flex-col items-center">
         <span className={dx('fluid-display-03', 'mb-1.5')}>{course.title}</span>
