@@ -25,9 +25,9 @@ export default function CoursePreview(props: TProps) {
   const form = useForm<TParams>({
     resolver: zodResolver(EditCourseSchema),
     defaultValues: {
-      title: '',
-      desc: '',
-      tags: [],
+      title: course.title,
+      desc: course.desc,
+      tags: course.tags,
       thumbnail_url: []
     }
   })
@@ -37,7 +37,12 @@ export default function CoursePreview(props: TProps) {
       <TabsContent value="preview" className="flex w-full gap-6">
         <div className="grow space-y-3">
           <Showcase title="Hero View">
-            <CoverCard course={course} />
+            <CoverCard
+              course={{
+                ...course,
+                title: form.watch('title') || ''
+              }}
+            />
           </Showcase>
 
           <Showcase title="Card View">

@@ -1,11 +1,9 @@
-import { useEffect } from 'react'
-
 import { RotateCcwIcon, SaveIcon } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
 
 import { dx } from '@/lib/dx'
 
-import ImageUploader from '@/components/custom/image-uploader'
+import ImageUploader from '@/components/custom/file-uploader'
 import { TagsInput } from '@/components/custom/tags-input'
 import { Button } from '@/components/ui/button'
 import {
@@ -92,16 +90,12 @@ export default function CourseEditForm() {
 
         <FormField
           control={form.control}
-          name="thumbnail_url"
+          name="thumbnail_file"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <ImageUploader
-                  value={field.value}
-                  onChange={field.onChange}
-                  multiple
-                />
+                <ImageUploader value={field.value} onChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -9,7 +9,8 @@ export type TResponse = unknown // TODO: Must be aligned with API
 export const EditCourseSchema = z.object({
   title: z.string().min(1).optional(),
   desc: z.string().min(1).optional(),
-  thumbnail_url: z.array(z.instanceof(File)),
+  thumbnail_url: z.array(z.string()),
+  thumbnail_file: z.array(z.instanceof(File)),
   tags: z.array(z.string().min(1))
 })
 

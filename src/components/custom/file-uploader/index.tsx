@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { uniqBy } from 'lodash'
 import { ChevronsUpDownIcon, UploadIcon, XIcon } from 'lucide-react'
@@ -159,9 +159,13 @@ export default function FileUploader(props: TProps) {
       {filePreviews.length > 0 && (
         <Collapsible defaultOpen>
           <CollapsibleTrigger asChild>
-            <Button className="w-full" variant="outline">
+            <Button className="w-full justify-between" variant="outline">
               <span className={dx('label-02', 'font-medium')}>
-                Preview ({filePreviews.length})
+                Preview{' '}
+                <span className={dx('label-02', 'text-muted-foreground')}>
+                  ({filePreviews.length}{' '}
+                  {filePreviews.length > 1 ? 'files' : 'file'})
+                </span>
               </span>
 
               <ChevronsUpDownIcon />
