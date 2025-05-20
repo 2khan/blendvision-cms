@@ -9,9 +9,7 @@ export type TResponse = unknown // TODO: Must be aligned with API
 export const EditCourseSchema = z.object({
   title: z.string().min(1).optional(),
   desc: z.string().min(1).optional(),
-  thumbnail_url: z
-    .instanceof(File)
-    .refine((file) => file.size !== 0, 'Please upload an image'),
+  thumbnail_url: z.array(z.instanceof(File)),
   tags: z.array(z.string().min(1))
 })
 

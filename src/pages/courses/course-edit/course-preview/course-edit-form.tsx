@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { RotateCcwIcon, SaveIcon } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
 
@@ -96,10 +98,8 @@ export default function CourseEditForm() {
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
                 <ImageUploader
-                  value={field.value ? [field.value] : []}
-                  onChange={(files) => {
-                    field.onChange(files)
-                  }}
+                  value={field.value}
+                  onChange={field.onChange}
                   multiple
                 />
               </FormControl>

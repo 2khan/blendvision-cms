@@ -1,7 +1,13 @@
-import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
+import { uniqBy } from 'lodash'
 import { ChevronsUpDownIcon, UploadIcon, XIcon } from 'lucide-react'
-import { type DropzoneOptions, useDropzone } from 'react-dropzone'
+import {
+  type DropzoneOptions,
+  FileRejection,
+  useDropzone
+} from 'react-dropzone'
+import { toast } from 'sonner'
 
 import { dx } from '@/lib/dx'
 import { cn } from '@/lib/utils'
@@ -14,6 +20,13 @@ import {
 } from '@/components/ui/collapsible'
 import { Separator } from '@/components/ui/separator'
 
+import {
+  TFilePreview,
+  flattenExtensions,
+  getFileKey,
+  toFilePreview
+} from '@/shared/utils/file'
+
 import { DotPattern } from '../dot-pattern'
 
 type TProps = {
@@ -24,12 +37,13 @@ type TProps = {
   maxSize?: number
   disabled?: boolean
   accept?: DropzoneOptions['accept']
+  initialPreviews?: string[]
 }
 
 export default function FileUploader(props: TProps) {
   const {
     multiple = false,
-    value,
+    value = [],
     onChange,
     maxFiles = multiple ? 5 : 1,
     maxSize = 1024 * 1024 * 5,
@@ -38,66 +52,57 @@ export default function FileUploader(props: TProps) {
     },
     disabled
   } = props
-  const [filePreviews, setFilePreviews] = useState<string[]>([])
 
-  // Initialize files from value prop
+  const [filePreviews, setFilePreviews] = useState<TFilePreview[]>([])
+
   useEffect(() => {
-    if (value && value.length > 0) {
-      // setFilePreviews(value.map((file) => URL.createObjectURL(file)))
+    const previews = value.map(toFilePreview)
+    setFilePreviews(previews)
+
+    return () => {
+      previews.forEach(({ preview }) => URL.revokeObjectURL(preview))
     }
   }, [value])
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      console.log(acceptedFiles)
-      if (acceptedFiles.length === 0) return
-
-      if (!multiple) {
-        acceptedFiles.forEach((file) => {
-          setFilePreviews([URL.createObjectURL(file)])
-        })
-        return
-      }
-
-      // ADD IF
-      acceptedFiles.forEach((file) => {
-        setFilePreviews((old) => [...old, URL.createObjectURL(file)])
-      })
-
-      onChange(acceptedFiles)
-    },
-    [multiple, onChange]
-  )
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragReject,
-    fileRejections
-  } = useDropzone({
-    onDrop,
-    multiple,
-    maxFiles,
-    maxSize,
-    accept
-  })
-
-  // Clean up previews when component unmounts
   useEffect(() => {
     return () => {
-      filePreviews.forEach((preview) => {
+      filePreviews.forEach(({ preview }) => {
+        console.log('REMOVE')
         URL.revokeObjectURL(preview)
-        console.log('revoked', preview)
       })
     }
   }, [filePreviews])
 
+  const onDropAccepted = useCallback(
+    (acceptedFiles: File[]) =>
+      onChange(uniqBy(value.concat(acceptedFiles), getFileKey)),
+    [value, onChange]
+  )
+
+  const onDropRejected = useCallback((rejectedFiles: FileRejection[]) => {
+    rejectedFiles.forEach(({ file, errors }) => {
+      errors.forEach((e) => {
+        toast.error(file.name, {
+          description: getDropzoneErrorMessage(e.code)
+        })
+      })
+    })
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive, isDragReject } =
+    useDropzone({
+      onDropAccepted,
+      onDropRejected,
+      multiple,
+      maxFiles,
+      maxSize,
+      accept
+    })
+
   const removeImage = useCallback(
-    (preview: string) => () => {
-      setFilePreviews((prev) => prev.filter((p) => p !== preview))
-    },
-    []
+    (fileName: string) => () =>
+      onChange(value.filter((file) => file.name !== fileName)),
+    [value, onChange]
   )
 
   return (
@@ -148,23 +153,9 @@ export default function FileUploader(props: TProps) {
           <span className="font-medium text-xs">Accepted File Types</span>
           <Separator orientation="vertical" />
           <span className="text-xs text-muted-foreground">
-            {Object.keys(accept)
-              .map((key) => accept[key].join(' '))
-              .join(' ')}
+            {flattenExtensions(accept)}
           </span>
         </div>
-
-        {fileRejections.map(({ file, errors }) => (
-          <div key={file.name} className="px-3 mb-2 w-full">
-            <span className="text-xs font-medium">{file.name}</span>
-
-            {errors.map((e) => (
-              <p key={e.code} className="text-xs text-destructive">
-                {getDropzoneErrorMessage(e.code)}
-              </p>
-            ))}
-          </div>
-        ))}
       </div>
       {filePreviews.length > 0 && (
         <Collapsible defaultOpen>
@@ -179,20 +170,20 @@ export default function FileUploader(props: TProps) {
           </CollapsibleTrigger>
           <CollapsibleContent>
             <div className="grid grid-cols-3 gap-1.5 py-3">
-              {filePreviews.map((preview) => (
+              {filePreviews.map((filePreview) => (
                 <button
                   type="button"
-                  key={preview}
+                  key={getFileKey(filePreview.file)}
                   className="w-full h-full aspect-square cursor-pointer relative group"
                   aria-label="Remove Image"
-                  onClick={removeImage(preview)}
+                  onClick={removeImage(filePreview.file.name)}
                 >
                   <img
-                    src={preview}
-                    alt="preview"
+                    src={filePreview.preview}
+                    alt={filePreview.file.name}
                     className="object-cover w-full h-full"
                   />
-                  <div className="absolute inset-0 flex items-center bg-destructive/80 justify-center opacity-0 group-hover:opacity-100 text-destructive-foreground">
+                  <div className="absolute inset-0 flex items-center bg-destructive/80 justify-center opacity-0 group-hover:opacity-100 text-destructive-foreground transition-opacity">
                     <XIcon className="size-10" />
                   </div>
                   <span className="sr-only">Remove Image</span>

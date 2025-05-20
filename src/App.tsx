@@ -39,7 +39,7 @@ export default function App() {
         </TooltipProvider>
       </Suspense>
       <Suspense>
-        <Toaster />
+        <Toaster richColors />
       </Suspense>
       <Suspense>
         <Meta />

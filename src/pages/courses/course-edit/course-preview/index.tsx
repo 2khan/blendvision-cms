@@ -27,7 +27,8 @@ export default function CoursePreview(props: TProps) {
     defaultValues: {
       title: '',
       desc: '',
-      tags: []
+      tags: [],
+      thumbnail_url: []
     }
   })
 
