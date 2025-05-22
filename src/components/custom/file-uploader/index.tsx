@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 
 import { uniqBy } from 'lodash'
-import { UploadIcon } from 'lucide-react'
+import { ChevronsUpDownIcon, UploadIcon, XIcon } from 'lucide-react'
 import {
   type DropzoneOptions,
   FileRejection,
@@ -12,16 +12,27 @@ import { toast } from 'sonner'
 import { dx } from '@/lib/dx'
 import { cn } from '@/lib/utils'
 
+import { Button } from '@/components/ui/button'
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from '@/components/ui/collapsible'
 import { Separator } from '@/components/ui/separator'
 
-import { flattenExtensions, getFileKey } from '@/shared/utils/file'
+import {
+  TFilePreview,
+  flattenExtensions,
+  getFileKey,
+  toFilePreview
+} from '@/shared/utils/file'
 
 import { DotPattern } from '../dot-pattern'
 
 type TProps = {
   multiple?: boolean
-  value: File[]
-  onChange: (files: File[]) => void
+  value: TFilePreview[]
+  onChange: (files: TFilePreview[]) => void
   maxFiles?: number
   maxSize?: number
   disabled?: boolean
@@ -44,7 +55,11 @@ export default function FileUploader(props: TProps) {
 
   const onDropAccepted = useCallback(
     (acceptedFiles: File[]) =>
-      onChange(uniqBy(value.concat(acceptedFiles), getFileKey)),
+      onChange(
+        uniqBy(value.concat(acceptedFiles.map(toFilePreview)), ({ file }) =>
+          getFileKey(file)
+        )
+      ),
     [value, onChange]
   )
 
@@ -58,11 +73,11 @@ export default function FileUploader(props: TProps) {
     })
   }, [])
 
-  // const removeImage = useCallback(
-  //   (fileName: string) => () =>
-  //     onChange(value.filter((file) => file.name !== fileName)),
-  //   [value, onChange]
-  // )
+  const removeImage = useCallback(
+    (fileName: string) => () =>
+      onChange(value.filter(({ file }) => file.name !== fileName)),
+    [value, onChange]
+  )
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } =
     useDropzone({
@@ -75,55 +90,95 @@ export default function FileUploader(props: TProps) {
     })
 
   return (
-    <div
-      {...getRootProps()}
-      className={cn(
-        'relative z-0 flex cursor-pointer bg-background flex-col items-center justify-center rounded-md overflow-hidden border border-dashed border-muted-foreground/25 transition-colors',
-        'hover:border-muted-foreground/50',
-        isDragActive && 'border-muted-foreground/50 bg-muted/50',
-        isDragReject && 'border-destructive/50 bg-destructive/10',
-        disabled && 'cursor-not-allowed opacity-60'
-      )}
-    >
-      <DotPattern faded />
-      <input {...getInputProps()} aria-label="Upload files" />
+    <div className="flex flex-col gap-3">
+      <div
+        {...getRootProps()}
+        className={cn(
+          'relative z-0 flex cursor-pointer bg-background flex-col items-center justify-center rounded-md overflow-hidden border border-dashed border-muted-foreground/25 transition-colors',
+          'hover:border-muted-foreground/50',
+          isDragActive && 'border-muted-foreground/50 bg-muted/50',
+          isDragReject && 'border-destructive/50 bg-destructive/10',
+          disabled && 'cursor-not-allowed opacity-60'
+        )}
+      >
+        <DotPattern faded />
+        <input {...getInputProps()} aria-label="Upload files" />
 
-      {/* HEADER */}
-      <div className="flex flex-col gap-2 w-full px-3 py-2">
-        <div className="flex justify-between">
-          <p className="text-xs text-muted-foreground">
-            Upload up to {maxFiles} {maxFiles === 1 ? 'file' : 'files'}
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Max size per file: {maxSize / (1024 * 1024)}MB
-          </p>
+        {/* HEADER */}
+        <div className="flex flex-col gap-2 w-full px-3 py-2">
+          <div className="flex justify-between">
+            <p className="text-xs text-muted-foreground">
+              Upload up to {maxFiles} {maxFiles === 1 ? 'file' : 'files'}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Max size per file: {maxSize / (1024 * 1024)}MB
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center justify-center gap-1 text-center p-3 min-h-80">
+          <UploadIcon
+            className="size-10 text-muted-foreground"
+            aria-hidden="true"
+          />
+          <div className="flex flex-col space-y-1">
+            <p className={dx('heading-compact-01')}>
+              Drag & drop {maxFiles > 1 ? 'files' : 'file'} here
+            </p>
+            <p className={dx('body-compact-01', 'text-primary')}>
+              or click to browse
+            </p>
+          </div>
+        </div>
+
+        {/* FOOTER */}
+
+        <div className="w-full flex justify-start gap-1 px-3 py-2">
+          <span className="font-medium text-xs">Accepted File Types</span>
+          <Separator orientation="vertical" />
+          <span className="text-xs text-muted-foreground">
+            {flattenExtensions(accept)}
+          </span>
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-1 text-center p-3 min-h-80">
-        <UploadIcon
-          className="size-10 text-muted-foreground"
-          aria-hidden="true"
-        />
-        <div className="flex flex-col space-y-1">
-          <p className={dx('heading-compact-01')}>
-            Drag & drop {maxFiles > 1 ? 'files' : 'file'} here
-          </p>
-          <p className={dx('body-compact-01', 'text-primary')}>
-            or click to browse
-          </p>
-        </div>
-      </div>
+      <Collapsible defaultOpen>
+        <CollapsibleTrigger asChild>
+          <Button className="w-full justify-between" variant="outline">
+            <span className={dx('label-02', 'font-medium')}>
+              Preview{' '}
+              <span className={dx('label-02', 'text-muted-foreground')}>
+                ({value.length} {value.length > 1 ? 'files' : 'file'})
+              </span>
+            </span>
 
-      {/* FOOTER */}
-
-      <div className="w-full flex justify-start gap-1 px-3 py-2">
-        <span className="font-medium text-xs">Accepted File Types</span>
-        <Separator orientation="vertical" />
-        <span className="text-xs text-muted-foreground">
-          {flattenExtensions(accept)}
-        </span>
-      </div>
+            <ChevronsUpDownIcon />
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="grid grid-cols-3 gap-1.5 py-3">
+            {value.map(({ file, preview }) => (
+              <button
+                type="button"
+                key={getFileKey(file)}
+                className="w-full h-full aspect-square cursor-pointer relative group"
+                aria-label="Remove Image"
+                onClick={removeImage(file.name)}
+              >
+                <img
+                  src={preview}
+                  alt={file.name}
+                  className="object-cover w-full h-full"
+                />
+                <div className="absolute inset-0 flex items-center bg-destructive/80 justify-center opacity-0 group-hover:opacity-100 text-destructive-foreground transition-opacity">
+                  <XIcon className="size-10" />
+                </div>
+                <span className="sr-only">Remove Image</span>
+              </button>
+            ))}
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   )
 }

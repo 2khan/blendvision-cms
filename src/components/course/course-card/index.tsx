@@ -16,7 +16,7 @@ interface TProps {
 
 export default function CourseCard({ course }: TProps) {
   return (
-    <Card className="font-client p-2 max-w-80 gap-2 shadow-lg relative z-0">
+    <Card className="font-client p-2 max-w-80 w-full gap-0 shadow-lg relative z-0">
       <img
         src={course.thumbnail_url}
         alt="Course Thumbnail"
@@ -24,7 +24,7 @@ export default function CourseCard({ course }: TProps) {
       />
 
       <CardHeader className="p-4">
-        <div className="flex gap-1 mb-2">
+        <div className="flex gap-1 mb-2 flex-wrap">
           {course.tags.map((tag) => (
             <Badge key={tag} variant="secondary" className="rounded-full px-3">
               {tag}
@@ -32,7 +32,9 @@ export default function CourseCard({ course }: TProps) {
           ))}
         </div>
         <CardTitle className={dx('heading-03')}>{course.title}</CardTitle>
-        <CardDescription>{course.desc}</CardDescription>
+        <CardDescription className="whitespace-pre-line">
+          {course.desc}
+        </CardDescription>
       </CardHeader>
     </Card>
   )

@@ -12,7 +12,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 
-import { Kbd } from '../kbd'
+import { Kbd, KbdKey } from '../kbd'
 
 interface TTagsInputProps {
   value: string[]
@@ -98,15 +98,21 @@ export function TagsInput({
             <p className={dx('label-01', 'font-medium')}>Adding a Tag</p>
 
             <p className={dx('label-01', 'mb-3')}>
-              Type a value and press <Kbd size="sm">Enter</Kbd> to add it as a
-              tag.
+              Type a value and press{' '}
+              <Kbd size="sm">
+                <KbdKey>Enter</KbdKey>
+              </Kbd>{' '}
+              to add it as a tag.
             </p>
 
             <p className={dx('label-01', 'font-medium')}>Removing a Tag</p>
 
             <p className={dx('label-01')}>
               To delete a tag, either click the tag itself or press{' '}
-              <Kbd size="sm">Backspace</Kbd> when the input field is empty.
+              <Kbd size="sm">
+                <KbdKey>Backspace</KbdKey>
+              </Kbd>{' '}
+              when the input field is empty.
             </p>
           </TooltipContent>
         </Tooltip>

@@ -11,7 +11,8 @@ import { TabsContent } from '@/components/ui/tabs'
 import { EditCourseSchema } from '@/shared/mutations/useCourseEdit'
 import type { TCourse } from '@/shared/types/models/course'
 
-import CourseEditForm from './course-edit-form'
+import CourseEditForm from './course-edit.form'
+import { normalizeCourse } from './course-edit.utils'
 
 interface TProps {
   course: TCourse
@@ -28,8 +29,24 @@ export default function CoursePreview(props: TProps) {
       title: course.title,
       desc: course.desc,
       tags: course.tags,
-      thumbnail_url: []
+      thumbnails: []
     }
+  })
+
+  const [title, desc, tags, thumbnails] = form.watch([
+    'title',
+    'desc',
+    'tags',
+    'thumbnails'
+  ])
+
+  const previews = thumbnails.map(({ preview }) => preview)
+
+  const mergedCourse = normalizeCourse(course, {
+    title,
+    desc,
+    tags,
+    thumbnail_url: previews[0]
   })
 
   return (
@@ -37,16 +54,11 @@ export default function CoursePreview(props: TProps) {
       <TabsContent value="preview" className="flex w-full gap-6">
         <div className="grow space-y-3">
           <Showcase title="Hero View">
-            <CoverCard
-              course={{
-                ...course,
-                title: form.watch('title') || ''
-              }}
-            />
+            <CoverCard course={mergedCourse} />
           </Showcase>
 
           <Showcase title="Card View">
-            <CourseCard course={course} />
+            <CourseCard course={mergedCourse} />
           </Showcase>
         </div>
 

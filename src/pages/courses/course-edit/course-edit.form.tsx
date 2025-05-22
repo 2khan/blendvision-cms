@@ -1,15 +1,15 @@
 import { RotateCcwIcon, SaveIcon } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
-import { Fragment } from 'react/jsx-runtime'
 
 import { dx } from '@/lib/dx'
 
 import FileUploader from '@/components/custom/file-uploader'
-import ImagePreview from '@/components/custom/image-preview.tsx'
+import { Kbd, KbdKey } from '@/components/custom/kbd'
 import { TagsInput } from '@/components/custom/tags-input'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -70,9 +70,21 @@ export default function CourseEditForm() {
                 <Textarea
                   placeholder="e.g. Learn the fundamentals of visual communication."
                   {...field}
+                  onChange={(e) => {
+                    field.onChange(e.target.value.replace(/\n{3,}/g, '\n\n'))
+                  }}
                 />
               </FormControl>
               <FormMessage />
+              <FormDescription>
+                You can press{' '}
+                <Kbd variant="outline" size="sm">
+                  <KbdKey>Enter</KbdKey>
+                </Kbd>{' '}
+                to insert a new line — up to{' '}
+                <span className="font-semibold">2 consecutive line breaks</span>{' '}
+                are allowed.
+              </FormDescription>
             </FormItem>
           )}
         />
@@ -113,14 +125,13 @@ export default function CourseEditForm() {
 
         <FormField
           control={form.control}
-          name="thumbnail_file"
+          name="thumbnails"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
                 <div className="flex flex-col gap-3">
                   <FileUploader value={field.value} onChange={field.onChange} />
-                  <ImagePreview value={field.value} />
                 </div>
               </FormControl>
               <FormMessage />
