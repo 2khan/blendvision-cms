@@ -11,9 +11,9 @@ import { usePreference } from '@/shared/stores/usePreference'
 
 // UTILS
 
-const SidebarHeader = lazy(() => import('./header'))
-const SideNav = lazy(() => import('../side-nav'))
-const SidebarFooter = lazy(() => import('./footer'))
+const SidebarHeader = lazy(() => import('./side-bar-header'))
+const SideNav = lazy(() => import('./side-nav'))
+const SidebarFooter = lazy(() => import('./side-bar-footer'))
 
 export default function Sidebar() {
   const sidebar_open = usePreference((s) => s.layouts.sidebar_open)
