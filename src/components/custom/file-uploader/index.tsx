@@ -74,8 +74,10 @@ export default function FileUploader(props: TProps) {
   }, [])
 
   const removeImage = useCallback(
-    (fileName: string) => () =>
-      onChange(value.filter(({ file }) => file.name !== fileName)),
+    (filePreview: TFilePreview) => () => {
+      URL.revokeObjectURL(filePreview.preview)
+      onChange(value.filter(({ file }) => file.name !== filePreview.file.name))
+    },
     [value, onChange]
   )
 
@@ -157,17 +159,17 @@ export default function FileUploader(props: TProps) {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <div className="grid grid-cols-3 gap-1.5 py-3">
-            {value.map(({ file, preview }) => (
+            {value.map((filePreview) => (
               <button
                 type="button"
-                key={getFileKey(file)}
+                key={getFileKey(filePreview.file)}
                 className="w-full h-full aspect-square cursor-pointer relative group"
                 aria-label="Remove Image"
-                onClick={removeImage(file.name)}
+                onClick={removeImage(filePreview)}
               >
                 <img
-                  src={preview}
-                  alt={file.name}
+                  src={filePreview.preview}
+                  alt={filePreview.file.name}
                   className="object-cover w-full h-full"
                 />
                 <div className="absolute inset-0 flex items-center bg-destructive/80 justify-center opacity-0 group-hover:opacity-100 text-destructive-foreground transition-opacity">

@@ -1,3 +1,5 @@
+import { useEffect, useMemo } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -40,7 +42,10 @@ export default function CoursePreview(props: TProps) {
     'thumbnails'
   ])
 
-  const previews = thumbnails.map(({ preview }) => preview)
+  const previews = useMemo(
+    () => thumbnails.map(({ preview }) => preview),
+    [thumbnails]
+  )
 
   const mergedCourse = normalizeCourse(course, {
     title,
@@ -48,6 +53,17 @@ export default function CoursePreview(props: TProps) {
     tags,
     thumbnail_url: previews[0]
   })
+
+  // FIXME: HACK! This logic should ideally be written in File Uploader Component
+  // But due to the fact that the states are shared between components here
+  // We must remove the preview here.
+  useEffect(() => {
+    return () => {
+      previews.forEach((preview) => {
+        URL.revokeObjectURL(preview)
+      })
+    }
+  }, [previews])
 
   return (
     <Form {...form}>
