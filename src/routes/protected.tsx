@@ -12,7 +12,7 @@ const ProtectedRoutes = [
     icon: LayoutDashboardIcon,
     path: '/',
     lazy: async () => {
-      const { default: Component } = await import('@/pages/splash')
+      const { default: Component } = await import('@/pages/home/home.page')
       return {
         Component
       }
@@ -23,7 +23,9 @@ const ProtectedRoutes = [
     icon: GraduationCapIcon,
     path: '/courses',
     lazy: async () => {
-      const { default: Component } = await import('@/pages/courses/course-list')
+      const { default: Component } = await import(
+        '@/pages/course-list/course-list.page'
+      )
       return {
         Component
       }
@@ -34,9 +36,7 @@ const ProtectedRoutes = [
     icon: GraduationCapIcon,
     path: '/courses/:course_id',
     lazy: async () => {
-      const { default: Component } = await import(
-        '@/pages/courses/course-edit/page'
-      )
+      const { default: Component } = await import('@/pages/course/course.page')
       return {
         Component
       }
@@ -50,7 +50,7 @@ const ProtectedRoutes = [
     icon: Users2Icon,
     path: '/users',
     lazy: async () => {
-      const { default: Component } = await import('@/pages/users/user-list')
+      const { default: Component } = await import('@/pages/users/users.page')
       return {
         Component
       }
