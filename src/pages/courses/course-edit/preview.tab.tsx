@@ -1,3 +1,5 @@
+import { useEffect, useMemo } from 'react'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -11,7 +13,8 @@ import { TabsContent } from '@/components/ui/tabs'
 import { EditCourseSchema } from '@/shared/mutations/useCourseEdit'
 import type { TCourse } from '@/shared/types/models/course'
 
-import CourseEditForm from './course-edit-form'
+import CourseEditForm from './course-edit.form'
+import { normalizeCourse } from './course-edit.utils'
 
 interface TProps {
   course: TCourse
@@ -28,25 +31,50 @@ export default function CoursePreview(props: TProps) {
       title: course.title,
       desc: course.desc,
       tags: course.tags,
-      thumbnail_url: []
+      thumbnails: []
     }
   })
+
+  const [title, desc, tags, thumbnails] = form.watch([
+    'title',
+    'desc',
+    'tags',
+    'thumbnails'
+  ])
+
+  const previews = useMemo(
+    () => thumbnails.map(({ preview }) => preview),
+    [thumbnails]
+  )
+
+  const mergedCourse = normalizeCourse(course, {
+    title,
+    desc,
+    tags,
+    thumbnail_url: previews[0]
+  })
+
+  // FIXME: HACK! This logic should ideally be written in File Uploader Component
+  // But due to the fact that the states are shared between components here
+  // We must remove the preview here.
+  useEffect(() => {
+    return () => {
+      previews.forEach((preview) => {
+        URL.revokeObjectURL(preview)
+      })
+    }
+  }, [previews])
 
   return (
     <Form {...form}>
       <TabsContent value="preview" className="flex w-full gap-6">
         <div className="grow space-y-3">
           <Showcase title="Hero View">
-            <CoverCard
-              course={{
-                ...course,
-                title: form.watch('title') || ''
-              }}
-            />
+            <CoverCard course={mergedCourse} />
           </Showcase>
 
           <Showcase title="Card View">
-            <CourseCard course={course} />
+            <CourseCard course={mergedCourse} />
           </Showcase>
         </div>
 

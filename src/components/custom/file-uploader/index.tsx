@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 
 import { uniqBy } from 'lodash'
 import { ChevronsUpDownIcon, UploadIcon, XIcon } from 'lucide-react'
@@ -31,8 +31,8 @@ import { DotPattern } from '../dot-pattern'
 
 type TProps = {
   multiple?: boolean
-  value: File[]
-  onChange: (files: File[]) => void
+  value: TFilePreview[]
+  onChange: (files: TFilePreview[]) => void
   maxFiles?: number
   maxSize?: number
   disabled?: boolean
@@ -53,28 +53,13 @@ export default function FileUploader(props: TProps) {
     disabled
   } = props
 
-  const [filePreviews, setFilePreviews] = useState<TFilePreview[]>([])
-
-  useEffect(() => {
-    const previews = value.map(toFilePreview)
-    setFilePreviews(previews)
-
-    return () => {
-      previews.forEach(({ preview }) => URL.revokeObjectURL(preview))
-    }
-  }, [value])
-
-  useEffect(() => {
-    return () => {
-      filePreviews.forEach(({ preview }) => {
-        URL.revokeObjectURL(preview)
-      })
-    }
-  }, [filePreviews])
-
   const onDropAccepted = useCallback(
     (acceptedFiles: File[]) =>
-      onChange(uniqBy(value.concat(acceptedFiles), getFileKey)),
+      onChange(
+        uniqBy(value.concat(acceptedFiles.map(toFilePreview)), ({ file }) =>
+          getFileKey(file)
+        )
+      ),
     [value, onChange]
   )
 
@@ -88,6 +73,14 @@ export default function FileUploader(props: TProps) {
     })
   }, [])
 
+  const removeImage = useCallback(
+    (filePreview: TFilePreview) => () => {
+      URL.revokeObjectURL(filePreview.preview)
+      onChange(value.filter(({ file }) => file.name !== filePreview.file.name))
+    },
+    [value, onChange]
+  )
+
   const { getRootProps, getInputProps, isDragActive, isDragReject } =
     useDropzone({
       onDropAccepted,
@@ -97,12 +90,6 @@ export default function FileUploader(props: TProps) {
       maxSize,
       accept
     })
-
-  const removeImage = useCallback(
-    (fileName: string) => () =>
-      onChange(value.filter((file) => file.name !== fileName)),
-    [value, onChange]
-  )
 
   return (
     <div className="flex flex-col gap-3">
@@ -156,46 +143,44 @@ export default function FileUploader(props: TProps) {
           </span>
         </div>
       </div>
-      {filePreviews.length > 0 && (
-        <Collapsible defaultOpen>
-          <CollapsibleTrigger asChild>
-            <Button className="w-full justify-between" variant="outline">
-              <span className={dx('label-02', 'font-medium')}>
-                Preview{' '}
-                <span className={dx('label-02', 'text-muted-foreground')}>
-                  ({filePreviews.length}{' '}
-                  {filePreviews.length > 1 ? 'files' : 'file'})
-                </span>
-              </span>
 
-              <ChevronsUpDownIcon />
-            </Button>
-          </CollapsibleTrigger>
-          <CollapsibleContent>
-            <div className="grid grid-cols-3 gap-1.5 py-3">
-              {filePreviews.map((filePreview) => (
-                <button
-                  type="button"
-                  key={getFileKey(filePreview.file)}
-                  className="w-full h-full aspect-square cursor-pointer relative group"
-                  aria-label="Remove Image"
-                  onClick={removeImage(filePreview.file.name)}
-                >
-                  <img
-                    src={filePreview.preview}
-                    alt={filePreview.file.name}
-                    className="object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 flex items-center bg-destructive/80 justify-center opacity-0 group-hover:opacity-100 text-destructive-foreground transition-opacity">
-                    <XIcon className="size-10" />
-                  </div>
-                  <span className="sr-only">Remove Image</span>
-                </button>
-              ))}
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-      )}
+      <Collapsible defaultOpen>
+        <CollapsibleTrigger asChild>
+          <Button className="w-full justify-between" variant="outline">
+            <span className={dx('label-02', 'font-medium')}>
+              Preview{' '}
+              <span className={dx('label-02', 'text-muted-foreground')}>
+                ({value.length} {value.length > 1 ? 'files' : 'file'})
+              </span>
+            </span>
+
+            <ChevronsUpDownIcon />
+          </Button>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="grid grid-cols-3 gap-1.5 py-3">
+            {value.map((filePreview) => (
+              <button
+                type="button"
+                key={getFileKey(filePreview.file)}
+                className="w-full h-full aspect-square cursor-pointer relative group"
+                aria-label="Remove Image"
+                onClick={removeImage(filePreview)}
+              >
+                <img
+                  src={filePreview.preview}
+                  alt={filePreview.file.name}
+                  className="object-cover w-full h-full"
+                />
+                <div className="absolute inset-0 flex items-center bg-destructive/80 justify-center opacity-0 group-hover:opacity-100 text-destructive-foreground transition-opacity">
+                  <XIcon className="size-10" />
+                </div>
+                <span className="sr-only">Remove Image</span>
+              </button>
+            ))}
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   )
 }

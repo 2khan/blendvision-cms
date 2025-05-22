@@ -13,7 +13,7 @@ interface TProps {
 
 export default function CoverCard({ course }: TProps) {
   return (
-    <div className="flex z-0 relative px-8 h-[31.25rem] w-full max-w-7xl items-center justify-center text-foreground dark font-client">
+    <div className="z-0 relative px-8 h-[31.25rem] w-full max-w-7xl text-foreground dark font-client">
       <GlowEffect className="-z-10 opacity-40" />
       <img
         src={course.thumbnail_url}
@@ -23,16 +23,24 @@ export default function CoverCard({ course }: TProps) {
       <ProgressiveBlur className="w-full h-full absolute -z-10 rounded-3xl" />
       <div className="absolute inset-0 w-full h-full -z-10 bg-gradient-to-t from-black/50 rounded-3xl" />
 
-      <div className="text-center flex flex-col items-center">
-        <span className={dx('fluid-display-03', 'mb-1.5')}>{course.title}</span>
-        <div className="flex flex-wrap gap-1 mb-3">
-          {course.tags.map((tag) => (
-            <Badge key={tag} variant="outline" className="bg-background">
-              {tag}
-            </Badge>
-          ))}
-        </div>
-        <p className={dx('body-02', 'mb-3')}>{course.desc}</p>
+      <div className="text-center flex flex-col items-center justify-center overflow-hidden h-full w-full">
+        <span className={dx('fluid-display-03', 'mb-1.5 line-clamp-3')}>
+          {course.title}
+        </span>
+        {course.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mb-3">
+            {course.tags.map((tag) => (
+              <Badge key={tag} variant="outline" className="bg-background">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
+        {course.desc && (
+          <p className={dx('body-02', 'mb-3 whitespace-pre-line line-clamp-3')}>
+            {course.desc}
+          </p>
+        )}
         <div className="flex gap-3">
           <div
             className={dx('label-02', 'flex items-center font-semibold gap-1')}

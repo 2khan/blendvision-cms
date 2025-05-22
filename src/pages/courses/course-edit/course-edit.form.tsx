@@ -3,17 +3,20 @@ import { useFormContext } from 'react-hook-form'
 
 import { dx } from '@/lib/dx'
 
-import ImageUploader from '@/components/custom/file-uploader'
+import FileUploader from '@/components/custom/file-uploader'
+import { Kbd, KbdKey } from '@/components/custom/kbd'
 import { TagsInput } from '@/components/custom/tags-input'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 
 import type { TParams } from '@/shared/mutations/useCourseEdit'
 
@@ -64,12 +67,24 @@ export default function CourseEditForm() {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
+                <Textarea
                   placeholder="e.g. Learn the fundamentals of visual communication."
                   {...field}
+                  onChange={(e) => {
+                    field.onChange(e.target.value.replace(/\n{3,}/g, '\n\n'))
+                  }}
                 />
               </FormControl>
               <FormMessage />
+              <FormDescription>
+                You can press{' '}
+                <Kbd variant="outline" size="sm">
+                  <KbdKey>Enter</KbdKey>
+                </Kbd>{' '}
+                to insert a new line — up to{' '}
+                <span className="font-semibold">2 consecutive line breaks</span>{' '}
+                are allowed.
+              </FormDescription>
             </FormItem>
           )}
         />
@@ -88,14 +103,36 @@ export default function CourseEditForm() {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={form.control}
-          name="thumbnail_file"
+          name="filePreviews"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <ImageUploader value={field.value} onChange={field.onChange} />
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files!)
+                    field.onChange(files)
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
+
+        <FormField
+          control={form.control}
+          name="thumbnails"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cover Image</FormLabel>
+              <FormControl>
+                <div className="flex flex-col gap-3">
+                  <FileUploader value={field.value} onChange={field.onChange} />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>

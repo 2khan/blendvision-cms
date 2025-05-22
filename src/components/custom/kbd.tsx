@@ -18,7 +18,7 @@ const kbdVariants = cva(
       variant: {
         default: 'bg-accent',
         outline:
-          "bg-background px-0 [&_[data-slot='kbd-key']]:min-w-[20px] [&_[data-slot='kbd-key']]:border [&_[data-slot='kbd-key']]:border-border [&_[data-slot='kbd-key']]:bg-muted/30 [&_[data-slot='kbd-key']]:px-1.5 [&_[data-slot='kbd-key']]:shadow-xs",
+          "px-0 [&_[data-slot='kbd-key']]:bg-background [&_[data-slot='kbd-key']]:min-w-[20px] [&_[data-slot='kbd-key']]:border [&_[data-slot='kbd-key']]:border-border [&_[data-slot='kbd-key']]:px-1.5",
         ghost: 'bg-transparent shadow-none'
       }
     },
@@ -101,7 +101,7 @@ const KbdKey = (props: KbdKeyProps) => {
         {...keyProps}
         className={dx(
           'code-01',
-          'inline-flex items-center justify-center rounded',
+          'inline-flex items-center shadow-block justify-center rounded',
           className
         )}
       >

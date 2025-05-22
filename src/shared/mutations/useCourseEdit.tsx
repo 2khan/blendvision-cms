@@ -7,11 +7,15 @@ import { api } from '@/shared/utils/fetch'
 export type TResponse = unknown // TODO: Must be aligned with API
 
 export const EditCourseSchema = z.object({
-  title: z.string().min(1).optional(),
-  desc: z.string().min(1).optional(),
-  thumbnail_url: z.array(z.string()),
-  thumbnail_file: z.array(z.instanceof(File)),
-  tags: z.array(z.string().min(1))
+  title: z.string().min(1),
+  desc: z.string(),
+  thumbnails: z.array(
+    z.object({
+      file: z.instanceof(File),
+      preview: z.string()
+    })
+  ),
+  tags: z.array(z.string())
 })
 
 export type TParams = z.infer<typeof EditCourseSchema>

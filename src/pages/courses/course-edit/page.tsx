@@ -6,7 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getCourse } from '@/shared/constants/mock'
 import { usePreference } from '@/shared/stores/usePreference'
 
-import CoursePreview from './course-preview'
+import CoursePreview from './preview.tab'
 
 export default function CourseEdit() {
   const detail_view = usePreference((s) => s.course.detail_view)
