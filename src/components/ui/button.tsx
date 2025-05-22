@@ -3,7 +3,10 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { type VariantProps, cva } from 'class-variance-authority'
 
+import { dx } from '@/lib/dx'
 import { cn } from '@/lib/utils'
+
+import Spinner from '../custom/spinner'
 
 const buttonVariants = cva(
   "inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -37,17 +40,22 @@ const buttonVariants = cva(
   }
 )
 
-export type TButtonProps = React.ComponentProps<'button'> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }
+export interface TButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+  isLoading?: boolean
+}
 
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  isLoading,
+  children,
   type = 'button',
+  disabled,
   ...props
 }: TButtonProps) {
   const Comp = asChild ? Slot : 'button'
@@ -57,8 +65,22 @@ function Button({
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       type={type}
+      disabled={disabled || isLoading}
       {...props}
-    />
+    >
+      {isLoading ? (
+        <React.Fragment>
+          {!size?.includes('icon') && (
+            <span className={dx('label-01', 'font-semibold')}>
+              Please wait a moment...
+            </span>
+          )}
+          <Spinner />
+        </React.Fragment>
+      ) : (
+        children
+      )}
+    </Comp>
   )
 }
 
