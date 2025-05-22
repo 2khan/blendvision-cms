@@ -1,9 +1,11 @@
 import { RotateCcwIcon, SaveIcon } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
+import { Fragment } from 'react/jsx-runtime'
 
 import { dx } from '@/lib/dx'
 
-import ImageUploader from '@/components/custom/file-uploader'
+import FileUploader from '@/components/custom/file-uploader'
+import ImagePreview from '@/components/custom/image-preview.tsx'
 import { TagsInput } from '@/components/custom/tags-input'
 import { Button } from '@/components/ui/button'
 import {
@@ -14,6 +16,7 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 
 import type { TParams } from '@/shared/mutations/useCourseEdit'
 
@@ -64,7 +67,7 @@ export default function CourseEditForm() {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
+                <Textarea
                   placeholder="e.g. Learn the fundamentals of visual communication."
                   {...field}
                 />
@@ -88,6 +91,26 @@ export default function CourseEditForm() {
           )}
         />
 
+        {/* <FormField
+          control={form.control}
+          name="filePreviews"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cover Image</FormLabel>
+              <FormControl>
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    const files = Array.from(e.target.files!)
+                    field.onChange(files)
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
+
         <FormField
           control={form.control}
           name="thumbnail_file"
@@ -95,7 +118,10 @@ export default function CourseEditForm() {
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
               <FormControl>
-                <ImageUploader value={field.value} onChange={field.onChange} />
+                <div className="flex flex-col gap-3">
+                  <FileUploader value={field.value} onChange={field.onChange} />
+                  <ImagePreview value={field.value} />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
