@@ -38,10 +38,11 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     const unsubscribe = userStateListener((user) => {
-      setIsLoading(false)
       if (user) {
         setUser(user)
       }
+
+      setIsLoading(false)
     })
     return unsubscribe
   }, [])

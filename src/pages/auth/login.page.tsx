@@ -1,3 +1,10 @@
+import { useState } from 'react'
+
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { Navigate } from 'react-router-dom'
+import { z } from 'zod'
+
 import { dx } from '@/lib/dx'
 
 import BlurBackground from '@/components/custom/blur-background'
@@ -6,10 +13,44 @@ import { GlowEffect } from '@/components/custom/glow-effect'
 import Logo from '@/components/custom/logo'
 import PasswordInput from '@/components/custom/password-input'
 import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+
+import { signInUser } from '@/shared/auth/firebase'
+import { useAuth } from '@/shared/contexts/useAuth'
+
+const loginFormSchema = z.object({
+  email: z.string().min(1),
+  password: z.string().min(1)
+})
+
+type TLoginForm = z.infer<typeof loginFormSchema>
 
 export default function LoginPage() {
+  const [error, setError] = useState('')
+  const { user, isLoading } = useAuth()
+
+  const form = useForm<TLoginForm>({
+    resolver: zodResolver(loginFormSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  })
+
+  const onSubmit = (data: TLoginForm) => {
+    signInUser({ ...data, onError: setError })
+  }
+
+  if (user) return <Navigate to="/" replace />
+
   return (
     <BlurBackground
       sides={['top-right', 'bottom-left']}
@@ -35,42 +76,65 @@ export default function LoginPage() {
               'text-pretty text-muted-foreground'
             )}
           >
-            Please sign in with your username and password to access your
+            Please sign in with your email and password to access your
             dashboard. We&apos;re glad to have you here—your personalized tools,
             insights, and updates are just a click away.
           </p>
         </div>
 
-        <div className="w-full px-6 py-4">
-          <div className="w-full space-y-1.5 mb-4">
-            <Label>Username</Label>
-            <Input />
-          </div>
-          <div className="w-full space-y-1.5">
-            <Label>Password</Label>
-            <PasswordInput />
-          </div>
-        </div>
-        {/* {auth.exception && (
-          <div
-            className={dx(
-              'label-02',
-              'block w-full whitespace-pre text-pretty p-4 text-center text-destructive'
+        <Form {...form}>
+          <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="w-full px-6 py-4 space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Username" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            {error && (
+              <div
+                className={dx(
+                  'label-02',
+                  'block w-full whitespace-pre text-pretty px-6 text-destructive'
+                )}
+              >
+                {error}
+              </div>
             )}
-          >
-            {t(`auth-exception.${auth.exception}`)}
-          </div>
-        )} */}
-        <div className="w-full px-6 pt-4 pb-6">
-          <Button
-            // onClick={handleNavigate}
-            isLoading={true}
-            size="lg"
-            className="w-full"
-          >
-            Login
-          </Button>
-        </div>
+            <div className="w-full px-6 pt-4 pb-6">
+              <Button
+                type="submit"
+                disabled={!form.formState.isDirty}
+                isLoading={isLoading}
+                size="lg"
+                className="w-full"
+              >
+                Login
+              </Button>
+            </div>
+          </form>
+        </Form>
       </div>
     </BlurBackground>
   )

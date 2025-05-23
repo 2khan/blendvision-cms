@@ -13,9 +13,13 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import { CONTENT_PADDING, SIDE_OPEN_W } from '@/shared/constants/layout'
+import { useAuth } from '@/shared/contexts/useAuth'
 
 export default function SidebarFooter() {
-  const handleSignout = () => {}
+  const { signOut } = useAuth()
+  const handleSignout = () => {
+    signOut()
+  }
 
   return (
     <DropdownMenu>

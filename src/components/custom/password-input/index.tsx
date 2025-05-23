@@ -2,10 +2,15 @@ import { useState } from 'react'
 
 import { Eye, EyeOff } from 'lucide-react'
 
+import { cn } from '@/lib/utils'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-export default function PasswordInput() {
+export default function PasswordInput({
+  className,
+  ...props
+}: React.ComponentProps<'input'>) {
   const [showPassword, setShowPassword] = useState(false)
 
   return (
@@ -13,7 +18,8 @@ export default function PasswordInput() {
       <Input
         type={showPassword ? 'text' : 'password'}
         placeholder="Enter your password"
-        className="pr-10"
+        className={cn('pr-10', className)}
+        {...props}
       />
       <Button
         type="button"

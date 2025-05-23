@@ -1,7 +1,8 @@
 import App from '@/App'
 import type { RouteObject } from 'react-router-dom'
 
-import DashboardLayout from '@/layouts/dashboard'
+import DashboardLayout from '@/layouts/dashboard.layout'
+import ProtectedLayout from '@/layouts/protected.layout'
 
 // Routes
 import ProtectedRoutes from './protected'
@@ -12,9 +13,15 @@ const Routes: RouteObject[] = [
     element: <App />,
     children: [
       {
-        element: <DashboardLayout />,
-        children: ProtectedRoutes
+        element: <ProtectedLayout />,
+        children: [
+          {
+            element: <DashboardLayout />,
+            children: ProtectedRoutes
+          }
+        ]
       },
+
       {
         children: PublicRoutes
       }
