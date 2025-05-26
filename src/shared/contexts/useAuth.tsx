@@ -51,7 +51,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     const reqInterceptor = api.interceptors.request.use(
       async (config) => {
         if (user) {
-          config.headers.Authorization = `Bearer ${user.getIdToken()}`
+          config.headers.Authorization = `Bearer ${await user.getIdToken()}`
         }
         return config
       },
