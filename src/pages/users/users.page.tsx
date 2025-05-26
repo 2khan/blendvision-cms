@@ -32,14 +32,17 @@ const columns: ColumnDef<TUser>[] = [
     header: 'Name',
     meta: {
       label: 'Name'
-    }
+    },
+    enableColumnFilter: true
   },
   {
     accessorKey: 'email',
     header: 'Email',
     meta: {
-      label: 'Email'
-    }
+      label: 'Email',
+
+    },
+    enableColumnFilter: true
   },
   {
     id: 'actions',
