@@ -40,7 +40,7 @@ export default function CreateUserForm() {
   return (
     <Form {...form}>
       <form
-        className="grow shrink-0 rounded-lg w-full max-w-md flex h-full flex-col sticky top-0"
+        className="grow shrink-0 rounded-lg w-full max-w-sm flex h-full flex-col sticky top-0"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <span className={dx('heading-compact-02', 'mb-1')}>

@@ -30,7 +30,7 @@ export default function CourseEditForm() {
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="grow shrink-0 rounded-lg w-full max-w-md flex h-full flex-col sticky top-0"
+      className="grow shrink-0 rounded-lg w-full max-w-sm flex h-full flex-col sticky top-0"
     >
       <span className={dx('heading-compact-02', 'mb-1')}>
         Edit Course Details
