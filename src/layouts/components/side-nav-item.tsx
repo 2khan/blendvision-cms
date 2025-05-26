@@ -11,7 +11,7 @@ import {
 import { NAV_ITEM_HEIGHT } from '@/shared/constants/layout'
 import type { TMeta } from '@/shared/types/utils/meta'
 
-type TProps = {
+interface TProps {
   path: string
   meta: TMeta
   symbol?: React.ReactNode

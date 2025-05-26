@@ -29,7 +29,7 @@ import {
 
 import { DotPattern } from '../dot-pattern'
 
-type TProps = {
+interface TProps {
   multiple?: boolean
   value: TFilePreview[]
   onChange: (files: TFilePreview[]) => void
