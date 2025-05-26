@@ -10,7 +10,7 @@ import Showcase from '@/components/custom/showcase'
 import { Form } from '@/components/ui/form'
 import { TabsContent } from '@/components/ui/tabs'
 
-import { EditCourseSchema } from '@/shared/mutations/useCourseEdit'
+import { EditCourseSchema } from '@/shared/mutations/course-edit'
 import type { TCourse } from '@/shared/types/models/course'
 
 import CourseEditForm from './course-edit.form'

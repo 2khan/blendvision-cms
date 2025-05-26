@@ -4,8 +4,8 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { usePreference } from '@/shared/stores/usePreference'
 
-import GridView from './grid-view'
-import TableView from './table-view'
+import GridView from './grid.tab'
+import TableView from './table.tab'
 
 export default function CoursePage() {
   const list_view = usePreference((s) => s.course.list_view)

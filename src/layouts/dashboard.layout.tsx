@@ -6,8 +6,8 @@ import { Outlet } from 'react-router-dom'
 import { CONTENT_PADDING } from '@/shared/constants/layout'
 
 // COMPONENTS
-const Sidebar = lazy(() => import('./sidebar'))
-const StatusBar = lazy(() => import('./statusbar'))
+const Sidebar = lazy(() => import('./components/side-bar'))
+const StatusBar = lazy(() => import('./components/statusbar'))
 
 const TextureBackground = lazy(
   () => import('@/components/custom/texture-background')

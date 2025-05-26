@@ -19,10 +19,14 @@ type PreferenceStore = {
     list_view: TListView
     detail_view: TDetailView
   }
+  users: {
+    default_page_size: number
+  }
   handlers: {
     course_set_table_page_size: (value: number) => void
     course_set_list_view: (value: string) => void
     course_set_detail_view: (value: string) => void
+    users_set_table_page_size: (value: number) => void
     sidebar_toggle: () => void
   }
 }
@@ -37,6 +41,9 @@ export const usePreference = create<PreferenceStore>()(
         default_page_size: 10,
         list_view: 'card',
         detail_view: 'preview'
+      },
+      users: {
+        default_page_size: 10
       },
       handlers: {
         course_set_table_page_size: (value) => {
@@ -57,6 +64,13 @@ export const usePreference = create<PreferenceStore>()(
           if (includes(DETAIL_VIEW_VALUES, value)) {
             set((state) => {
               state.course.detail_view = value as TDetailView
+            })
+          }
+        },
+        users_set_table_page_size: (value) => {
+          if (includes(TABLE_PAGE_SIZES, value)) {
+            set((state) => {
+              state.users.default_page_size = value
             })
           }
         },

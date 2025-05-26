@@ -1,5 +1,5 @@
-import ProtectedRoutes from './protected'
-import PublicRoutes from './public'
+import ProtectedRoutes from './protected.routes'
+import PublicRoutes from './public.routes'
 
 export const pageRoutes = [...ProtectedRoutes, ...PublicRoutes]
 
