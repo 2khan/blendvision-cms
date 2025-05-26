@@ -75,13 +75,13 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="relative grid w-full grid-cols-1 bg-card rounded-lg border overflow-hidden">
+    <div className="relative w-full h-full flex flex-col bg-card rounded-lg border overflow-hidden">
       {!meta?.hideToolbar && (
         <DataTableToolbar isLoading={meta?.isLoading} table={table}>
           {toolbar_actions}
         </DataTableToolbar>
       )}
-      <ScrollArea orientation="horizontal" className="border-b">
+      <ScrollArea orientation="horizontal" className="h-full">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -123,7 +123,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-80 text-center"
                 >
                   No results.
                 </TableCell>

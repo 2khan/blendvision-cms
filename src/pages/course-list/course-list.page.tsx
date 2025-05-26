@@ -13,7 +13,7 @@ export default function CoursePage() {
 
   return (
     <Tabs
-      className="flex flex-col gap-3 grow"
+      className="flex flex-col gap-3 w-full h-full"
       value={list_view}
       onValueChange={course_set_list_view}
     >

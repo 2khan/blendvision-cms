@@ -58,35 +58,33 @@ export default function UserManagementPage() {
     (s) => s.handlers.users_set_table_page_size
   )
   return (
-    <div className="flex gap-6 items-start">
-      <DataTable
-        columns={columns}
-        data={users || []}
-        meta={{
-          onPageSizeChange: set_page_size
-        }}
-        options={{
-          initialState: {
-            columnVisibility: Object.fromEntries(
-              ['id', 'uid'].map((k) => [k, false])
-            ),
-            pagination: {
-              pageSize: page_size
-            }
+    <DataTable
+      columns={columns}
+      data={users || []}
+      meta={{
+        onPageSizeChange: set_page_size
+      }}
+      options={{
+        initialState: {
+          columnVisibility: Object.fromEntries(
+            ['id', 'uid'].map((k) => [k, false])
+          ),
+          pagination: {
+            pageSize: page_size
           }
-        }}
-        toolbar_actions={
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button size="sm" variant="outline">
-                <UserPlus2Icon />
-                Create Student
-              </Button>
-            </SheetTrigger>
-            <CreateUserForm />
-          </Sheet>
         }
-      />
-    </div>
+      }}
+      toolbar_actions={
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="sm" variant="outline">
+              <UserPlus2Icon />
+              Create Student
+            </Button>
+          </SheetTrigger>
+          <CreateUserForm />
+        </Sheet>
+      }
+    />
   )
 }

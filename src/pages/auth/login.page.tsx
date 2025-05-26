@@ -116,7 +116,7 @@ export default function LoginPage() {
               <div
                 className={dx(
                   'label-02',
-                  'block w-full whitespace-pre text-pretty px-6 text-destructive'
+                  'block w-full text-pretty px-6 text-destructive'
                 )}
               >
                 {error}
