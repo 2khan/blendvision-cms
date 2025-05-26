@@ -26,6 +26,14 @@ export const useCourseCreate = () => {
   return useMutation({
     mutationFn: async (opts: TOpts) => {
       const params = CreateCourseSchema.parse(opts)
+
+      // 1. Get Presigned URI
+      const {
+        data: { url: presigned_uri }
+      } = await api.post<TGetURIResponse>(`/api/orders/${order_id}/ir_upload`, {
+        file_name: file.name
+      })
+
       const { data } = await api.put<TResponse>('/api/courses/', params)
       return data
     },
