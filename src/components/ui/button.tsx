@@ -43,6 +43,7 @@ const buttonVariants = cva(
 export interface TButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
+  ref?: React.RefObject<HTMLButtonElement>
   asChild?: boolean
   isLoading?: boolean
 }

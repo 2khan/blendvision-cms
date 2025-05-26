@@ -7,7 +7,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 
-type TTooptipButtonProps = TButtonProps & {
+interface TTooptipButtonProps extends TButtonProps {
   helper: React.ReactNode
   delayDuration?: number
 }
