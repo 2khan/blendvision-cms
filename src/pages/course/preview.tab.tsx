@@ -10,7 +10,7 @@ import Showcase from '@/components/custom/showcase'
 import { Form } from '@/components/ui/form'
 import { TabsContent } from '@/components/ui/tabs'
 
-import { EditCourseSchema } from '@/shared/mutations/course-edit'
+import { EditCourseSchema } from '@/shared/mutations/course/course-edit'
 import type { TCourse } from '@/shared/types/models/course'
 
 import CourseEditForm from './course-edit.form'
@@ -29,15 +29,15 @@ export default function CoursePreview(props: TProps) {
     resolver: zodResolver(EditCourseSchema),
     defaultValues: {
       title: course.title,
-      desc: course.desc,
+      description: course.description,
       tags: course.tags,
       thumbnails: []
     }
   })
 
-  const [title, desc, tags, thumbnails] = form.watch([
+  const [title, description, tags, thumbnails] = form.watch([
     'title',
-    'desc',
+    'description',
     'tags',
     'thumbnails'
   ])
@@ -49,7 +49,7 @@ export default function CoursePreview(props: TProps) {
 
   const mergedCourse = normalizeCourse(course, {
     title,
-    desc,
+    description,
     tags,
     thumbnail_url: previews[0]
   })

@@ -6,6 +6,7 @@ import { dx } from '@/lib/dx'
 import FileUploader from '@/components/custom/file-uploader'
 import { Kbd, KbdKey } from '@/components/custom/kbd'
 import { TagsInput } from '@/components/custom/tags-input'
+import TooltipButton from '@/components/custom/tooltip-button'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
@@ -18,7 +19,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
-import type { TParams } from '@/shared/mutations/course-edit'
+import type { TParams } from '@/shared/mutations/course/course-edit'
 
 export default function CourseEditForm() {
   const form = useFormContext<TParams>()
@@ -62,7 +63,7 @@ export default function CourseEditForm() {
 
         <FormField
           control={form.control}
-          name="desc"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>
@@ -103,26 +104,6 @@ export default function CourseEditForm() {
           )}
         />
 
-        {/* <FormField
-          control={form.control}
-          name="filePreviews"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cover Image</FormLabel>
-              <FormControl>
-                <input
-                  type="file"
-                  onChange={(e) => {
-                    const files = Array.from(e.target.files!)
-                    field.onChange(files)
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        /> */}
-
         <FormField
           control={form.control}
           name="thumbnails"
@@ -140,14 +121,14 @@ export default function CourseEditForm() {
         />
 
         <div className="flex gap-3">
-          <Button
+          <TooltipButton
+            helper="Reset"
+            size="icon"
             variant="outline"
-            className="grow"
             onClick={() => form.reset()}
           >
             <RotateCcwIcon />
-            Reset
-          </Button>
+          </TooltipButton>
           <Button type="submit" className="grow">
             <SaveIcon /> Save
           </Button>

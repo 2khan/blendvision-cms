@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { MoreVerticalIcon } from 'lucide-react'
+import { CirclePlusIcon, MoreVerticalIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { DataTable } from '@/components/custom/data-table'
@@ -14,12 +14,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 import { TabsContent } from '@/components/ui/tabs'
 
-import { MOCK_COURSES } from '@/shared/constants/mock'
+import { useCourses } from '@/shared/queries/course/course-list'
 import { usePreference } from '@/shared/stores/usePreference'
 import { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
+
+import CourseCreateForm from './components/course-create.form'
 
 const columns: ColumnDef<TCourse>[] = [
   {
@@ -95,9 +98,9 @@ const columns: ColumnDef<TCourse>[] = [
     cell: ({ row }) => (row.original.is_new ? <Badge>New</Badge> : '-')
   },
   {
-    accessorKey: 'lessons',
+    accessorKey: 'lesson_count',
     header: 'Lessons',
-    cell: ({ row }) => row.original.lessons.length,
+    cell: ({ row }) => row.original.lesson_count,
     meta: {
       label: 'Lessons',
       align: 'center'
@@ -138,27 +141,41 @@ const columns: ColumnDef<TCourse>[] = [
 ]
 
 export default function TableView() {
+  const { data: courses, isSuccess: coursesReady } = useCourses()
   const page_size = usePreference((s) => s.course.default_page_size)
   const set_page_size = usePreference(
     (s) => s.handlers.course_set_table_page_size
   )
 
   return (
-    <TabsContent value="table">
-      <DataTable
-        columns={columns}
-        data={MOCK_COURSES}
-        meta={{
-          onPageSizeChange: set_page_size
-        }}
-        options={{
-          initialState: {
-            pagination: {
-              pageSize: page_size
+    coursesReady && (
+      <TabsContent value="table">
+        <DataTable
+          columns={columns}
+          data={courses}
+          meta={{
+            onPageSizeChange: set_page_size
+          }}
+          options={{
+            initialState: {
+              pagination: {
+                pageSize: page_size
+              }
             }
+          }}
+          toolbar_actions={
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button size="sm" variant="outline">
+                  <CirclePlusIcon />
+                  Create Course
+                </Button>
+              </SheetTrigger>
+              <CourseCreateForm />
+            </Sheet>
           }
-        }}
-      />
-    </TabsContent>
+        />
+      </TabsContent>
+    )
   )
 }

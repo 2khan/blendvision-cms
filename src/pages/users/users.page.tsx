@@ -1,13 +1,16 @@
 import type { ColumnDef } from '@tanstack/react-table'
+import { UserPlus2Icon } from 'lucide-react'
 
 import { DataTable } from '@/components/custom/data-table'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 
 import { useUsers } from '@/shared/queries/users/user-list'
 import { usePreference } from '@/shared/stores/usePreference'
 import { TUser } from '@/shared/types/models/users'
 
 import ActionMenu from './components/action-menu'
-import CreateUserForm from './create-user.form'
+import CreateUserForm from './components/create-user.form'
 
 const columns: ColumnDef<TUser>[] = [
   {
@@ -72,8 +75,18 @@ export default function UserManagementPage() {
             }
           }
         }}
+        toolbar_actions={
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button size="sm" variant="outline">
+                <UserPlus2Icon />
+                Create Student
+              </Button>
+            </SheetTrigger>
+            <CreateUserForm />
+          </Sheet>
+        }
       />
-      <CreateUserForm />
     </div>
   )
 }

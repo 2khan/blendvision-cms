@@ -8,17 +8,22 @@ import { ColumnToggle } from './column-toggle'
 interface TDataTableToolbarProps<TData> {
   table: Table<TData>
   isLoading?: boolean
+  children?: React.ReactNode
 }
 
 export default function DataTableToolbar<TData>({
-  table
+  table,
+  children
   // isLoading,
 }: TDataTableToolbarProps<TData>) {
   return (
     <div className="flex p-2 border-b bg-muted gap-2 items-start">
       <ColumnFilters table={table} />
       {/* <LoadingIndicator isLoading={isLoading} /> */}
-      <ColumnToggle table={table} />
+      <div className="flex gap-2">
+        {children}
+        <ColumnToggle table={table} />
+      </div>
     </div>
   )
 }

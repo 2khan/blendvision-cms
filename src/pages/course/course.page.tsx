@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-import { getCourse } from '@/shared/constants/mock'
+import { useCourse } from '@/shared/queries/course/course-detail'
 import { usePreference } from '@/shared/stores/usePreference'
 
 import CoursePreview from './preview.tab'
@@ -13,8 +13,9 @@ export default function CourseEdit() {
   const { course_set_detail_view } = usePreference((s) => s.handlers)
   // TODO: We should validate if course_id is passed in the router config
   const { course_id } = useParams()
-  // FIXME: HACK! Typescript warns here because course_id can be undefined
-  const course = getCourse(course_id!)!
+  const { data: course, isSuccess: courseReady } = useCourse({
+    course_id: course_id ? +course_id : null
+  })
 
   return (
     <Tabs
@@ -32,7 +33,7 @@ export default function CourseEdit() {
           Settings
         </TabsTrigger>
       </TabsList>
-      <CoursePreview course={course} />
+      {courseReady && <CoursePreview course={course} />}
     </Tabs>
   )
 }

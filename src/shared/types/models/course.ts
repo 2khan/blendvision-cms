@@ -1,21 +1,13 @@
-export type TLesson = {
-  id: string
-  title: string
-  desc: string
-  duration: string
-  order: number
-  thumbnail_url: string
-  video_url: string
-}
-
 export type TCourse = {
-  id: string
+  id: number
   title: string
-  desc: string // keep at 120 chars
+  description: string // keep at 120 chars
+  img_url: string
   thumbnail_url: string
-  net_duration: number
+  duration: number
+  lesson_count: number
   student_count: number
-  tags: string[]
   is_new: boolean
-  lessons: TLesson[]
+  created_at: string
+  tags: string[]
 }

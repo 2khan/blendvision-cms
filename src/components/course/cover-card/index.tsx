@@ -36,21 +36,21 @@ export default function CoverCard({ course }: TProps) {
             ))}
           </div>
         )}
-        {course.desc && (
+        {course.description && (
           <p className={dx('body-02', 'mb-3 whitespace-pre-line line-clamp-3')}>
-            {course.desc}
+            {course.description}
           </p>
         )}
         <div className="flex gap-3">
           <div
             className={dx('label-02', 'flex items-center font-semibold gap-1')}
           >
-            {secondsToHours(course.net_duration)} total hours
+            {secondsToHours(course.duration)} total hours
           </div>
           <div
             className={dx('label-02', 'flex items-center font-semibold gap-1')}
           >
-            {course.lessons.length} lessons
+            {course.lesson_count} lessons
           </div>
         </div>
       </div>

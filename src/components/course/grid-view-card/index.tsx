@@ -59,21 +59,19 @@ export default function GridViewCard(props: TProps) {
           {course.title}
         </CardTitle>
         <CardDescription className={dx('body-compact-02')}>
-          {course.desc}
+          {course.description}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex items-center justify-between">
         <div className="flex items-center gap-1">
           <ClockIcon className="text-muted-foreground" />
           <span className={dx('label-02')}>
-            {secondsToHours(course.net_duration)} hours
+            {secondsToHours(course.duration)} hours
           </span>
         </div>
         <div className="flex items-center gap-1">
           <FilmIcon className="text-muted-foreground" />
-          <span className={dx('label-02')}>
-            {course.lessons.length} lessons
-          </span>
+          <span className={dx('label-02')}>{course.lesson_count} lessons</span>
         </div>
         <div className="flex items-center gap-1">
           <Users2Icon className="text-muted-foreground" />

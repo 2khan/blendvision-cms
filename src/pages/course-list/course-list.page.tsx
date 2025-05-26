@@ -10,6 +10,7 @@ import TableView from './table.tab'
 export default function CoursePage() {
   const list_view = usePreference((s) => s.course.list_view)
   const { course_set_list_view } = usePreference((s) => s.handlers)
+
   return (
     <Tabs
       className="flex flex-col gap-3 grow"

@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
 
-import { QKEY_COURSE } from '@/shared/queries/course/course-detail'
+import { QKEY_COURSE_DETAIL } from '@/shared/queries/course/course-detail'
 import { api } from '@/shared/utils/fetch'
 
 export type TResponse = unknown // TODO: Must be aligned with API
 
 export const EditCourseSchema = z.object({
   title: z.string().min(1),
-  desc: z.string(),
+  description: z.string(),
   thumbnails: z.array(
     z.object({
       file: z.instanceof(File),
@@ -36,7 +36,9 @@ export const useCourseEdit = () => {
     },
     onSettled: (res, err, opts) => {
       const { course_id } = opts
-      queryClient.invalidateQueries({ queryKey: [QKEY_COURSE, course_id] })
+      queryClient.invalidateQueries({
+        queryKey: [QKEY_COURSE_DETAIL, course_id]
+      })
     }
   })
 }
