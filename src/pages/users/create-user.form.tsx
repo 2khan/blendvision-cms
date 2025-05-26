@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RotateCcwIcon, UserPlus2Icon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 
 import { dx } from '@/lib/dx'
 
@@ -19,7 +18,7 @@ import { Input } from '@/components/ui/input'
 
 import {
   CreateUserSchema,
-  TParams,
+  type TParams,
   useCreateUser
 } from '@/shared/mutations/users/create-user'
 
@@ -35,11 +34,7 @@ export default function CreateUserForm() {
     }
   })
   const onSubmit = (data: TParams) => {
-    mutate(data, {
-      onSuccess: () => {
-        toast.success('Student successfully created!')
-      }
-    })
+    mutate(data)
   }
 
   return (

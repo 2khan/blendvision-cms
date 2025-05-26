@@ -1,4 +1,4 @@
-import { ColumnDef } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 
 import { DataTable } from '@/components/custom/data-table'
 
@@ -6,6 +6,7 @@ import { useUsers } from '@/shared/queries/users/user-list'
 import { usePreference } from '@/shared/stores/usePreference'
 import { TUser } from '@/shared/types/models/users'
 
+import ActionMenu from './components/action-menu'
 import CreateUserForm from './create-user.form'
 
 const columns: ColumnDef<TUser>[] = [
@@ -35,6 +36,14 @@ const columns: ColumnDef<TUser>[] = [
     header: 'Email',
     meta: {
       label: 'Email'
+    }
+  },
+  {
+    id: 'actions',
+    header: 'Actions',
+    meta: { label: 'Actions', align: 'center' },
+    cell: ({ row }) => {
+      return <ActionMenu user={row.original} />
     }
   }
 ]

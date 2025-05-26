@@ -10,10 +10,10 @@ export type TResponse = TUser
 
 export const CreateUserSchema = z
   .object({
+    display_name: z.string().min(1),
     email: z.string().email(),
     password: z.string().min(1),
-    password_confirm: z.string(),
-    display_name: z.string().min(1)
+    password_confirm: z.string()
   })
   .refine((data) => data.password === data.password_confirm, {
     message: 'Please make sure both passwords match.',
@@ -36,7 +36,7 @@ export const useCreateUser = () => {
       queryClient.invalidateQueries({ queryKey: [QKEY_USER_LIST] })
     },
     onSuccess: () => {
-      toast.success('User has been successfully created!')
+      toast.success('Student has been successfully created!')
     }
   })
 }
