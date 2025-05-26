@@ -5,11 +5,11 @@ import { api } from '@/shared/utils/fetch'
 
 export type TResponse = TUser[]
 
-export const QKEY_USERS = 'USERS'
+export const QKEY_USER_LIST = 'USER_LIST'
 
 export const useUsers = () => {
   return useQuery({
-    queryKey: [QKEY_USERS],
+    queryKey: [QKEY_USER_LIST],
     queryFn: async ({ signal }) => {
       const { data } = await api.get<TResponse>('/admin/users', {
         signal

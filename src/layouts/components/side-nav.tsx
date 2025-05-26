@@ -1,7 +1,7 @@
 // UTILS
 import { dx } from '@/lib/dx'
 
-import { menuRoutes } from '@/routes/utils'
+import { menuRoutes } from '@/routes/utils.routes'
 
 import SideNavItem from './side-nav-item'
 

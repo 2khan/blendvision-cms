@@ -18,7 +18,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
-import type { TParams } from '@/shared/mutations/useCourseEdit'
+import type { TParams } from '@/shared/mutations/course-edit'
 
 export default function CourseEditForm() {
   const form = useFormContext<TParams>()

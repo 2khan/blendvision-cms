@@ -7,11 +7,20 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
+interface TProps extends React.ComponentProps<'input'> {
+  initialState?: {
+    showPassword?: boolean
+  }
+}
+
 export default function PasswordInput({
   className,
+  initialState,
   ...props
-}: React.ComponentProps<'input'>) {
-  const [showPassword, setShowPassword] = useState(false)
+}: TProps) {
+  const [showPassword, setShowPassword] = useState<boolean>(
+    Boolean(initialState?.showPassword)
+  )
 
   return (
     <div className="relative">

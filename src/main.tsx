@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import './index.css'
-import Routes from './routes'
+import Routes from './routes/routes'
 import { errorHandler } from './shared/utils/fetch'
 
 const router = createBrowserRouter(Routes)

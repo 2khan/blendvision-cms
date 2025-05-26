@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { z } from 'zod'
 
-import { QKEY_COURSE } from '@/shared/queries/useCourse'
+import { QKEY_COURSE } from '@/shared/queries/course/course-detail'
 import { api } from '@/shared/utils/fetch'
 
 export type TResponse = unknown // TODO: Must be aligned with API

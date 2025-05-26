@@ -44,8 +44,8 @@ const ProtectedRoutes = [
   },
   {
     meta: {
-      title: 'User Management',
-      description: 'Create and update user accounts'
+      title: 'Student Management',
+      description: 'Create and update student accounts'
     },
     icon: Users2Icon,
     path: '/users',

@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { Fragment } from 'react/jsx-runtime'
 import { create } from 'zustand'
 
-import { getRouteMeta } from '@/routes/utils'
+import { getRouteMeta } from '@/routes/utils.routes'
 
 import { TMeta } from '@/shared/types/utils/meta'
 
