@@ -35,6 +35,15 @@ export default function CoursePreview(props: TProps) {
     }
   })
 
+  useEffect(() => {
+    form.reset({
+      title: course.title,
+      description: course.description,
+      tags: course.tags,
+      thumbnails: undefined
+    })
+  }, [course, form])
+
   const [title, description, tags, thumbnails] = form.watch([
     'title',
     'description',

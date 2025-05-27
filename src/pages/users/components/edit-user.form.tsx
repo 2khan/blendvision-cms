@@ -44,7 +44,11 @@ export default function EditUserForm(props: TProps) {
     }
   })
   const onSubmit = (data: TParams) => {
-    mutate(Object.assign({ user_id: user.id }, data))
+    mutate(Object.assign({ user_id: user.id }, data), {
+      onSuccess: () => {
+        form.reset()
+      }
+    })
   }
 
   return (
