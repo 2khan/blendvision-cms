@@ -8,7 +8,9 @@ export const api = axios.create({
 
 export const errorHandler = (e: Error) => {
   if (e instanceof ZodError) {
-    e.errors.forEach((issue) => toast.error(issue.message))
+    e.errors.forEach((issue) => {
+      toast.error(issue.message)
+    })
   }
 
   if (e instanceof AxiosError) {

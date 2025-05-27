@@ -10,7 +10,7 @@ import Showcase from '@/components/custom/showcase'
 import { Form } from '@/components/ui/form'
 import { TabsContent } from '@/components/ui/tabs'
 
-import { EditCourseSchema } from '@/shared/mutations/course-edit'
+import { EditCourseSchema } from '@/shared/mutations/course/course-edit'
 import type { TCourse } from '@/shared/types/models/course'
 
 import CourseEditForm from './course-edit.form'
@@ -29,29 +29,29 @@ export default function CoursePreview(props: TProps) {
     resolver: zodResolver(EditCourseSchema),
     defaultValues: {
       title: course.title,
-      desc: course.desc,
+      description: course.description,
       tags: course.tags,
-      thumbnails: []
+      thumbnails: undefined
     }
   })
 
-  const [title, desc, tags, thumbnails] = form.watch([
+  const [title, description, tags, thumbnails] = form.watch([
     'title',
-    'desc',
+    'description',
     'tags',
     'thumbnails'
   ])
 
   const previews = useMemo(
-    () => thumbnails.map(({ preview }) => preview),
+    () => thumbnails?.map(({ preview }) => preview),
     [thumbnails]
   )
 
   const mergedCourse = normalizeCourse(course, {
     title,
-    desc,
+    description,
     tags,
-    thumbnail_url: previews[0]
+    thumbnail_url: previews?.[0]
   })
 
   // FIXME: HACK! This logic should ideally be written in File Uploader Component
@@ -59,9 +59,11 @@ export default function CoursePreview(props: TProps) {
   // We must remove the preview here.
   useEffect(() => {
     return () => {
-      previews.forEach((preview) => {
-        URL.revokeObjectURL(preview)
-      })
+      if (previews && previews.length > 0) {
+        previews.forEach((preview) => {
+          URL.revokeObjectURL(preview)
+        })
+      }
     }
   }, [previews])
 
@@ -78,7 +80,7 @@ export default function CoursePreview(props: TProps) {
           </Showcase>
         </div>
 
-        <CourseEditForm />
+        <CourseEditForm course_id={course.id} />
       </TabsContent>
     </Form>
   )

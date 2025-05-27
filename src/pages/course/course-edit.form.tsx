@@ -6,6 +6,7 @@ import { dx } from '@/lib/dx'
 import FileUploader from '@/components/custom/file-uploader'
 import { Kbd, KbdKey } from '@/components/custom/kbd'
 import { TagsInput } from '@/components/custom/tags-input'
+import TooltipButton from '@/components/custom/tooltip-button'
 import { Button } from '@/components/ui/button'
 import {
   FormControl,
@@ -18,19 +19,39 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
-import type { TParams } from '@/shared/mutations/course-edit'
+import {
+  type TParams,
+  useCourseEdit
+} from '@/shared/mutations/course/course-edit'
 
-export default function CourseEditForm() {
+interface TProps {
+  course_id: number
+}
+
+export default function CourseEditForm(props: TProps) {
+  const { course_id } = props
   const form = useFormContext<TParams>()
+  const { mutate, isPending } = useCourseEdit()
 
   function onSubmit(values: TParams) {
-    console.log(values)
+    const normalizedData = Object.fromEntries(
+      Object.keys(form.formState.dirtyFields).map((key) => [
+        key,
+        values[key as keyof TParams]
+      ])
+    )
+
+    mutate(
+      Object.assign(normalizedData, {
+        course_id
+      })
+    )
   }
 
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="grow shrink-0 rounded-lg w-full max-w-md flex h-full flex-col sticky top-0"
+      className="grow shrink-0 rounded-lg w-full max-w-sm flex h-full flex-col sticky top-0"
     >
       <span className={dx('heading-compact-02', 'mb-1')}>
         Edit Course Details
@@ -62,7 +83,7 @@ export default function CourseEditForm() {
 
         <FormField
           control={form.control}
-          name="desc"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Description</FormLabel>
@@ -96,32 +117,15 @@ export default function CourseEditForm() {
             <FormItem>
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <TagsInput value={field.value} onChange={field.onChange} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* <FormField
-          control={form.control}
-          name="filePreviews"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Cover Image</FormLabel>
-              <FormControl>
-                <input
-                  type="file"
-                  onChange={(e) => {
-                    const files = Array.from(e.target.files!)
-                    field.onChange(files)
-                  }}
+                <TagsInput
+                  value={field.value || []}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
 
         <FormField
           control={form.control}
@@ -129,26 +133,33 @@ export default function CourseEditForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
+              <FormMessage />
               <FormControl>
                 <div className="flex flex-col gap-3">
-                  <FileUploader value={field.value} onChange={field.onChange} />
+                  <FileUploader
+                    value={field.value || []}
+                    onChange={field.onChange}
+                  />
                 </div>
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
 
         <div className="flex gap-3">
-          <Button
+          <TooltipButton
+            helper="Reset"
+            size="icon"
             variant="outline"
-            className="grow"
             onClick={() => form.reset()}
           >
             <RotateCcwIcon />
-            Reset
-          </Button>
-          <Button type="submit" className="grow">
+          </TooltipButton>
+          <Button
+            type="submit"
+            className="grow"
+            disabled={!form.formState.isDirty || isPending}
+          >
             <SaveIcon /> Save
           </Button>
         </div>

@@ -53,13 +53,13 @@ export default function ColumnFilters<TData>(props: TProps<TData>) {
 
 function FilterItem<TData>({ column }: { column: Column<TData> }) {
   const meta = column.columnDef.meta
+  const variant = meta?.filterVariant || 'text'
 
   return (
     column.getCanFilter() && (
       <Fragment>
-        {!meta?.filterVariant && <TextFilter column={column} />}
-        {(meta?.filterVariant === 'select' ||
-          meta?.filterVariant === 'multiselect') && (
+        {variant === 'text' && <TextFilter column={column} />}
+        {(variant === 'select' || variant === 'multiselect') && (
           <SelectFilter column={column} />
         )}
       </Fragment>

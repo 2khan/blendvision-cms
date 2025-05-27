@@ -42,13 +42,15 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
   meta?: DataTableMetaOptions
   options?: Omit<TableOptions<TData>, 'data' | 'columns' | 'getCoreRowModel'>
+  toolbar_actions?: React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   meta,
-  options = {}
+  options = {},
+  toolbar_actions
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -73,11 +75,13 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="relative grid w-full grid-cols-1 bg-card rounded-lg border overflow-hidden">
+    <div className="relative w-full h-full flex flex-col bg-card rounded-lg border overflow-hidden">
       {!meta?.hideToolbar && (
-        <DataTableToolbar isLoading={meta?.isLoading} table={table} />
+        <DataTableToolbar isLoading={meta?.isLoading} table={table}>
+          {toolbar_actions}
+        </DataTableToolbar>
       )}
-      <ScrollArea orientation="horizontal" className="border-b">
+      <ScrollArea orientation="horizontal" className="h-full">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -119,7 +123,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-80 text-center"
                 >
                   No results.
                 </TableCell>
@@ -129,7 +133,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </ScrollArea>
       <div className="flex flex-col gap-3 p-2 items-end">
-        <DataTablePagination table={table} />
+        <DataTablePagination table={table} tableMeta={meta} />
       </div>
     </div>
   )

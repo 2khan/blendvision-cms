@@ -1,12 +1,16 @@
-import { ColumnDef } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
+import { UserPlus2Icon } from 'lucide-react'
 
 import { DataTable } from '@/components/custom/data-table'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 
 import { useUsers } from '@/shared/queries/users/user-list'
 import { usePreference } from '@/shared/stores/usePreference'
 import { TUser } from '@/shared/types/models/users'
 
-import CreateUserForm from './create-user.form'
+import ActionMenu from './components/action-menu'
+import CreateUserForm from './components/create-user.form'
 
 const columns: ColumnDef<TUser>[] = [
   {
@@ -28,13 +32,23 @@ const columns: ColumnDef<TUser>[] = [
     header: 'Name',
     meta: {
       label: 'Name'
-    }
+    },
+    enableColumnFilter: true
   },
   {
     accessorKey: 'email',
     header: 'Email',
     meta: {
       label: 'Email'
+    },
+    enableColumnFilter: true
+  },
+  {
+    id: 'actions',
+    header: 'Actions',
+    meta: { label: 'Actions', align: 'center' },
+    cell: ({ row }) => {
+      return <ActionMenu user={row.original} />
     }
   }
 ]
@@ -46,25 +60,33 @@ export default function UserManagementPage() {
     (s) => s.handlers.users_set_table_page_size
   )
   return (
-    <div className="flex gap-6 items-start">
-      <DataTable
-        columns={columns}
-        data={users || []}
-        meta={{
-          onPageSizeChange: set_page_size
-        }}
-        options={{
-          initialState: {
-            columnVisibility: Object.fromEntries(
-              ['id', 'uid'].map((k) => [k, false])
-            ),
-            pagination: {
-              pageSize: page_size
-            }
+    <DataTable
+      columns={columns}
+      data={users || []}
+      meta={{
+        onPageSizeChange: set_page_size
+      }}
+      options={{
+        initialState: {
+          columnVisibility: Object.fromEntries(
+            ['id', 'uid'].map((k) => [k, false])
+          ),
+          pagination: {
+            pageSize: page_size
           }
-        }}
-      />
-      <CreateUserForm />
-    </div>
+        }
+      }}
+      toolbar_actions={
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button size="sm" variant="outline">
+              <UserPlus2Icon />
+              Create Student
+            </Button>
+          </SheetTrigger>
+          <CreateUserForm />
+        </Sheet>
+      }
+    />
   )
 }
