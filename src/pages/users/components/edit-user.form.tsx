@@ -45,8 +45,11 @@ export default function EditUserForm(props: TProps) {
   })
   const onSubmit = (data: TParams) => {
     mutate(Object.assign({ user_id: user.id }, data), {
-      onSuccess: () => {
-        form.reset()
+      onSuccess: (value) => {
+        form.reset({
+          display_name: value.display_name,
+          password: ''
+        })
       }
     })
   }
@@ -98,13 +101,15 @@ export default function EditUserForm(props: TProps) {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button
-              type="submit"
-              disabled={!form.formState.isDirty}
-              isLoading={isPending}
-            >
-              <UserPlus2Icon /> Edit Student
-            </Button>
+            <DialogClose asChild>
+              <Button
+                type="submit"
+                disabled={!form.formState.isDirty}
+                isLoading={isPending}
+              >
+                <UserPlus2Icon /> Edit Student
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </DialogContent>

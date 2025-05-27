@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import {
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -160,14 +161,16 @@ export default function CourseCreateForm() {
               >
                 <RotateCcwIcon />
               </TooltipButton>
-              <Button
-                type="submit"
-                className="grow"
-                disabled={!form.formState.isDirty}
-                isLoading={isPending}
-              >
-                <SaveIcon /> Save
-              </Button>
+              <SheetClose asChild>
+                <Button
+                  type="submit"
+                  className="grow"
+                  disabled={!form.formState.isDirty}
+                  isLoading={isPending}
+                >
+                  <SaveIcon /> Create Course
+                </Button>
+              </SheetClose>
             </SheetFooter>
           </div>
         </form>

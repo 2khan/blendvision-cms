@@ -23,7 +23,10 @@ export const useEditUser = () => {
     mutationFn: async (opts: TOpts) => {
       const { user_id, ...rest } = opts
       const params = EditUserSchema.parse(rest)
-      const { data } = await api.put(`/admin/users/${user_id}`, params)
+      const { data } = await api.put<TResponse>(
+        `/admin/users/${user_id}`,
+        params
+      )
       return data
     },
     onSettled: () => {
