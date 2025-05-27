@@ -100,7 +100,8 @@ export default function EditUserForm(props: TProps) {
             </DialogClose>
             <Button
               type="submit"
-              disabled={!form.formState.isDirty || isPending}
+              disabled={!form.formState.isDirty}
+              isLoading={isPending}
             >
               <UserPlus2Icon /> Edit Student
             </Button>

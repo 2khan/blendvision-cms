@@ -33,31 +33,29 @@ const columns: ColumnDef<TCourse>[] = [
     },
     filterFn: 'includesString',
     enableColumnFilter: true,
-    cell: ({ getValue }) => (
-      <div style={getWidth(150)}>{getValue<string>()}</div>
-    )
+    cell: ({ row }) => <div style={getWidth(150)}>{row.original.title}</div>
   },
   {
-    accessorKey: 'desc',
+    accessorKey: 'description',
     header: 'Description',
     meta: {
       label: 'Description'
     },
     enableSorting: false,
-    cell: ({ getValue }) => (
-      <div style={getWidth(250)}>{getValue<string>()}</div>
+    cell: ({ row }) => (
+      <div style={getWidth(250)}>{row.original.description}</div>
     )
   },
   {
-    accessorKey: 'net_duration',
+    accessorKey: 'duration',
     header: 'Duration',
     meta: {
       label: 'Duration',
       align: 'center'
     },
-    cell: ({ getValue }) => (
+    cell: ({ row }) => (
       <div style={getWidth(250)}>
-        {secondsToHours(getValue<number>())} hours
+        {secondsToHours(row.original.duration)} hours
       </div>
     )
   },

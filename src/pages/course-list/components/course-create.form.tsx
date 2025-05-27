@@ -44,7 +44,11 @@ export default function CourseCreateForm() {
   })
 
   function onSubmit(values: TParams) {
-    mutate(values)
+    mutate(values, {
+      onSuccess: () => {
+        form.reset()
+      }
+    })
   }
 
   return (
@@ -159,7 +163,8 @@ export default function CourseCreateForm() {
               <Button
                 type="submit"
                 className="grow"
-                disabled={!form.formState.isDirty || isPending}
+                disabled={!form.formState.isDirty}
+                isLoading={isPending}
               >
                 <SaveIcon /> Save
               </Button>

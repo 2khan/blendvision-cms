@@ -137,7 +137,8 @@ export default function CreateUserForm() {
               <Button
                 type="submit"
                 className="grow"
-                disabled={!form.formState.isDirty || isPending}
+                disabled={!form.formState.isDirty}
+                isLoading={isPending}
               >
                 <UserPlus2Icon /> Create Student
               </Button>
