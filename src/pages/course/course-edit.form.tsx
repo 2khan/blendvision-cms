@@ -158,7 +158,8 @@ export default function CourseEditForm(props: TProps) {
           <Button
             type="submit"
             className="grow"
-            disabled={!form.formState.isDirty || isPending}
+            disabled={!form.formState.isDirty}
+            isLoading={isPending}
           >
             <SaveIcon /> Save
           </Button>

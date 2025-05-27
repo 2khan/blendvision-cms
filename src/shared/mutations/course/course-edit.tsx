@@ -55,7 +55,7 @@ export const useCourseEdit = () => {
               })
 
               queryClient.invalidateQueries({
-                queryKey: [QKEY_COURSE_DETAIL, course_id]
+                queryKey: [QKEY_COURSE_DETAIL, { course_id }]
               })
             }
           }
@@ -71,7 +71,7 @@ export const useCourseEdit = () => {
       )
 
       queryClient.invalidateQueries({
-        queryKey: [QKEY_COURSE_DETAIL, course_id]
+        queryKey: [QKEY_COURSE_DETAIL, { course_id }]
       })
 
       return data
