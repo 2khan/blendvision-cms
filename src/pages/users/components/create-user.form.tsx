@@ -48,7 +48,7 @@ export default function CreateUserForm() {
     <SheetContent>
       <Form {...form}>
         <form
-          className="grow shrink-0 rounded-lg w-full max-w-sm flex h-full flex-col sticky top-0"
+          className="grow w-full flex flex-col"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <SheetHeader>
@@ -59,7 +59,7 @@ export default function CreateUserForm() {
             </SheetDescription>
           </SheetHeader>
 
-          <div className="space-y-3">
+          <div className="space-y-3 grow">
             <FormField
               control={form.control}
               name="display_name"

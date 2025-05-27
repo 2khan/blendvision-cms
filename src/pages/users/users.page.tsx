@@ -39,8 +39,7 @@ const columns: ColumnDef<TUser>[] = [
     accessorKey: 'email',
     header: 'Email',
     meta: {
-      label: 'Email',
-
+      label: 'Email'
     },
     enableColumnFilter: true
   },
