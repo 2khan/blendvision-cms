@@ -33,7 +33,7 @@ import {
 } from '@/shared/mutations/course/course-create'
 
 export default function CourseCreateForm() {
-  const { mutate } = useCourseCreate()
+  const { mutate, isPending } = useCourseCreate()
   const form = useForm<TParams>({
     resolver: zodResolver(CreateCourseSchema),
     defaultValues: {
@@ -134,6 +134,7 @@ export default function CourseCreateForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Cover Image</FormLabel>
+                  <FormMessage />
                   <FormControl>
                     <div className="flex flex-col gap-3">
                       <FileUploader
@@ -142,7 +143,6 @@ export default function CourseCreateForm() {
                       />
                     </div>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -156,7 +156,11 @@ export default function CourseCreateForm() {
               >
                 <RotateCcwIcon />
               </TooltipButton>
-              <Button type="submit" className="grow">
+              <Button
+                type="submit"
+                className="grow"
+                disabled={!form.formState.isDirty || isPending}
+              >
                 <SaveIcon /> Save
               </Button>
             </SheetFooter>

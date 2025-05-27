@@ -19,13 +19,33 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
-import type { TParams } from '@/shared/mutations/course/course-edit'
+import {
+  type TParams,
+  useCourseEdit
+} from '@/shared/mutations/course/course-edit'
 
-export default function CourseEditForm() {
+interface TProps {
+  course_id: number
+}
+
+export default function CourseEditForm(props: TProps) {
+  const { course_id } = props
   const form = useFormContext<TParams>()
+  const { mutate, isPending } = useCourseEdit()
 
   function onSubmit(values: TParams) {
-    console.log(values)
+    const normalizedData = Object.fromEntries(
+      Object.keys(form.formState.dirtyFields).map((key) => [
+        key,
+        values[key as keyof TParams]
+      ])
+    )
+
+    mutate(
+      Object.assign(normalizedData, {
+        course_id
+      })
+    )
   }
 
   return (
@@ -97,7 +117,10 @@ export default function CourseEditForm() {
             <FormItem>
               <FormLabel>Tags</FormLabel>
               <FormControl>
-                <TagsInput value={field.value} onChange={field.onChange} />
+                <TagsInput
+                  value={field.value || []}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -110,12 +133,15 @@ export default function CourseEditForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Cover Image</FormLabel>
+              <FormMessage />
               <FormControl>
                 <div className="flex flex-col gap-3">
-                  <FileUploader value={field.value} onChange={field.onChange} />
+                  <FileUploader
+                    value={field.value || []}
+                    onChange={field.onChange}
+                  />
                 </div>
               </FormControl>
-              <FormMessage />
             </FormItem>
           )}
         />
@@ -129,7 +155,11 @@ export default function CourseEditForm() {
           >
             <RotateCcwIcon />
           </TooltipButton>
-          <Button type="submit" className="grow">
+          <Button
+            type="submit"
+            className="grow"
+            disabled={!form.formState.isDirty || isPending}
+          >
             <SaveIcon /> Save
           </Button>
         </div>

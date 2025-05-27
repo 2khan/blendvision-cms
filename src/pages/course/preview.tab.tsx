@@ -31,7 +31,7 @@ export default function CoursePreview(props: TProps) {
       title: course.title,
       description: course.description,
       tags: course.tags,
-      thumbnails: []
+      thumbnails: undefined
     }
   })
 
@@ -43,7 +43,7 @@ export default function CoursePreview(props: TProps) {
   ])
 
   const previews = useMemo(
-    () => thumbnails.map(({ preview }) => preview),
+    () => thumbnails?.map(({ preview }) => preview),
     [thumbnails]
   )
 
@@ -51,7 +51,7 @@ export default function CoursePreview(props: TProps) {
     title,
     description,
     tags,
-    thumbnail_url: previews[0]
+    thumbnail_url: previews?.[0]
   })
 
   // FIXME: HACK! This logic should ideally be written in File Uploader Component
@@ -59,9 +59,11 @@ export default function CoursePreview(props: TProps) {
   // We must remove the preview here.
   useEffect(() => {
     return () => {
-      previews.forEach((preview) => {
-        URL.revokeObjectURL(preview)
-      })
+      if (previews && previews.length > 0) {
+        previews.forEach((preview) => {
+          URL.revokeObjectURL(preview)
+        })
+      }
     }
   }, [previews])
 
@@ -78,7 +80,7 @@ export default function CoursePreview(props: TProps) {
           </Showcase>
         </div>
 
-        <CourseEditForm />
+        <CourseEditForm course_id={course.id} />
       </TabsContent>
     </Form>
   )

@@ -3,13 +3,14 @@ import { z } from 'zod'
 
 import { QKEY_COURSE_LIST } from '@/shared/queries/course/course-list'
 import { useUpload } from '@/shared/queries/upload-queue'
+import type { TCourse } from '@/shared/types/models/course'
 import { api } from '@/shared/utils/fetch'
 
-export type TResponse = unknown // TODO: Must be aligned with API
+export type TResponse = TCourse
 
 export const CreateCourseSchema = z.object({
   title: z.string().min(1),
-  description: z.string(),
+  description: z.string().min(1),
   thumbnails: z
     .array(
       z.object({
@@ -18,7 +19,7 @@ export const CreateCourseSchema = z.object({
       })
     )
     .length(1),
-  tags: z.array(z.string())
+  tags: z.array(z.string()).nonempty()
 })
 
 export type TParams = z.infer<typeof CreateCourseSchema>
@@ -29,10 +30,10 @@ export const useCourseCreate = () => {
   const queryClient = useQueryClient()
   return useMutation({
     mutationFn: async (opts: TOpts) => {
-      const params = CreateCourseSchema.parse(opts)
+      const { thumbnails, ...params } = CreateCourseSchema.parse(opts)
 
       // 0. Prepare file (safe to index due to Zod)
-      const { file } = params.thumbnails[0]
+      const { file } = thumbnails[0]
 
       // 1. Send file to the upload queue
       mutate(
