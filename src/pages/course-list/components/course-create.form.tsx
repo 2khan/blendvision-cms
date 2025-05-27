@@ -28,10 +28,12 @@ import { Textarea } from '@/components/ui/textarea'
 
 import {
   CreateCourseSchema,
-  type TParams
+  type TParams,
+  useCourseCreate
 } from '@/shared/mutations/course/course-create'
 
 export default function CourseCreateForm() {
+  const { mutate } = useCourseCreate()
   const form = useForm<TParams>({
     resolver: zodResolver(CreateCourseSchema),
     defaultValues: {
@@ -42,7 +44,7 @@ export default function CourseCreateForm() {
   })
 
   function onSubmit(values: TParams) {
-    console.log(values)
+    mutate(values)
   }
 
   return (

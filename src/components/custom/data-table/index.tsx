@@ -133,7 +133,7 @@ export function DataTable<TData, TValue>({
         </Table>
       </ScrollArea>
       <div className="flex flex-col gap-3 p-2 items-end">
-        <DataTablePagination table={table} />
+        <DataTablePagination table={table} tableMeta={meta} />
       </div>
     </div>
   )
