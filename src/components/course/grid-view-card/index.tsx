@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 
 import { ClockIcon, FilmIcon, MoreVerticalIcon, Users2Icon } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -20,8 +20,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from '@/components/ui/dialog'
 import {
   DropdownMenu,
@@ -39,6 +38,9 @@ interface TProps {
 }
 
 export default function GridViewCard(props: TProps) {
+  const [dialogsOpen, setDialogsOpen] = useState<Record<string, boolean>>({
+    delete: false
+  })
   const { course } = props
   const { mutate: deleteCourse } = useDeleteCourse()
 
@@ -66,36 +68,39 @@ export default function GridViewCard(props: TProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Edit Course</DropdownMenuItem>
-            <Dialog>
-              <DialogTrigger className="w-full" asChild>
-                <DropdownMenuItem
-                  onSelect={(e) => e.preventDefault()}
-                  variant="destructive"
-                >
-                  Delete Course
-                </DropdownMenuItem>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogTitle>Confirm Course Deletion</DialogTitle>
-                <DialogDescription>
-                  You&apos;re about to permanently delete this course. This
-                  action cannot be undone.
-                </DialogDescription>
-                <DialogFooter>
-                  <DialogClose asChild>
-                    <Button variant="outline">Cancel</Button>
-                  </DialogClose>
-
-                  <DialogClose asChild>
-                    <Button variant="destructive" onClick={handleCourseDelete}>
-                      Delete Course
-                    </Button>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+            <DropdownMenuItem
+              variant="destructive"
+              onSelect={() => setDialogsOpen((p) => ({ ...p, delete: true }))}
+            >
+              Delete Course
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <Dialog
+          open={dialogsOpen['delete']}
+          onOpenChange={(open) =>
+            setDialogsOpen((p) => ({ ...p, delete: open }))
+          }
+        >
+          <DialogContent>
+            <DialogTitle>Confirm Course Deletion</DialogTitle>
+            <DialogDescription>
+              You&apos;re about to permanently delete this course. This action
+              cannot be undone.
+            </DialogDescription>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+
+              <DialogClose asChild>
+                <Button variant="destructive" onClick={handleCourseDelete}>
+                  Delete Course
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
       <CardHeader className="grow">
         <CardTitle className={dx('heading-compact-02', 'line-clamp-2')}>
