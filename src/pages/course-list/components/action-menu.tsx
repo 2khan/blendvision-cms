@@ -10,8 +10,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from '@/components/ui/dialog'
 import {
   DropdownMenu,
