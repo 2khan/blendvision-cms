@@ -1,19 +1,10 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { CirclePlusIcon, MoreVerticalIcon } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { CirclePlusIcon } from 'lucide-react'
 
 import { DataTable } from '@/components/custom/data-table'
 import { getWidth } from '@/components/custom/data-table/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from '@/components/ui/dropdown-menu'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 import { TabsContent } from '@/components/ui/tabs'
 
@@ -22,6 +13,7 @@ import { usePreference } from '@/shared/stores/usePreference'
 import { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
+import ActionMenu from './components/action-menu'
 import CourseCreateForm from './components/course-create.form'
 
 const columns: ColumnDef<TCourse>[] = [
@@ -110,30 +102,7 @@ const columns: ColumnDef<TCourse>[] = [
     meta: { label: 'Actions', align: 'center' },
     cell: ({ row }) => {
       const { id } = row.original
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon" className="rounded-full">
-              <span className="sr-only">Open menu</span>
-              <MoreVerticalIcon />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link to={`/courses/${id}`}>Manage</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>Students</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Edit Course</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem variant="destructive">
-              Delete Course
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      return <ActionMenu course_id={id} />
     }
   }
 ]

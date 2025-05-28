@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 
 import { MoreVerticalIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -21,26 +22,19 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-import { useDeleteUser } from '@/shared/mutations/users/delete-user'
-import { type TUser } from '@/shared/types/models/users'
-
-import EditUserForm from './edit-user.form'
+import { useDeleteCourse } from '@/shared/mutations/course/course-delete'
 
 interface TProps {
-  user: TUser
+  course_id: number
 }
 
-// FIXME: HACK! Overriding DropdownMenuItem onSelect
-// due to issues with Radix Dropdown menu auto closing opened Dialog
-// https://github.com/radix-ui/primitives/discussions/1436#discussioncomment-2898397
-
 export default function ActionMenu(props: TProps) {
-  const { user } = props
-  const { mutate: deleteUser } = useDeleteUser()
+  const { course_id } = props
+  const { mutate: deleteCourse } = useDeleteCourse()
 
-  const handleUserDelete = useCallback(() => {
-    deleteUser({ user_id: user.id })
-  }, [deleteUser, user.id])
+  const handleCourseDelete = useCallback(() => {
+    deleteCourse({ course_id })
+  }, [deleteCourse, course_id])
 
   return (
     <DropdownMenu>
@@ -53,12 +47,12 @@ export default function ActionMenu(props: TProps) {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Dialog>
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()} asChild>
-            <DialogTrigger className="w-full">Edit Student</DialogTrigger>
-          </DropdownMenuItem>
-          <EditUserForm user={user} />
-        </Dialog>
+        <DropdownMenuItem asChild>Manage</DropdownMenuItem>
+        <DropdownMenuItem>Students</DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <Link to={`/courses/${course_id}`}>Edit Course</Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <Dialog>
           <DialogTrigger className="w-full" asChild>
@@ -66,14 +60,14 @@ export default function ActionMenu(props: TProps) {
               onSelect={(e) => e.preventDefault()}
               variant="destructive"
             >
-              Delete Student
+              Delete Course
             </DropdownMenuItem>
           </DialogTrigger>
           <DialogContent>
-            <DialogTitle>Confirm Student Deletion</DialogTitle>
+            <DialogTitle>Confirm Course Deletion</DialogTitle>
             <DialogDescription>
-              You&apos;re about to permanently delete this student account. This
-              action cannot be undone.
+              You&apos;re about to permanently delete this course. This action
+              cannot be undone.
             </DialogDescription>
             <DialogFooter>
               <DialogClose asChild>
@@ -81,8 +75,8 @@ export default function ActionMenu(props: TProps) {
               </DialogClose>
 
               <DialogClose asChild>
-                <Button variant="destructive" onClick={handleUserDelete}>
-                  Delete Student
+                <Button variant="destructive" onClick={handleCourseDelete}>
+                  Delete Course
                 </Button>
               </DialogClose>
             </DialogFooter>
