@@ -1,3 +1,5 @@
+import { useCallback } from 'react'
+
 import { ClockIcon, FilmIcon, MoreVerticalIcon, Users2Icon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
@@ -13,12 +15,22 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog'
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
+import { useDeleteCourse } from '@/shared/mutations/course/course-delete'
 import type { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
@@ -28,6 +40,12 @@ interface TProps {
 
 export default function GridViewCard(props: TProps) {
   const { course } = props
+  const { mutate: deleteCourse } = useDeleteCourse()
+
+  const handleCourseDelete = useCallback(() => {
+    deleteCourse({ course_id: course.id })
+  }, [deleteCourse, course])
+
   return (
     <Card className="gap-3 overflow-hidden">
       <div className="bg-muted text-muted-foreground relative flex aspect-video w-full flex-col items-center justify-center gap-1 border-b">
@@ -48,9 +66,34 @@ export default function GridViewCard(props: TProps) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Edit Course</DropdownMenuItem>
-            <DropdownMenuItem variant="destructive">
-              Delete Course
-            </DropdownMenuItem>
+            <Dialog>
+              <DialogTrigger className="w-full" asChild>
+                <DropdownMenuItem
+                  onSelect={(e) => e.preventDefault()}
+                  variant="destructive"
+                >
+                  Delete Course
+                </DropdownMenuItem>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogTitle>Confirm Course Deletion</DialogTitle>
+                <DialogDescription>
+                  You&apos;re about to permanently delete this course. This
+                  action cannot be undone.
+                </DialogDescription>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+
+                  <DialogClose asChild>
+                    <Button variant="destructive" onClick={handleCourseDelete}>
+                      Delete Course
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

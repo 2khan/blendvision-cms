@@ -30,11 +30,11 @@ import { Textarea } from '@/components/ui/textarea'
 import {
   CreateCourseSchema,
   type TParams,
-  useCourseCreate
+  useCreateCourse
 } from '@/shared/mutations/course/course-create'
 
 export default function CourseCreateForm() {
-  const { mutate, isPending } = useCourseCreate()
+  const { mutate, isPending } = useCreateCourse()
   const form = useForm<TParams>({
     resolver: zodResolver(CreateCourseSchema),
     defaultValues: {
