@@ -25,7 +25,7 @@ export const CreateCourseSchema = z.object({
 export type TParams = z.infer<typeof CreateCourseSchema>
 export type TOpts = TParams
 
-export const useCourseCreate = () => {
+export const useCreateCourse = () => {
   const { mutate } = useUpload()
   const queryClient = useQueryClient()
   return useMutation({

@@ -30,11 +30,11 @@ import { Textarea } from '@/components/ui/textarea'
 import {
   CreateCourseSchema,
   type TParams,
-  useCourseCreate
+  useCreateCourse
 } from '@/shared/mutations/course/course-create'
 
 export default function CourseCreateForm() {
-  const { mutate, isPending } = useCourseCreate()
+  const { mutate, isPending } = useCreateCourse()
   const form = useForm<TParams>({
     resolver: zodResolver(CreateCourseSchema),
     defaultValues: {
@@ -60,11 +60,11 @@ export default function CourseCreateForm() {
           className="grow shrink-0 rounded-lg w-full max-w-sm flex h-full flex-col sticky top-0"
         >
           <SheetHeader>
-            <SheetTitle>Create Course Details</SheetTitle>
+            <SheetTitle>Create Course</SheetTitle>
             <SheetDescription>
               Use the form below to create a new course by providing the title,
-              description, and other relevant details. You can preview the
-              course before saving to ensure everything looks correct.
+              description, and other relevant details. You can always preview or
+              edit the course after.
             </SheetDescription>
           </SheetHeader>
 

@@ -27,7 +27,7 @@ export type TParams = z.infer<typeof EditCourseSchema>
 export type TRouteParams = { course_id: number }
 export type TOpts = TParams & TRouteParams
 
-export const useCourseEdit = () => {
+export const useEditCourse = () => {
   const { mutate } = useUpload()
   const queryClient = useQueryClient()
   return useMutation({

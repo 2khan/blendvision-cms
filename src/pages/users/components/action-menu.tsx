@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 
 import { MoreVerticalIcon } from 'lucide-react'
 
@@ -9,8 +9,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from '@/components/ui/dialog'
 import {
   DropdownMenu,
@@ -35,6 +34,10 @@ interface TProps {
 // https://github.com/radix-ui/primitives/discussions/1436#discussioncomment-2898397
 
 export default function ActionMenu(props: TProps) {
+  const [dialogsOpen, setDialogsOpen] = useState<Record<string, boolean>>({
+    delete: false,
+    edit: false
+  })
   const { user } = props
   const { mutate: deleteUser } = useDeleteUser()
 
@@ -43,52 +46,61 @@ export default function ActionMenu(props: TProps) {
   }, [deleteUser, user.id])
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="rounded-full">
-          <span className="sr-only">Open menu</span>
-          <MoreVerticalIcon />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <Dialog>
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()} asChild>
-            <DialogTrigger className="w-full">Edit Student</DialogTrigger>
+    <Fragment>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon" className="rounded-full">
+            <span className="sr-only">Open menu</span>
+            <MoreVerticalIcon />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onSelect={() => setDialogsOpen((p) => ({ ...p, edit: true }))}
+          >
+            Edit Student
           </DropdownMenuItem>
-          <EditUserForm user={user} />
-        </Dialog>
-        <DropdownMenuSeparator />
-        <Dialog>
-          <DialogTrigger className="w-full" asChild>
-            <DropdownMenuItem
-              onSelect={(e) => e.preventDefault()}
-              variant="destructive"
-            >
-              Delete Student
-            </DropdownMenuItem>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogTitle>Confirm Student Deletion</DialogTitle>
-            <DialogDescription>
-              You&apos;re about to permanently delete this student account. This
-              action cannot be undone.
-            </DialogDescription>
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
 
-              <DialogClose asChild>
-                <Button variant="destructive" onClick={handleUserDelete}>
-                  Delete Student
-                </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            variant="destructive"
+            onSelect={() => setDialogsOpen((p) => ({ ...p, delete: true }))}
+          >
+            Delete Student
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Dialog
+        open={dialogsOpen['edit']}
+        onOpenChange={(open) => setDialogsOpen((p) => ({ ...p, edit: open }))}
+      >
+        <EditUserForm user={user} />
+      </Dialog>
+      <Dialog
+        open={dialogsOpen['delete']}
+        onOpenChange={(open) => setDialogsOpen((p) => ({ ...p, delete: open }))}
+      >
+        <DialogContent>
+          <DialogTitle>Confirm Student Deletion</DialogTitle>
+          <DialogDescription>
+            You&apos;re about to permanently delete this student account. This
+            action cannot be undone.
+          </DialogDescription>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+
+            <DialogClose asChild>
+              <Button variant="destructive" onClick={handleUserDelete}>
+                Delete Student
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </Fragment>
   )
 }

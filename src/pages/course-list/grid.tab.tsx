@@ -1,32 +1,61 @@
+import { Suspense, lazy } from 'react'
+
+import { PlusCircleIcon } from 'lucide-react'
+
+import { dx } from '@/lib/dx'
+
 import GridViewCard from '@/components/course/grid-view-card'
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { TabsContent } from '@/components/ui/tabs'
 
 import { useCourses } from '@/shared/queries/course/course-list'
+
+const CourseCreateTrigger = lazy(
+  () => import('./components/course-create-trigger')
+)
 
 export default function GridView() {
   const { data: courses, isSuccess: coursesReady } = useCourses()
   return (
     coursesReady && (
-      <TabsContent
-        value="card"
-        className="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-3 auto-rows-min"
-      >
-        {courses.map((course) => (
-          <GridViewCard key={course.id} course={course} />
-        ))}
+      <TabsContent value="card" className="flex flex-col gap-3">
+        <Suspense>
+          <CourseCreateTrigger className="absolute top-0 right-0" />
+        </Suspense>
+        {courses.length > 0 ? (
+          <div className="grid gap-3 auto-rows-min grid-cols-[repeat(auto-fill,minmax(20rem,1fr))]">
+            {courses.map((course) => (
+              <GridViewCard key={course.id} course={course} />
+            ))}
+          </div>
+        ) : (
+          <div className="max-w-lg mx-auto flex flex-col items-center text-center py-10">
+            <span className={dx('heading-04', 'mb-1')}>
+              Create courses to get started
+            </span>
+            <p
+              className={dx(
+                'body-02',
+                'mb-10 text-muted-foreground whitespace-pre'
+              )}
+            >
+              {
+                'You haven’t created any courses yet.\nClick the button below to start building your first course.'
+              }
+            </p>
 
-        <Card className="bg-muted border border-dashed">
-          <CardHeader>
-            <CardTitle>Create Course</CardTitle>
-            <CardDescription>Create Course</CardDescription>
-          </CardHeader>
-        </Card>
+            <div className="flex gap-3">
+              <Suspense>
+                <CourseCreateTrigger>
+                  <Button variant="outline" className="size-60 flex-col">
+                    <PlusCircleIcon className="size-10" />
+                    Create a new course
+                  </Button>
+                </CourseCreateTrigger>
+              </Suspense>
+            </div>
+          </div>
+        )}
       </TabsContent>
     )
   )

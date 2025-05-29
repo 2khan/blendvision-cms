@@ -21,7 +21,7 @@ import { Textarea } from '@/components/ui/textarea'
 
 import {
   type TParams,
-  useCourseEdit
+  useEditCourse
 } from '@/shared/mutations/course/course-edit'
 
 interface TProps {
@@ -31,7 +31,7 @@ interface TProps {
 export default function CourseEditForm(props: TProps) {
   const { course_id } = props
   const form = useFormContext<TParams>()
-  const { mutate, isPending } = useCourseEdit()
+  const { mutate, isPending } = useEditCourse()
 
   function onSubmit(values: TParams) {
     const normalizedData = Object.fromEntries(

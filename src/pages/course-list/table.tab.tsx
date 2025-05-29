@@ -1,11 +1,10 @@
+import { Suspense, lazy } from 'react'
+
 import { ColumnDef } from '@tanstack/react-table'
-import { CirclePlusIcon } from 'lucide-react'
 
 import { DataTable } from '@/components/custom/data-table'
 import { getWidth } from '@/components/custom/data-table/utils'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 import { TabsContent } from '@/components/ui/tabs'
 
 import { useCourses } from '@/shared/queries/course/course-list'
@@ -14,7 +13,10 @@ import { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
 import ActionMenu from './components/action-menu'
-import CourseCreateForm from './components/course-create.form'
+
+const CourseCreateTrigger = lazy(
+  () => import('./components/course-create-trigger')
+)
 
 const columns: ColumnDef<TCourse>[] = [
   {
@@ -131,15 +133,9 @@ export default function TableView() {
             }
           }}
           toolbar_actions={
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button size="sm" variant="outline">
-                  <CirclePlusIcon />
-                  Create Course
-                </Button>
-              </SheetTrigger>
-              <CourseCreateForm />
-            </Sheet>
+            <Suspense>
+              <CourseCreateTrigger />
+            </Suspense>
           }
         />
       </TabsContent>

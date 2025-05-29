@@ -1,3 +1,5 @@
+import { useCallback, useState } from 'react'
+
 import { ClockIcon, FilmIcon, MoreVerticalIcon, Users2Icon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
@@ -13,12 +15,21 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle
+} from '@/components/ui/dialog'
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
+import { useDeleteCourse } from '@/shared/mutations/course/course-delete'
 import type { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
@@ -27,7 +38,16 @@ interface TProps {
 }
 
 export default function GridViewCard(props: TProps) {
+  const [dialogsOpen, setDialogsOpen] = useState<Record<string, boolean>>({
+    delete: false
+  })
   const { course } = props
+  const { mutate: deleteCourse } = useDeleteCourse()
+
+  const handleCourseDelete = useCallback(() => {
+    deleteCourse({ course_id: course.id })
+  }, [deleteCourse, course])
+
   return (
     <Card className="gap-3 overflow-hidden">
       <div className="bg-muted text-muted-foreground relative flex aspect-video w-full flex-col items-center justify-center gap-1 border-b">
@@ -41,18 +61,46 @@ export default function GridViewCard(props: TProps) {
             <Button
               variant="outline"
               size="icon"
-              className="absolute top-3 right-3 rounded-full"
+              className="absolute top-3 right-3 rounded-full dark:bg-card dark:hover:bg-accent"
             >
               <MoreVerticalIcon />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Edit Course</DropdownMenuItem>
-            <DropdownMenuItem variant="destructive">
+            <DropdownMenuItem
+              variant="destructive"
+              onSelect={() => setDialogsOpen((p) => ({ ...p, delete: true }))}
+            >
               Delete Course
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <Dialog
+          open={dialogsOpen['delete']}
+          onOpenChange={(open) =>
+            setDialogsOpen((p) => ({ ...p, delete: open }))
+          }
+        >
+          <DialogContent>
+            <DialogTitle>Confirm Course Deletion</DialogTitle>
+            <DialogDescription>
+              You&apos;re about to permanently delete this course. This action
+              cannot be undone.
+            </DialogDescription>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+
+              <DialogClose asChild>
+                <Button variant="destructive" onClick={handleCourseDelete}>
+                  Delete Course
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
       <CardHeader className="grow">
         <CardTitle className={dx('heading-compact-02', 'line-clamp-2')}>
