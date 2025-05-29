@@ -13,16 +13,18 @@ export default function CoursePage() {
 
   return (
     <Tabs
-      className="flex flex-col gap-3 w-full h-full"
+      className="flex flex-col gap-3 w-full h-full relative"
       value={list_view}
       onValueChange={course_set_list_view}
     >
       <TabsList>
         <TabsTrigger value="card">
           <Grid2X2Icon />
+          Grid View
         </TabsTrigger>
         <TabsTrigger value="table">
           <Rows3Icon />
+          Table View
         </TabsTrigger>
       </TabsList>
       <GridView />

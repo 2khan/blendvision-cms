@@ -14,7 +14,7 @@ import { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
 import ActionMenu from './components/action-menu'
-import CourseCreateForm from './components/course-create.form'
+import CourseCreateTrigger from './components/course-create-trigger'
 
 const columns: ColumnDef<TCourse>[] = [
   {
@@ -130,17 +130,7 @@ export default function TableView() {
               }
             }
           }}
-          toolbar_actions={
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button size="sm" variant="outline">
-                  <CirclePlusIcon />
-                  Create Course
-                </Button>
-              </SheetTrigger>
-              <CourseCreateForm />
-            </Sheet>
-          }
+          toolbar_actions={<CourseCreateTrigger />}
         />
       </TabsContent>
     )

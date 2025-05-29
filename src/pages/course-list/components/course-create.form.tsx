@@ -6,6 +6,7 @@ import FileUploader from '@/components/custom/file-uploader'
 import { Kbd, KbdKey } from '@/components/custom/kbd'
 import { TagsInput } from '@/components/custom/tags-input'
 import TooltipButton from '@/components/custom/tooltip-button'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -60,11 +61,11 @@ export default function CourseCreateForm() {
           className="grow shrink-0 rounded-lg w-full max-w-sm flex h-full flex-col sticky top-0"
         >
           <SheetHeader>
-            <SheetTitle>Create Course Details</SheetTitle>
+            <SheetTitle>Create Course</SheetTitle>
             <SheetDescription>
               Use the form below to create a new course by providing the title,
-              description, and other relevant details. You can preview the
-              course before saving to ensure everything looks correct.
+              description, and other relevant details. You can always preview or
+              edit the course after.
             </SheetDescription>
           </SheetHeader>
 

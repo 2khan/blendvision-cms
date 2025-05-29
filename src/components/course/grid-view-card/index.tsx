@@ -61,7 +61,7 @@ export default function GridViewCard(props: TProps) {
             <Button
               variant="outline"
               size="icon"
-              className="absolute top-3 right-3 rounded-full"
+              className="absolute top-3 right-3 rounded-full dark:bg-card dark:hover:bg-accent"
             >
               <MoreVerticalIcon />
             </Button>
