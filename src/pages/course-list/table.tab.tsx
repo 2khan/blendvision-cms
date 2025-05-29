@@ -1,3 +1,5 @@
+import { Suspense, lazy } from 'react'
+
 import { ColumnDef } from '@tanstack/react-table'
 
 import { DataTable } from '@/components/custom/data-table'
@@ -11,7 +13,10 @@ import { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
 import ActionMenu from './components/action-menu'
-import CourseCreateTrigger from './components/course-create-trigger'
+
+const CourseCreateTrigger = lazy(
+  () => import('./components/course-create-trigger')
+)
 
 const columns: ColumnDef<TCourse>[] = [
   {
@@ -127,7 +132,11 @@ export default function TableView() {
               }
             }
           }}
-          toolbar_actions={<CourseCreateTrigger />}
+          toolbar_actions={
+            <Suspense>
+              <CourseCreateTrigger />
+            </Suspense>
+          }
         />
       </TabsContent>
     )

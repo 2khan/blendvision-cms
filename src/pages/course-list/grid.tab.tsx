@@ -1,3 +1,5 @@
+import { Suspense, lazy } from 'react'
+
 import { PlusCircleIcon } from 'lucide-react'
 
 import { dx } from '@/lib/dx'
@@ -8,14 +10,18 @@ import { TabsContent } from '@/components/ui/tabs'
 
 import { useCourses } from '@/shared/queries/course/course-list'
 
-import CourseCreateTrigger from './components/course-create-trigger'
+const CourseCreateTrigger = lazy(
+  () => import('./components/course-create-trigger')
+)
 
 export default function GridView() {
   const { data: courses, isSuccess: coursesReady } = useCourses()
   return (
     coursesReady && (
       <TabsContent value="card" className="flex flex-col gap-3">
-        <CourseCreateTrigger className="absolute top-0 right-0" />
+        <Suspense>
+          <CourseCreateTrigger className="absolute top-0 right-0" />
+        </Suspense>
         {courses.length > 0 ? (
           <div className="grid gap-3 auto-rows-min grid-cols-[repeat(auto-fill,minmax(20rem,1fr))]">
             {courses.map((course) => (
@@ -39,12 +45,14 @@ export default function GridView() {
             </p>
 
             <div className="flex gap-3">
-              <CourseCreateTrigger>
-                <Button variant="outline" className="size-60 flex-col">
-                  <PlusCircleIcon className="size-10" />
-                  Create a new course
-                </Button>
-              </CourseCreateTrigger>
+              <Suspense>
+                <CourseCreateTrigger>
+                  <Button variant="outline" className="size-60 flex-col">
+                    <PlusCircleIcon className="size-10" />
+                    Create a new course
+                  </Button>
+                </CourseCreateTrigger>
+              </Suspense>
             </div>
           </div>
         )}
