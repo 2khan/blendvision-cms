@@ -1,11 +1,8 @@
 import { ColumnDef } from '@tanstack/react-table'
-import { CirclePlusIcon } from 'lucide-react'
 
 import { DataTable } from '@/components/custom/data-table'
 import { getWidth } from '@/components/custom/data-table/utils'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 import { TabsContent } from '@/components/ui/tabs'
 
 import { useCourses } from '@/shared/queries/course/course-list'

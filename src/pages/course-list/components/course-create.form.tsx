@@ -6,7 +6,6 @@ import FileUploader from '@/components/custom/file-uploader'
 import { Kbd, KbdKey } from '@/components/custom/kbd'
 import { TagsInput } from '@/components/custom/tags-input'
 import TooltipButton from '@/components/custom/tooltip-button'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Form,

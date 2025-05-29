@@ -1,4 +1,3 @@
-// import GridViewCard from '@/components/course/grid-view-card'
 import { PlusCircleIcon } from 'lucide-react'
 
 import { dx } from '@/lib/dx'
