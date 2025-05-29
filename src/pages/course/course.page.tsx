@@ -14,7 +14,7 @@ export default function CourseEdit() {
   // TODO: We should validate if course_id is passed in the router config
   const { course_id } = useParams()
   const { data: course, isSuccess: courseReady } = useCourse({
-    course_id: course_id ? +course_id : null
+    course_id
   })
 
   return (

@@ -33,6 +33,8 @@ import { useDeleteCourse } from '@/shared/mutations/course/course-delete'
 import type { TCourse } from '@/shared/types/models/course'
 import { secondsToHours } from '@/shared/utils/date'
 
+import { Badge } from '../ui/badge'
+
 interface TProps {
   course: TCourse
 }
@@ -56,6 +58,15 @@ export default function GridViewCard(props: TProps) {
           alt="Course Thumbnail"
           className="w-full h-full object-cover absolute inset-0"
         />
+        <div className="absolute bottom-3 left-3">
+          <div className="flex flex-wrap gap-1">
+            {course.tags.map((tag) => (
+              <Badge key={tag} variant="outline" className="bg-background">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        </div>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -67,7 +78,9 @@ export default function GridViewCard(props: TProps) {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>Edit Course</DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link to={`/courses/${course.id}`}>Edit Course</Link>
+            </DropdownMenuItem>
             <DropdownMenuItem
               variant="destructive"
               onSelect={() => setDialogsOpen((p) => ({ ...p, delete: true }))}
@@ -128,9 +141,14 @@ export default function GridViewCard(props: TProps) {
       </CardContent>
       <CardFooter className="flex justify-between gap-3">
         <Button variant="outline">Students</Button>
-        <Button asChild>
-          <Link to={`/courses/${course.id}`}>Manage</Link>
-        </Button>
+        <div className="flex gap-3">
+          <Button asChild variant="outline">
+            <Link to={`/courses/${course.id}`}>Edit</Link>
+          </Button>
+          <Button asChild>
+            <Link to={`/courses/${course.id}/lessons`}>Manage</Link>
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   )

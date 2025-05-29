@@ -24,7 +24,7 @@ import {
 import { useDeleteCourse } from '@/shared/mutations/course/course-delete'
 
 interface TProps {
-  course_id: number
+  course_id: string | number
 }
 
 export default function ActionMenu(props: TProps) {
@@ -50,7 +50,9 @@ export default function ActionMenu(props: TProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>Manage</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to={`/courses/${course_id}/lessons`}>Manage</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Students</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>

@@ -8,7 +8,7 @@ import {
 import { api } from '@/shared/utils/fetch'
 
 export type TRouteParams = {
-  course_id: number
+  course_id: string | number
 }
 
 export type TOpts = TRouteParams
