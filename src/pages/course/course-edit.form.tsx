@@ -25,7 +25,7 @@ import {
 } from '@/shared/mutations/course/course-edit'
 
 interface TProps {
-  course_id: number
+  course_id: string | number
 }
 
 export default function CourseEditForm(props: TProps) {

@@ -78,7 +78,7 @@ export default function CoursePreview(props: TProps) {
 
   return (
     <Form {...form}>
-      <TabsContent value="preview" className="flex w-full gap-6">
+      <TabsContent value="course" className="flex w-full gap-6">
         <div className="grow space-y-3">
           <Showcase title="Hero View">
             <CoverCard course={mergedCourse} />

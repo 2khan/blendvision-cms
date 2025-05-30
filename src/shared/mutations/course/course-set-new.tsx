@@ -8,7 +8,7 @@ export type TParams = {
 }
 
 export type TRouteParams = {
-  course_id: number
+  course_id: string | number
 }
 
 export type TOpts = TRouteParams & TParams

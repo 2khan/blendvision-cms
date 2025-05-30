@@ -1,5 +1,5 @@
 export type TCourse = {
-  id: number
+  id: string | number
   title: string
   description: string // keep at 120 chars
   img_url: string

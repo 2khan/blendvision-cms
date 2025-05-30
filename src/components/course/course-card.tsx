@@ -24,7 +24,7 @@ export default function CourseCard({ course }: TProps) {
       />
 
       <CardHeader className="p-4">
-        <div className="flex gap-1 mb-2 flex-wrap">
+        <div className="flex gap-1 mb-2 flex-wrap -translate-x-3">
           {course.tags.map((tag) => (
             <Badge key={tag} variant="secondary" className="rounded-full px-3">
               {tag}

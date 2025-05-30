@@ -11,7 +11,7 @@ import { api } from '@/shared/utils/fetch'
 export type TResponse = TUser
 
 export type TRouteParams = {
-  user_id: number
+  user_id: string | number
 }
 
 export type TOpts = TRouteParams

@@ -1,5 +1,5 @@
 export type TUser = {
-  id: number
+  id: string | number
   uid: string
   email: string
   display_name: string

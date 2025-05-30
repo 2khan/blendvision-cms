@@ -24,7 +24,7 @@ export const EditCourseSchema = z.object({
 })
 
 export type TParams = z.infer<typeof EditCourseSchema>
-export type TRouteParams = { course_id: number }
+export type TRouteParams = { course_id: string | number }
 export type TOpts = TParams & TRouteParams
 
 export const useEditCourse = () => {
