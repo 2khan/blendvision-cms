@@ -35,11 +35,13 @@ interface SortableProviderProps<T> {
   strategy?: 'vertical' | 'horizontal'
 }
 
-const SortableContext = createContext<{
-  items: T[]
+type TSortableContext<T> = {
+  items: T
   onItemsChange: (items: T[]) => void
   strategy: 'vertical' | 'horizontal'
-}>({
+}
+
+const SortableContext = createContext<TSortableContext<T>>({
   items: [],
   onItemsChange: () => {},
   strategy: 'vertical'

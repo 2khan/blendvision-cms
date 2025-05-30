@@ -40,7 +40,7 @@ export const usePreference = create<PreferenceStore>()(
       course: {
         default_page_size: 10,
         list_view: 'card',
-        detail_view: 'preview'
+        detail_view: 'course'
       },
       users: {
         default_page_size: 10
