@@ -51,12 +51,26 @@ export default function ActionMenu(props: TProps) {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
-            <Link to={`/courses/${course_id}/lessons`}>Manage</Link>
+            <Link
+              to={{
+                pathname: `/courses/${course_id}`,
+                search: '?tab=lessons'
+              }}
+            >
+              Manage
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuItem>Students</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Link to={`/courses/${course_id}`}>Edit Course</Link>
+            <Link
+              to={{
+                pathname: `/courses/${course_id}`,
+                search: '?tab=course'
+              }}
+            >
+              Edit Course
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem

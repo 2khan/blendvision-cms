@@ -16,7 +16,7 @@ export default function CoverCard({ course }: TProps) {
     <div className="z-0 relative px-8 h-[31.25rem] w-full max-w-7xl text-foreground dark font-client">
       <GlowEffect className="-z-10 opacity-40" />
       <img
-        src={course.thumbnail_url}
+        src={course.img_url}
         alt="Course Thumbnail"
         className="absolute inset-0 w-full object-cover -z-10 h-full rounded-3xl"
       />

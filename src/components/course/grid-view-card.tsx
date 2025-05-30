@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { ClockIcon, FilmIcon, MoreVerticalIcon, Users2Icon } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, createSearchParams } from 'react-router-dom'
 
 import { dx } from '@/lib/dx'
 
@@ -58,15 +58,17 @@ export default function GridViewCard(props: TProps) {
           alt="Course Thumbnail"
           className="w-full h-full object-cover absolute inset-0"
         />
-        <div className="absolute bottom-3 left-3">
-          <div className="flex flex-wrap gap-1">
-            {course.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="bg-background">
-                {tag}
-              </Badge>
-            ))}
+        {course.tags.length > 0 && (
+          <div className="absolute bottom-3 left-3">
+            <div className="flex flex-wrap gap-1">
+              {course.tags.map((tag) => (
+                <Badge key={tag} variant="outline" className="bg-background">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -143,10 +145,24 @@ export default function GridViewCard(props: TProps) {
         <Button variant="outline">Students</Button>
         <div className="flex gap-3">
           <Button asChild variant="outline">
-            <Link to={`/courses/${course.id}`}>Edit</Link>
+            <Link
+              to={{
+                pathname: `/courses/${course.id}`,
+                search: '?tab=course'
+              }}
+            >
+              Edit
+            </Link>
           </Button>
           <Button asChild>
-            <Link to={`/courses/${course.id}/lessons`}>Manage</Link>
+            <Link
+              to={{
+                pathname: `/courses/${course.id}`,
+                search: '?tab=lessons'
+              }}
+            >
+              Manage
+            </Link>
           </Button>
         </div>
       </CardFooter>

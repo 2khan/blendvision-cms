@@ -6,7 +6,7 @@ import { immer } from 'zustand/middleware/immer'
 
 export const LIST_VIEW_VALUES = ['card', 'table'] as const
 export type TListView = (typeof LIST_VIEW_VALUES)[number]
-export const DETAIL_VIEW_VALUES = ['preview', 'form'] as const
+export const DETAIL_VIEW_VALUES = ['course', 'lessons'] as const
 export type TDetailView = (typeof DETAIL_VIEW_VALUES)[number]
 export const TABLE_PAGE_SIZES = [10, 20, 30, 40, 50] as const
 
