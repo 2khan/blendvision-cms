@@ -2,9 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { RotateCcwIcon, SaveIcon } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
-import FileUploader from '@/components/custom/file-uploader'
 import { Kbd, KbdKey } from '@/components/custom/kbd'
-import { TagsInput } from '@/components/custom/tags-input'
 import TooltipButton from '@/components/custom/tooltip-button'
 import { Button } from '@/components/ui/button'
 import {
@@ -27,37 +25,43 @@ import {
 import { Textarea } from '@/components/ui/textarea'
 
 import {
-  CreateCourseSchema,
+  CreateLessonSchema,
   type TParams,
-  useCreateCourse
-} from '@/shared/mutations/course/course-create'
+  useCreateLesson
+} from '@/shared/mutations/lesson/lesson-create'
+import type { TCourse } from '@/shared/types/models/course'
 
 interface TProps {
+  course_id: TCourse['id']
   onSuccess?: (values: TParams) => void
 }
 
-export default function CourseCreateForm(props: TProps) {
-  const { onSuccess } = props
-  const { mutate, isPending } = useCreateCourse()
+export default function LessonCreateForm(props: TProps) {
+  const { course_id, onSuccess } = props
+  const { mutate, isPending } = useCreateLesson()
   const form = useForm<TParams>({
-    resolver: zodResolver(CreateCourseSchema),
+    resolver: zodResolver(CreateLessonSchema),
     defaultValues: {
       title: '',
-      description: '',
-      tags: []
+      description: ''
     }
   })
 
   function onSubmit(values: TParams) {
-    mutate(values, {
-      onSuccess: () => {
-        form.reset()
+    mutate(
+      Object.assign(values, {
+        course_id
+      }),
+      {
+        onSuccess: () => {
+          form.reset()
 
-        if (onSuccess) {
-          onSuccess(values)
+          if (onSuccess) {
+            onSuccess(values)
+          }
         }
       }
-    })
+    )
   }
 
   return (
@@ -70,9 +74,9 @@ export default function CourseCreateForm(props: TProps) {
           <SheetHeader>
             <SheetTitle>Create Course</SheetTitle>
             <SheetDescription>
-              Use the form below to create a new course by providing the title,
+              Use the form below to create a new lesson by providing the title,
               description, and other relevant details. You can always preview or
-              edit the course after.
+              edit the lesson after.
             </SheetDescription>
           </SheetHeader>
 
@@ -84,10 +88,7 @@ export default function CourseCreateForm(props: TProps) {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="e.g. Introduction to Course Name"
-                      {...field}
-                    />
+                    <Input placeholder="e.g. Getting Started" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -102,7 +103,7 @@ export default function CourseCreateForm(props: TProps) {
                   <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Provide general information of what the course covers."
+                      placeholder="Provide a brief summary of what this lesson covers."
                       {...field}
                       onChange={(e) => {
                         field.onChange(
@@ -127,39 +128,6 @@ export default function CourseCreateForm(props: TProps) {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="tags"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Tags</FormLabel>
-                  <FormControl>
-                    <TagsInput value={field.value} onChange={field.onChange} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="thumbnails"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Cover Image</FormLabel>
-                  <FormMessage />
-                  <FormControl>
-                    <div className="flex flex-col gap-3">
-                      <FileUploader
-                        value={field.value}
-                        onChange={field.onChange}
-                      />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-
             <SheetFooter>
               <TooltipButton
                 helper="Reset"
@@ -175,7 +143,7 @@ export default function CourseCreateForm(props: TProps) {
                 disabled={!form.formState.isDirty}
                 isLoading={isPending}
               >
-                <SaveIcon /> Create Course
+                <SaveIcon /> Create Lesson
               </Button>
             </SheetFooter>
           </div>

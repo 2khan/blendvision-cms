@@ -3,8 +3,10 @@ import {
   LayoutDashboardIcon,
   Users2Icon
 } from 'lucide-react'
+import { redirect } from 'react-router-dom'
 
-import type { TRouteObject } from '@/shared/types/utils/route'
+import { TCourse } from '@/shared/types/models/course'
+import type { TRouteObject } from '@/shared/utils/router'
 
 const ProtectedRoutes = [
   {

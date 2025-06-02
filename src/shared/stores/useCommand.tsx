@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
-import { TIcon } from '@/shared/types/utils/icon'
+import type { TIcon } from '@/shared/types/utils/icon'
 
 type TCommand = {
   id: string

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { TUser } from '@/shared/types/models/users'
+import type { TUser } from '@/shared/types/models/users'
 import { api } from '@/shared/utils/fetch'
 
 export type TResponse = TUser[]

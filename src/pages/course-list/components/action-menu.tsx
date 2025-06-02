@@ -22,9 +22,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import { useDeleteCourse } from '@/shared/mutations/course/course-delete'
+import type { TCourse } from '@/shared/types/models/course'
 
 interface TProps {
-  course_id: number
+  course_id: TCourse['id']
 }
 
 export default function ActionMenu(props: TProps) {
@@ -50,11 +51,27 @@ export default function ActionMenu(props: TProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem asChild>Manage</DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link
+              to={{
+                pathname: `/courses/${course_id}`,
+                search: '?tab=lessons'
+              }}
+            >
+              Manage
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Students</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Link to={`/courses/${course_id}`}>Edit Course</Link>
+            <Link
+              to={{
+                pathname: `/courses/${course_id}`,
+                search: '?tab=course'
+              }}
+            >
+              Edit Course
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem

@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 
 import {
-  TContext,
+  type TContext,
   UPLOAD_CONTEXTS,
   getQueueKey,
   useUploadQueue

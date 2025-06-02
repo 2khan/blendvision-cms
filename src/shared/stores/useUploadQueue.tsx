@@ -3,15 +3,15 @@ import { create } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 
 // import { useEffect } from 'react'
-// import { useLocation } from 'react-router-dom'
+// import { useLocation } from 'react-router'
 // import { Fragment } from 'react/jsx-runtime'
 // import { create } from 'zustand'
 
 // import { getRouteMeta } from '@/routes/utils.routes'
 
-// import { TMeta } from '@/shared/types/utils/meta'
+// import { TMeta } from '@/shared/utils/router'
 
-export const UPLOAD_CONTEXTS = ['course_thumbnail'] as const
+export const UPLOAD_CONTEXTS = ['course_thumbnail', 'lesson_thumbnail'] as const
 export type TContext = (typeof UPLOAD_CONTEXTS)[number]
 
 export type TQueueStatus =

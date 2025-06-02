@@ -23,9 +23,10 @@ import {
   type TParams,
   useEditCourse
 } from '@/shared/mutations/course/course-edit'
+import type { TCourse } from '@/shared/types/models/course'
 
 interface TProps {
-  course_id: number
+  course_id: TCourse['id']
 }
 
 export default function CourseEditForm(props: TProps) {
@@ -57,10 +58,8 @@ export default function CourseEditForm(props: TProps) {
         Edit Course Details
       </span>
       <span className={dx('body-compact-02', 'text-muted-foreground mb-5')}>
-        Use the form below to update the course information, including the
-        title, description, instructor, schedule, and any other relevant
-        details. You can preview the changes live in the view before saving them
-        to ensure everything looks correct.
+        Use the form below to edit the course title, description, and other
+        relevant details. You can always preview or edit the course after.
       </span>
 
       <div className="flex flex-col gap-3">
@@ -72,7 +71,7 @@ export default function CourseEditForm(props: TProps) {
               <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="e.g. Introduction to Graphic Design"
+                  placeholder="e.g. Introduction to Course Name"
                   {...field}
                 />
               </FormControl>
@@ -89,7 +88,7 @@ export default function CourseEditForm(props: TProps) {
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="e.g. Learn the fundamentals of visual communication."
+                  placeholder="Provide general information of what the course covers."
                   {...field}
                   onChange={(e) => {
                     field.onChange(e.target.value.replace(/\n{3,}/g, '\n\n'))

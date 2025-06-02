@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { QKEY_COURSE_LIST } from '@/shared/queries/course/course-list'
+import { TCourse } from '@/shared/types/models/course'
 import { api } from '@/shared/utils/fetch'
 
 export type TParams = {
@@ -8,7 +9,7 @@ export type TParams = {
 }
 
 export type TRouteParams = {
-  course_id: number
+  course_id: TCourse['id']
 }
 
 export type TOpts = TRouteParams & TParams
