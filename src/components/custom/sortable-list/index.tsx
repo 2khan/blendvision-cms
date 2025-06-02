@@ -1,5 +1,4 @@
-import type * as React from 'react'
-import { type ReactNode, createContext, useContext } from 'react'
+import { type ReactNode, createContext, use } from 'react'
 
 import {
   DndContext,
@@ -11,6 +10,7 @@ import {
   useSensor,
   useSensors
 } from '@dnd-kit/core'
+import { restrictToParentElement } from '@dnd-kit/modifiers'
 import {
   SortableContext as DndKitSortableContext,
   arrayMove,
@@ -20,6 +20,7 @@ import {
   verticalListSortingStrategy
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { once } from 'lodash'
 import { GripVerticalIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -36,16 +37,18 @@ interface SortableProviderProps<T> {
 }
 
 type TSortableContext<T> = {
-  items: T
+  items: T[]
   onItemsChange: (items: T[]) => void
   strategy: 'vertical' | 'horizontal'
 }
 
-const SortableContext = createContext<TSortableContext<T>>({
-  items: [],
-  onItemsChange: () => {},
-  strategy: 'vertical'
-})
+const createSortableContext = once(<T extends BaseItem>() =>
+  createContext<TSortableContext<T>>({
+    items: [],
+    onItemsChange: () => {},
+    strategy: 'vertical'
+  })
+)
 
 export function SortableProvider<T extends BaseItem>({
   items,
@@ -53,13 +56,13 @@ export function SortableProvider<T extends BaseItem>({
   children,
   strategy = 'vertical'
 }: SortableProviderProps<T>) {
+  const SortableContext = createSortableContext<T>()
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates
     })
   )
-
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
 
@@ -81,6 +84,7 @@ export function SortableProvider<T extends BaseItem>({
     >
       <DndContext
         sensors={sensors}
+        modifiers={[restrictToParentElement]}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
@@ -99,8 +103,8 @@ export function SortableProvider<T extends BaseItem>({
   )
 }
 
-export const useSortableContext = () => {
-  const context = useContext(SortableContext)
+export function useSortableContext<T extends BaseItem>() {
+  const context = use(createSortableContext<T>())
   if (!context) {
     throw new Error('useSortableContext must be used within a SortableProvider')
   }
@@ -110,7 +114,7 @@ export const useSortableContext = () => {
 interface SortableItemProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'id'> {
   id: UniqueIdentifier
-  children: ReactNode
+  children: React.ReactNode
   dragHandle?: boolean
 }
 
@@ -162,8 +166,7 @@ export function SortableItem({
   )
 }
 
-interface SortableListProps<T extends BaseItem>
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface SortableListProps<T> extends React.HTMLAttributes<HTMLDivElement> {
   items: T[]
   onItemsChange: (items: T[]) => void
   renderItem: (item: T) => ReactNode

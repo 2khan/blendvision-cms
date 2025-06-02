@@ -53,10 +53,9 @@ export default function CourseLessons(props: TProps) {
     }
   ])
 
-  // useEffect(() => {
-  //   if (!isSuccess) return
-  //   setLessons(data)
-  // }, [data, isSuccess])
+  useEffect(() => {
+    console.log(lessons)
+  }, [lessons])
 
   return (
     <TabsContent value="lessons" className="flex flex-col w-full">
@@ -153,32 +152,6 @@ export default function CourseLessons(props: TProps) {
             </div>
           )}
         />
-
-        {/* <SortableList items={[{}]} /> */}
-
-        {/* <div className="flex flex-col gap-3">
-          {lessons.map((lesson) => (
-            <SortableItem key={lesson} id={lesson}>
-              <div
-                key={lesson}
-                className="border h-40 rounded-lg flex overflow-hidden"
-              >
-                <div className="relative aspect-video h-full text-muted-foreground bg-muted flex items-center justify-center">
-                  <Badge
-                    variant="outline"
-                    className="size-7 p-0 absolute top-6 left-6"
-                  >
-                    {lesson}
-                  </Badge>
-                  <PlayCircleIcon className="size-10" />
-                </div>
-                <div className="py-3 px-6 flex flex-col">
-                  <span></span>
-                </div>
-              </div>
-            </SortableItem>
-          ))}
-        </div> */}
       </div>
     </TabsContent>
   )
