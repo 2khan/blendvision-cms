@@ -3,7 +3,7 @@ import { z } from 'zod'
 
 import type { TIcon } from '@/shared/types/utils/icon'
 
-import { ID_SCHEMAS_MAP, TIDSchemasMap } from '../types/utils/brand'
+import { ID_SCHEMAS_MAP, TIDSchemasMap } from './brand-map'
 
 export type TMeta = {
   title?: string

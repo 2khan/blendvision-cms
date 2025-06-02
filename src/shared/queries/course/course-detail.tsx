@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { TCourse } from '@/shared/types/models/course'
-import { isValidID } from '@/shared/types/utils/brand'
+import { isValidID } from '@/shared/utils/brand-map'
 import { api } from '@/shared/utils/fetch'
 
 export type TResponse = TCourse
