@@ -1,4 +1,4 @@
-import type { RouteObject } from 'react-router-dom'
+import type { RouteObject } from 'react-router'
 
 import type { TIcon } from './icon'
 import { TMeta } from './meta'

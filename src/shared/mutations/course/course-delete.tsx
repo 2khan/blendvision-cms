@@ -5,10 +5,11 @@ import {
   QKEY_COURSE_LIST,
   TResponse as TCourseListResponse
 } from '@/shared/queries/course/course-list'
+import type { TCourse } from '@/shared/types/models/course'
 import { api } from '@/shared/utils/fetch'
 
 export type TRouteParams = {
-  course_id: string | number
+  course_id: TCourse['id']
 }
 
 export type TOpts = TRouteParams

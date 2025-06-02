@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
+import { TCourse } from '@/shared/types/models/course'
 import { TLesson } from '@/shared/types/models/lesson'
 import { api } from '@/shared/utils/fetch'
 
@@ -7,7 +8,7 @@ export type TResponse = TLesson[]
 
 export const QKEY_LESSON_LIST = 'LESSON_LIST'
 
-export type TRouteParams = { course_id?: string | number }
+export type TRouteParams = { course_id?: TCourse['id'] }
 
 export type TOpts = TRouteParams
 

@@ -14,7 +14,7 @@ export const EditUserSchema = z.object({
 })
 
 export type TParams = z.infer<typeof EditUserSchema>
-export type TRouteParams = { user_id: string | number }
+export type TRouteParams = { user_id: TUser['id'] }
 export type TOpts = TParams & TRouteParams
 
 export const useEditUser = () => {

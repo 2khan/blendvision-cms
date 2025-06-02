@@ -1,5 +1,9 @@
+import { Brand } from '../utils/brand'
+
+type TLessonID = Brand<string | number, 'lesson_id'>
+
 export type TLesson = {
-  id: string | number
+  id: TLessonID
   title: string
   description: string
   order: number

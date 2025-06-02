@@ -7,7 +7,7 @@ export type TResponse = TCourse
 
 export const QKEY_COURSE_DETAIL = 'COURSE_DETAIL'
 
-export type TRouteParams = { course_id?: string | number }
+export type TRouteParams = { course_id?: TCourse['id'] }
 
 export type TOpts = TRouteParams
 
