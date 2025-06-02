@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-import { useLocation } from 'react-router'
+import { useLocation } from 'react-router-dom'
 import { Fragment } from 'react/jsx-runtime'
 import { create } from 'zustand'
 

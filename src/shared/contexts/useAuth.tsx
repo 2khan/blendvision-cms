@@ -8,7 +8,7 @@ import {
 } from 'react'
 
 import { User } from 'firebase/auth'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 import { signOutUser, userStateListener } from '../auth/firebase'
 import { api } from '../utils/fetch'

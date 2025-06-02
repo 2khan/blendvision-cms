@@ -28,30 +28,7 @@ interface TProps {
 export default function CourseLessons(props: TProps) {
   const { course } = props
   const { data, isSuccess } = useLessons({ course_id: course.id })
-  const [lessons, setLessons] = useState<TLesson[]>([
-    {
-      created_at: '',
-      description: '',
-      duration: 0,
-      id: 1,
-      img_url: '',
-      order: 1,
-      thumbnail_url: '',
-      title: '',
-      video_url: ''
-    },
-    {
-      created_at: '',
-      description: '',
-      duration: 0,
-      id: 2,
-      img_url: '',
-      order: 2,
-      thumbnail_url: '',
-      title: '',
-      video_url: ''
-    }
-  ])
+  const [lessons, setLessons] = useState<TLesson[]>([])
 
   useEffect(() => {
     console.log(lessons)

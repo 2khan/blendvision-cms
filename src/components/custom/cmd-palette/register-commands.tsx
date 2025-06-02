@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 
 import { UploadIcon, UserPlus2Icon } from 'lucide-react'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 
 import { useCommand } from '@/shared/stores/useCommand'
 

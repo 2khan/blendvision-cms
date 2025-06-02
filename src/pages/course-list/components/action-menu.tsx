@@ -22,9 +22,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import { useDeleteCourse } from '@/shared/mutations/course/course-delete'
+import type { TCourse } from '@/shared/types/models/course'
 
 interface TProps {
-  course_id: string | number
+  course_id: TCourse['id']
 }
 
 export default function ActionMenu(props: TProps) {

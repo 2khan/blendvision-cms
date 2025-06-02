@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
 import { ClockIcon, FilmIcon, MoreVerticalIcon, Users2Icon } from 'lucide-react'
-import { Link, createSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { dx } from '@/lib/dx'
 

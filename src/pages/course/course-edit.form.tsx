@@ -23,9 +23,10 @@ import {
   type TParams,
   useEditCourse
 } from '@/shared/mutations/course/course-edit'
+import type { TCourse } from '@/shared/types/models/course'
 
 interface TProps {
-  course_id: string | number
+  course_id: TCourse['id']
 }
 
 export default function CourseEditForm(props: TProps) {
