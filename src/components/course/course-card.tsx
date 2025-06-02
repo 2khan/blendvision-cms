@@ -32,7 +32,7 @@ export default function CourseCard({ course }: TProps) {
           ))}
         </div>
         <CardTitle className={dx('heading-03')}>{course.title}</CardTitle>
-        <CardDescription className="whitespace-pre-line">
+        <CardDescription className={dx('body-01', 'whitespace-pre-line')}>
           {course.description}
         </CardDescription>
       </CardHeader>

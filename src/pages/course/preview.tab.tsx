@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { Suspense, lazy, useEffect, useMemo } from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -13,8 +13,9 @@ import { TabsContent } from '@/components/ui/tabs'
 import { EditCourseSchema } from '@/shared/mutations/course/course-edit'
 import type { TCourse } from '@/shared/types/models/course'
 
-import CourseEditForm from './course-edit.form'
-import { normalizeCourse } from './course-edit.utils'
+import { normalizeCourse } from './components/course-edit.utils'
+
+const CourseEditForm = lazy(() => import('./components/course-edit.form'))
 
 interface TProps {
   course: TCourse
@@ -89,7 +90,9 @@ export default function CoursePreview(props: TProps) {
           </Showcase>
         </div>
 
-        <CourseEditForm course_id={course.id} />
+        <Suspense>
+          <CourseEditForm course_id={course.id} />
+        </Suspense>
       </TabsContent>
     </Form>
   )

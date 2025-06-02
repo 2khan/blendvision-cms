@@ -5,15 +5,18 @@ import { CirclePlusIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 
-import CourseCreateForm from './course-create.form'
+import { TCourse } from '@/shared/types/models/course'
+
+import LessonCreateForm from './lesson-create.form'
 
 interface TProps {
+  course_id: TCourse['id']
   className?: string
   children?: React.ReactNode
 }
 
-export default function CourseCreateTrigger(props: TProps) {
-  const { className, children } = props
+export default function LessonCreateTrigger(props: TProps) {
+  const { course_id, className, children } = props
   const [open, setOpen] = useState<boolean>(false)
   const onSuccess = useCallback(() => setOpen(false), [])
 
@@ -23,11 +26,11 @@ export default function CourseCreateTrigger(props: TProps) {
         {children ?? (
           <Button size="sm" variant="outline" className={className}>
             <CirclePlusIcon />
-            Create Course
+            Create Lesson
           </Button>
         )}
       </SheetTrigger>
-      <CourseCreateForm onSuccess={onSuccess} />
+      <LessonCreateForm course_id={course_id} onSuccess={onSuccess} />
     </Sheet>
   )
 }

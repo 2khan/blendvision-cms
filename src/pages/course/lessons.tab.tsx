@@ -1,11 +1,18 @@
-import { useEffect, useState } from 'react'
+import {
+  Suspense,
+  lazy,
+  useEffect,
+  // useRef,
+  useState
+} from 'react'
 
 import { format } from 'date-fns'
 import {
   ClockIcon,
   FilmIcon,
+  PencilIcon,
   PlayCircleIcon,
-  PlusCircleIcon,
+  UploadIcon,
   UserPlus2,
   Users2Icon
 } from 'lucide-react'
@@ -15,11 +22,22 @@ import { dx } from '@/lib/dx'
 import { SortableList } from '@/components/custom/sortable-list'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardTitle
+} from '@/components/ui/card'
 import { TabsContent } from '@/components/ui/tabs'
 
 import { useLessons } from '@/shared/queries/lesson/lesson-list'
 import { TCourse } from '@/shared/types/models/course'
 import { TLesson } from '@/shared/types/models/lesson'
+
+const LessonCreateTrigger = lazy(
+  () => import('./components/lesson-create-trigger')
+)
 
 interface TProps {
   course: TCourse
@@ -29,10 +47,13 @@ export default function CourseLessons(props: TProps) {
   const { course } = props
   const { data, isSuccess } = useLessons({ course_id: course.id })
   const [lessons, setLessons] = useState<TLesson[]>([])
+  // const hasEdited = useRef(false)
 
   useEffect(() => {
-    console.log(lessons)
-  }, [lessons])
+    if (isSuccess && data) {
+      setLessons(data)
+    }
+  }, [data, isSuccess])
 
   return (
     <TabsContent value="lessons" className="flex flex-col w-full">
@@ -40,9 +61,9 @@ export default function CourseLessons(props: TProps) {
         <Button size="sm" variant="outline">
           <UserPlus2 /> Assign Students
         </Button>
-        <Button size="sm" variant="outline">
-          <PlusCircleIcon /> Create Lesson
-        </Button>
+        <Suspense>
+          <LessonCreateTrigger course_id={course.id} />
+        </Suspense>
       </div>
       <header className="flex w-full border rounded-lg relative overflow-hidden">
         <img
@@ -113,20 +134,34 @@ export default function CourseLessons(props: TProps) {
           onItemsChange={setLessons}
           dragHandle
           renderItem={(item) => (
-            <div className="border h-40 rounded-lg flex overflow-hidden w-full">
-              <div className="relative aspect-video h-full text-muted-foreground bg-muted flex items-center justify-center">
+            <Card className="border h-40 rounded-lg flex overflow-hidden w-full flex-row gap-0">
+              <div className="relative aspect-video h-full text-muted-foreground bg-muted flex items-center justify-center border-r">
                 <Badge
                   variant="outline"
-                  className="size-7 p-0 absolute top-6 left-6"
+                  className="size-7 p-0 absolute top-3 left-3 bg-card"
                 >
                   {item.id}
                 </Badge>
                 <PlayCircleIcon className="size-10" />
               </div>
-              <div className="py-3 px-6 flex flex-col">
-                <span></span>
-              </div>
-            </div>
+              <CardContent className="py-3 px-6 flex flex-col grow">
+                <CardTitle className={dx('heading-03')}>{item.title}</CardTitle>
+                <CardDescription
+                  className={dx('body-01', 'whitespace-pre-line')}
+                >
+                  {item.description}
+                </CardDescription>
+              </CardContent>
+              <CardFooter className="flex items-end gap-1.5">
+                <Button variant="outline" size="sm">
+                  <UploadIcon /> Upload Video
+                </Button>
+                <Button variant="outline" size="sm">
+                  <PencilIcon />
+                  Edit Lesson
+                </Button>
+              </CardFooter>
+            </Card>
           )}
         />
       </div>
