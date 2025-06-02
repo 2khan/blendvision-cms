@@ -1,19 +1,19 @@
 import { Fragment, Suspense, lazy, useCallback } from 'react'
 
 import { FilmIcon, GalleryThumbnailsIcon } from 'lucide-react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { useCourse } from '@/shared/queries/course/course-detail'
 import { usePreference } from '@/shared/stores/usePreference'
+import { useIDParams } from '@/shared/utils/router'
 
 const CoursePreview = lazy(() => import('./preview.tab'))
 const CourseLessons = lazy(() => import('./lessons.tab'))
 
 export default function CourseEdit() {
-  // TODO: We should validate if course_id is passed in the router config
-  const { course_id } = useParams()
+  const course_id = useIDParams('course_id')
 
   const detail_view = usePreference((s) => s.course.detail_view)
   const { course_set_detail_view } = usePreference((s) => s.handlers)

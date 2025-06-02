@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/tooltip'
 
 import { NAV_ITEM_HEIGHT } from '@/shared/constants/layout'
-import type { TMeta } from '@/shared/types/utils/meta'
+import type { TMeta } from '@/shared/utils/router'
 
 interface TProps {
   path: string

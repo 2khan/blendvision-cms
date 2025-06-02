@@ -1,4 +1,4 @@
-import type { TRouteObject } from '@/shared/types/utils/route'
+import type { TRouteObject } from '@/shared/utils/router'
 
 const PublicRoutes = [
   {

@@ -1,6 +1,9 @@
-import { Brand } from '../utils/brand'
+import { z } from 'zod'
 
-type TLessonID = Brand<string | number, 'lesson_id'>
+import { id_schema } from '../utils/brand'
+
+export const lesson_id_schema = id_schema.brand<'lesson_id'>()
+export type TLessonID = z.infer<typeof lesson_id_schema>
 
 export type TLesson = {
   id: TLessonID

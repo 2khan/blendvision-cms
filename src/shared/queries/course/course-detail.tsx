@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { TCourse } from '@/shared/types/models/course'
+import { isValidID } from '@/shared/types/utils/brand'
 import { api } from '@/shared/utils/fetch'
 
 export type TResponse = TCourse
@@ -23,6 +24,6 @@ export const useCourse = (opts: TOpts) => {
       )
       return data
     },
-    enabled: Boolean(opts.course_id)
+    enabled: isValidID('course_id', opts.course_id)
   })
 }

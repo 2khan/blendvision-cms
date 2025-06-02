@@ -6,7 +6,7 @@ import { create } from 'zustand'
 
 import { getRouteMeta } from '@/routes/utils.routes'
 
-import { TMeta } from '@/shared/types/utils/meta'
+import type { TMeta } from '@/shared/utils/router'
 
 type MetaStore = {
   meta: TMeta
