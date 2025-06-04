@@ -22,8 +22,11 @@ import {
 import { CSS } from '@dnd-kit/utilities'
 import { once } from 'lodash'
 import { GripVerticalIcon } from 'lucide-react'
+import { AnimatePresence, m } from 'motion/react'
 
 import { cn } from '@/lib/utils'
+
+export type TGrabStrategy = 'handle' | 'full' | 'both'
 
 interface BaseItem {
   id: UniqueIdentifier
@@ -115,14 +118,16 @@ interface SortableItemProps
   extends Omit<React.HTMLAttributes<HTMLDivElement>, 'id'> {
   id: UniqueIdentifier
   children: React.ReactNode
-  dragHandle?: boolean
+  grabStrategy?: TGrabStrategy
+  disabled?: boolean
 }
 
 export function SortableItem({
   id,
   children,
   className,
-  dragHandle = false,
+  grabStrategy = 'full',
+  disabled = false,
   ...props
 }: SortableItemProps) {
   const {
@@ -140,28 +145,48 @@ export function SortableItem({
     zIndex: isDragging ? 1 : 0
   }
 
+  const fullEnabled = ['both', 'full'].includes(grabStrategy) && !disabled
+
+  const handleEnabled = ['both', 'handle'].includes(grabStrategy) && !disabled
+
   return (
     <div
       ref={setNodeRef}
       style={style}
-      className={cn('relative', isDragging && 'opacity-50', className)}
-      {...(!dragHandle ? { ...attributes, ...listeners } : {})}
+      className={cn(
+        'relative group w-full grid grid-cols-[auto_max-content]',
+        fullEnabled && 'cursor-grab',
+        isDragging && 'cursor-grabbing select-none',
+        handleEnabled && 'gap-3',
+        className
+      )}
+      {...(fullEnabled ? { ...attributes, ...listeners } : attributes)}
       {...props}
     >
-      {dragHandle ? (
-        <div className="flex items-center gap-2">
-          <div
-            className="cursor-grab touch-none p-1"
+      <div
+        className={cn(
+          'grow',
+          !disabled && 'hover:opacity-50',
+          isDragging && 'opacity-50'
+        )}
+      >
+        {children}
+      </div>
+      <AnimatePresence>
+        {handleEnabled && (
+          <m.div
+            key="handler"
+            initial={{ opacity: 0, width: 0, x: 12 }}
+            animate={{ opacity: 1, width: 40, x: 0 }}
+            exit={{ opacity: 0, width: 0, x: 12 }}
+            className="cursor-grab flex items-center justify-center touch-none h-full 1group-hover:bg-muted shadow-block bg-background border rounded-lg text-muted-foreground group-hover:text-accent-foreground"
             {...attributes}
             {...listeners}
           >
-            <GripVerticalIcon className="h-4 w-4 text-muted-foreground" />
-          </div>
-          {children}
-        </div>
-      ) : (
-        children
-      )}
+            <GripVerticalIcon className="size-5" />
+          </m.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
@@ -171,7 +196,8 @@ interface SortableListProps<T> extends React.HTMLAttributes<HTMLDivElement> {
   onItemsChange: (items: T[]) => void
   renderItem: (item: T) => ReactNode
   strategy?: 'vertical' | 'horizontal'
-  dragHandle?: boolean
+  grabStrategy?: TGrabStrategy
+  disabled?: boolean
 }
 
 export function SortableList<T extends BaseItem>({
@@ -179,8 +205,9 @@ export function SortableList<T extends BaseItem>({
   onItemsChange,
   renderItem,
   strategy = 'vertical',
+  grabStrategy = 'full',
   className,
-  dragHandle = false,
+  disabled = false,
   ...props
 }: SortableListProps<T>) {
   return (
@@ -192,13 +219,18 @@ export function SortableList<T extends BaseItem>({
       <div
         className={cn(
           'flex',
-          strategy === 'vertical' ? 'flex-col gap-2' : 'flex-row gap-4',
+          strategy === 'vertical' ? 'flex-col gap-3' : 'flex-row gap-4',
           className
         )}
         {...props}
       >
         {items.map((item) => (
-          <SortableItem key={item.id} id={item.id} dragHandle={dragHandle}>
+          <SortableItem
+            key={item.id}
+            id={item.id}
+            disabled={disabled}
+            grabStrategy={grabStrategy}
+          >
             {renderItem(item)}
           </SortableItem>
         ))}

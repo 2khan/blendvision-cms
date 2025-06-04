@@ -1,42 +1,22 @@
-import {
-  Suspense,
-  lazy,
-  useEffect,
-  // useRef,
-  useState
-} from 'react'
+import { Suspense, lazy } from 'react'
 
 import { format } from 'date-fns'
-import {
-  ClockIcon,
-  FilmIcon,
-  PencilIcon,
-  PlayCircleIcon,
-  UploadIcon,
-  UserPlus2,
-  Users2Icon
-} from 'lucide-react'
+import { ClockIcon, FilmIcon, UserPlus2, Users2Icon } from 'lucide-react'
 
 import { dx } from '@/lib/dx'
 
-import { SortableList } from '@/components/custom/sortable-list'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardTitle
-} from '@/components/ui/card'
 import { TabsContent } from '@/components/ui/tabs'
 
-import { useLessons } from '@/shared/queries/lesson/lesson-list'
-import { TCourse } from '@/shared/types/models/course'
-import { TLesson } from '@/shared/types/models/lesson'
+import type { TCourse } from '@/shared/types/models/course'
 
 const LessonCreateTrigger = lazy(
   () => import('./components/lesson-create-trigger')
+)
+
+const EditableLessonList = lazy(
+  () => import('./components/editable-lesson-list')
 )
 
 interface TProps {
@@ -45,15 +25,6 @@ interface TProps {
 
 export default function CourseLessons(props: TProps) {
   const { course } = props
-  const { data, isSuccess } = useLessons({ course_id: course.id })
-  const [lessons, setLessons] = useState<TLesson[]>([])
-  // const hasEdited = useRef(false)
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      setLessons(data)
-    }
-  }, [data, isSuccess])
 
   return (
     <TabsContent value="lessons" className="flex flex-col w-full">
@@ -126,45 +97,9 @@ export default function CourseLessons(props: TProps) {
           </span>
         </div>
       </header>
-      <div className="py-6 flex flex-col w-full gap-3">
-        <span className={dx('heading-04')}>Lessons</span>
-
-        <SortableList
-          items={lessons}
-          onItemsChange={setLessons}
-          dragHandle
-          renderItem={(item) => (
-            <Card className="border h-40 rounded-lg flex overflow-hidden w-full flex-row gap-0">
-              <div className="relative aspect-video h-full text-muted-foreground bg-muted flex items-center justify-center border-r">
-                <Badge
-                  variant="outline"
-                  className="size-7 p-0 absolute top-3 left-3 bg-card"
-                >
-                  {item.id}
-                </Badge>
-                <PlayCircleIcon className="size-10" />
-              </div>
-              <CardContent className="py-3 px-6 flex flex-col grow">
-                <CardTitle className={dx('heading-03')}>{item.title}</CardTitle>
-                <CardDescription
-                  className={dx('body-01', 'whitespace-pre-line')}
-                >
-                  {item.description}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className="flex items-end gap-1.5">
-                <Button variant="outline" size="sm">
-                  <UploadIcon /> Upload Video
-                </Button>
-                <Button variant="outline" size="sm">
-                  <PencilIcon />
-                  Edit Lesson
-                </Button>
-              </CardFooter>
-            </Card>
-          )}
-        />
-      </div>
+      <Suspense>
+        <EditableLessonList course={course} />
+      </Suspense>
     </TabsContent>
   )
 }
